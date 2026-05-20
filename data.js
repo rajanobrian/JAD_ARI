@@ -1,5 +1,5 @@
 const DASHBOARD_META = {
-  unitTitle:   "Unit ARI · Analisa Risiko",
+  unitTitle:   "Unit ARI · Analisa Risiko Bisnis",
   pageTitle:   "Job Assignment Dashboard",
   titleAccent: "Unit ARI",
   headName:    "Raja Nobriansyah [RNR]",
