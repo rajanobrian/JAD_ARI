@@ -586,18 +586,19 @@
   @media (max-width: 639px) {
     /* Header */
     .header {
-      padding: 14px 16px;
+      padding: 16px;
       flex-direction: column;
-      align-items: flex-start;
-      gap: 10px;
+      align-items: center;
+      gap: 12px;
+      text-align: center;
     }
-    .brand-wrap { gap: 12px; }
+    .brand-wrap { gap: 12px; justify-content: center; }
     .brand-mark { width: 40px; height: 40px; }
     .brand-mark::after { inset: 10px; }
     h1.page-title { font-size: 22px; }
     .brand-title { font-size: 11px; }
-    .header-meta { flex-wrap: wrap; gap: 8px 20px; width: 100%; }
-    .header-meta .item { text-align: left; }
+    .header-meta { flex-wrap: wrap; gap: 8px 20px; width: 100%; justify-content: center; }
+    .header-meta .item { text-align: center; align-items: center !important; }
     .header-meta .value { font-size: 13px; }
     .live-chip { font-size: 10px; padding: 4px 10px; }
 
