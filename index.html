@@ -32,11 +32,15 @@
     --navy: #1E2740;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  html, body { background: #2A2D33; min-height: 100vh; overflow-x: hidden; }
+  html { background: #2A2D33; min-height: 100vh; overflow-x: hidden; }
   body {
+    background: #2A2D33;
+    min-height: 100vh;
+    overflow-x: hidden;
     font-family: 'Inter', system-ui, sans-serif;
     color: var(--ink);
     -webkit-font-smoothing: antialiased;
+    -webkit-text-size-adjust: 100%;
     margin: 0;
     padding: 0;
   }
@@ -146,7 +150,7 @@
     gap: 12px;
     flex: 1;
   }
-  .col { display: flex; flex-direction: column; gap: 12px; }
+  .col { display: flex; flex-direction: column; gap: 12px; min-width: 0; }
 
   /* ============ CARD ============ */
   .card {
@@ -601,14 +605,15 @@
     .ticker-label { padding: 0 12px; font-size: 10px; }
     .ticker-content { font-size: 12px; }
 
-    /* Body & Cards */
+    /* Body & Cards — pastikan semua kolom dan card tidak overflow viewport */
     .body-grid { padding: 10px; gap: 10px; }
-    .col { gap: 10px; }
+    .col { gap: 10px; min-width: 0; overflow: hidden; }
+    .card { max-width: 100%; overflow: hidden; }
     .card-hd { padding: 12px 14px 10px; }
     .card-hd h3 { font-size: 11.5px; }
-    .card-bd { padding: 14px; }
+    .card-bd { padding: 12px 14px; min-width: 0; }
 
-    /* KPI Grid — 2 columns, override JS inline style */
+    /* KPI Grid — 2 columns for < 480px (JS handles > 480px) */
     #kpi-grid { grid-template-columns: 1fr 1fr !important; }
     .kpi { padding: 10px 12px; }
     .kpi .val { font-size: 24px; }
@@ -618,26 +623,34 @@
     /* PIC Workload */
     .split-chip .n { font-size: 22px; }
     .pic-badge { width: 36px; height: 36px; font-size: 11px; }
-    .pic-row { gap: 8px; grid-template-columns: 40px 1fr auto; }
-    .pic-stats { gap: 8px; }
-    .pic-stat .n { font-size: 14px; }
+    .pic-row { gap: 8px; grid-template-columns: 38px 1fr auto; min-width: 0; }
+    .pic-body { min-width: 0; }
+    .pic-stats { gap: 6px; flex-shrink: 0; }
+    .pic-stat .n { font-size: 13px; }
+    .pic-stat .l { font-size: 8.5px; }
 
-    /* Collab Matrix */
-    .collab-matrix { font-size: 10px; }
+    /* Collab Matrix — override JS inline style untuk first column width */
+    #collab-matrix {
+      grid-template-columns: 44px repeat(4, 1fr) !important;
+      gap: 3px;
+      width: 100%;
+    }
+    .collab-matrix { font-size: 9.5px; }
+    .collab-matrix .ch { padding: 6px 2px; font-size: 9px; letter-spacing: 0.04em; }
+    .collab-matrix .rh { font-size: 9px; }
+    .collab-matrix .cell { padding: 8px 0; font-size: 13px; }
 
     /* Workload Analysis */
     .burnout-rate { font-size: 22px; }
     .burnout-icon { font-size: 22px; }
-    .wl-chart-row { grid-template-columns: 36px 1fr 28px; gap: 8px; }
+    .wl-chart-row { grid-template-columns: 36px 1fr 30px; gap: 8px; }
+    .wl-val { font-size: 12px; }
 
-    /* Eisenhower quad-hd — wrap jika terlalu sempit */
+    /* Eisenhower — fix height collapse pada single-column mobile */
     .quad-hd { flex-wrap: wrap; gap: 2px 6px; padding-bottom: 8px; margin-bottom: 8px; }
     .quad-title { font-size: 11px; }
     .quad-meta .big { font-size: 14px; }
     .quad-meta { font-size: 10px; }
-
-    /* Eisenhower — fix height collapse caused by flex:1 + min-height:0
-       in a single-column auto-height container on mobile */
     #eisen-card { flex: 0 0 auto !important; }
     #eisen-card-bd { overflow: visible !important; min-height: auto !important; }
     .eisen .axis-left { display: none; }
@@ -665,21 +678,51 @@
     }
 
     /* Category Breakdown */
-    .cat-line { grid-template-columns: 95px 1fr 42px; }
+    .cat-line { grid-template-columns: 90px 1fr 40px; gap: 8px; }
     .cat-line .name { font-size: 10.5px; }
+    .cat-line .v { font-size: 12px; }
 
-    /* Table — hide Kategori & Priority columns to fit on mobile */
+    /* Table — fixed layout agar tidak overflow viewport, scrollable jika perlu */
     table.jobs .c-cat,
     table.jobs th.c-cat { display: none; }
     table.jobs .c-prio,
     table.jobs th.c-prio { display: none; }
-    table.jobs { min-width: 0; width: 100%; table-layout: auto; }
-    table.jobs .c-pic { width: 90px; }
-    table.jobs .c-stat { width: 64px; }
-    table.jobs .c-no { width: 26px; }
-    table.jobs td { font-size: 10.5px; padding: 6px 8px; }
-    table.jobs th { font-size: 9px; padding: 6px 8px; }
-    .table-wrap { max-height: 380px; overflow-x: auto; }
+    table.jobs {
+      min-width: 0;
+      width: 100%;
+      table-layout: fixed;
+    }
+    table.jobs .c-no   { width: 24px; }
+    table.jobs .c-pic  { width: 78px; }
+    table.jobs .c-stat { width: 60px; }
+    table.jobs td {
+      font-size: 10px;
+      padding: 6px 7px;
+      vertical-align: top;
+    }
+    table.jobs td.c-job {
+      white-space: normal;
+      word-break: break-word;
+      overflow-wrap: break-word;
+      line-height: 1.35;
+    }
+    table.jobs td.c-no,
+    table.jobs td.c-pic,
+    table.jobs td.c-stat { vertical-align: middle; }
+    table.jobs th { font-size: 8.5px; padding: 6px 7px; white-space: nowrap; }
+    .table-wrap {
+      max-height: 420px;
+      overflow-x: auto;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      width: 100%;
+    }
+    .pt-chip { font-size: 9px; padding: 1px 5px 1px 3px; }
+    .pt-chip .d { width: 4px; height: 4px; }
+    .status-b { font-size: 8.5px; padding: 2px 5px; }
+
+    /* Key Takeaways */
+    .kt-item { font-size: 11.5px; }
 
     /* Footer */
     .footer {
@@ -691,6 +734,18 @@
     }
   }
 
+  /* --- Medium phones: 480px–639px — manfaatkan ruang lebih lebar --- */
+  @media (min-width: 480px) and (max-width: 639px) {
+    #kpi-grid { grid-template-columns: repeat(3, 1fr) !important; }
+    .kpi .val { font-size: 28px; }
+    .kpi .hint { font-size: 10px; }
+    .card-bd { padding: 14px 16px; }
+    h1.page-title { font-size: 26px; }
+    table.jobs .c-pic  { width: 86px; }
+    table.jobs .c-stat { width: 64px; }
+    table.jobs td { font-size: 10.5px; }
+  }
+
   /* --- Very small phones: < 380px --- */
   @media (max-width: 380px) {
     h1.page-title { font-size: 18px; }
@@ -699,7 +754,14 @@
     .header-meta .value { font-size: 12px; }
     .kpi .val { font-size: 20px; }
     .kpi { padding: 8px 10px; }
-    .card-bd { padding: 12px; }
+    .card-bd { padding: 10px 12px; }
+    table.jobs .c-pic  { width: 68px; }
+    table.jobs .c-stat { width: 56px; }
+    table.jobs td { font-size: 9.5px; padding: 5px 6px; }
+    .pt-chip { font-size: 8.5px; }
+    #collab-matrix { grid-template-columns: 38px repeat(4, 1fr) !important; }
+    .collab-matrix .ch { font-size: 8px; }
+    .collab-matrix .cell { font-size: 11px; }
   }
 
   /* --- Tablet table height --- */
@@ -989,7 +1051,7 @@
     { color:'slate', label:'PIC Individu',    val:soloCount,   hint:Math.round(soloCount/total*100)+'% · solo PIC' },
     { color:'red',   label:'PIC Kolaborasi',  val:collabCount, hint:Math.round(collabCount/total*100)+'% · 2 PIC per item' },
   ];
-  document.getElementById('kpi-grid').style.gridTemplateColumns = '1fr 1fr 1fr';
+  document.getElementById('kpi-grid').style.gridTemplateColumns = window.innerWidth < 480 ? '1fr 1fr' : '1fr 1fr 1fr';
   document.getElementById('kpi-grid').innerHTML = kpis.map(function(k) {
     return '<div class="kpi ' + k.color + '">' +
       '<div class="bar"></div>' +
@@ -1066,7 +1128,7 @@
   }
 
   var mEl = document.getElementById('collab-matrix');
-  mEl.style.gridTemplateColumns = '60px repeat(' + picIds.length + ', 1fr)';
+  mEl.style.gridTemplateColumns = (window.innerWidth < 640 ? '44px' : '60px') + ' repeat(' + picIds.length + ', 1fr)';
   var mHtml = '<div class="ch"></div>';
   picIds.forEach(function(id) { mHtml += '<div class="ch">' + id + '</div>'; });
   picIds.forEach(function(row) {
