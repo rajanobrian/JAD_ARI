@@ -51,6 +51,7 @@
     position: relative;
     display: flex;
     flex-direction: column;
+    overflow-x: hidden;
   }
 
   /* ============ HEADER ============ */
@@ -545,7 +546,6 @@
       padding: 16px;
       gap: 16px;
     }
-    /* Kolom kanan (tabel) full-width */
     .body-grid > .col:last-child { grid-column: 1 / -1; }
     .col { gap: 16px; }
     .kpi-row { grid-template-columns: repeat(3, 1fr); }
@@ -572,64 +572,119 @@
       padding: 22px;
       gap: 20px;
     }
-    /* Reset: kolom kanan tidak lagi span full */
     .body-grid > .col:last-child { grid-column: auto; }
     .col { gap: 22px; min-height: 0; }
     .header { padding: 28px 48px; }
     .footer { padding: 0 48px; height: 46px; }
   }
 
-  /* --- Mobile: < 640px — 1 kolom, font disesuaikan --- */
+  /* --- Mobile: < 640px — 1 kolom --- */
   @media (max-width: 639px) {
+    /* Header */
     .header {
-      padding: 16px 18px;
+      padding: 14px 16px;
       flex-direction: column;
       align-items: flex-start;
-      gap: 12px;
+      gap: 10px;
     }
-    h1.page-title { font-size: 24px; }
-    .brand-title { font-size: 12px; }
-    .brand-mark { width: 44px; height: 44px; }
-    .header-meta {
-      flex-wrap: wrap;
-      gap: 12px 20px;
-      width: 100%;
-    }
-    .header-meta .value { font-size: 14px; }
-    .live-chip { font-size: 10px; }
+    .brand-wrap { gap: 12px; }
+    .brand-mark { width: 40px; height: 40px; }
+    .brand-mark::after { inset: 10px; }
+    h1.page-title { font-size: 22px; }
+    .brand-title { font-size: 11px; }
+    .header-meta { flex-wrap: wrap; gap: 8px 20px; width: 100%; }
+    .header-meta .item { text-align: left; }
+    .header-meta .value { font-size: 13px; }
+    .live-chip { font-size: 10px; padding: 4px 10px; }
 
-    .ticker-label { padding: 0 14px; font-size: 10px; }
-    .ticker-content { font-size: 13px; }
+    /* Ticker */
+    .ticker-label { padding: 0 12px; font-size: 10px; }
+    .ticker-content { font-size: 12px; }
 
+    /* Body & Cards */
+    .body-grid { padding: 10px; gap: 10px; }
+    .col { gap: 10px; }
+    .card-hd { padding: 12px 14px 10px; }
+    .card-hd h3 { font-size: 11.5px; }
+    .card-bd { padding: 14px; }
+
+    /* KPI Grid — 2 columns, override JS inline style */
     #kpi-grid { grid-template-columns: 1fr 1fr !important; }
-    .kpi .val { font-size: 26px; }
+    .kpi { padding: 10px 12px; }
+    .kpi .val { font-size: 24px; }
+    .kpi .lb { font-size: 9px; }
+    .kpi .hint { font-size: 9.5px; }
 
-    /* Eisenhower: sembunyikan label sumbu agar quad lebih lebar */
+    /* PIC Workload */
+    .split-chip .n { font-size: 22px; }
+    .pic-badge { width: 36px; height: 36px; font-size: 11px; }
+    .pic-row { gap: 8px; grid-template-columns: 40px 1fr auto; }
+    .pic-stats { gap: 8px; }
+    .pic-stat .n { font-size: 14px; }
+
+    /* Collab Matrix */
+    .collab-matrix { font-size: 10px; }
+
+    /* Workload Analysis */
+    .burnout-rate { font-size: 22px; }
+    .burnout-icon { font-size: 22px; }
+    .wl-chart-row { grid-template-columns: 36px 1fr 28px; gap: 8px; }
+
+    /* Eisenhower — fix height collapse caused by flex:1 + min-height:0
+       in a single-column auto-height container on mobile */
+    #eisen-card { flex: 0 0 auto !important; }
+    #eisen-card-bd { overflow: visible !important; min-height: auto !important; }
     .eisen .axis-left { display: none; }
+    .eisen .corner { display: none; }
     .eisen {
+      flex: none !important;
+      min-height: auto !important;
       grid-template-columns: 1fr 1fr;
-      grid-template-rows: 28px 1fr 1fr;
+      grid-template-rows: 28px auto auto;
     }
     .eisen .axis-top { grid-column: 1 / 3; }
-    .eisen .corner { display: none; }
-
-    .quad { padding: 10px 12px; }
+    .quad { padding: 10px 12px; overflow: visible !important; }
     .quad-title { font-size: 12px; }
-    .quad-list { font-size: 11px; }
+    .quad-list { font-size: 11px; overflow-y: visible !important; min-height: auto !important; }
+    #q1-content, #q2-content, #q3-content, #q4-content {
+      flex: 0 0 auto !important;
+      overflow-y: visible !important;
+      min-height: auto !important;
+    }
+    #eisen-summary {
+      flex-direction: column !important;
+      align-items: flex-start !important;
+      gap: 4px;
+      font-size: 11px;
+      margin-top: 12px;
+    }
 
-    .cat-line { grid-template-columns: 110px 1fr 46px; }
+    /* Category Breakdown */
+    .cat-line { grid-template-columns: 95px 1fr 42px; }
+    .cat-line .name { font-size: 10.5px; }
 
+    /* Table */
+    .table-wrap { max-height: 380px; }
+
+    /* Footer */
     .footer {
       flex-direction: column;
       align-items: flex-start;
-      padding: 12px 18px;
+      padding: 10px 16px;
       gap: 4px;
+      font-size: 10px;
     }
+  }
 
-    .collab-matrix { font-size: 10px; }
-
-    /* Tabel: minimal tinggi agar bisa scroll */
-    .table-wrap { max-height: 380px; }
+  /* --- Very small phones: < 380px --- */
+  @media (max-width: 380px) {
+    h1.page-title { font-size: 18px; }
+    .brand-mark { width: 32px; height: 32px; }
+    .brand-mark::after { inset: 8px; }
+    .header-meta .value { font-size: 12px; }
+    .kpi .val { font-size: 20px; }
+    .kpi { padding: 8px 10px; }
+    .card-bd { padding: 12px; }
   }
 
   /* --- Tablet table height --- */
@@ -734,12 +789,12 @@
 
     <!-- ============ MIDDLE COLUMN: Eisenhower Matrix ============ -->
     <div class="col">
-      <div class="card" style="flex:1;">
+      <div class="card" id="eisen-card" style="flex:1;">
         <div class="card-hd">
           <div class="card-hd-l"><span class="hd-accent"></span><h3>Priority Matrix</h3></div>
           <span class="hd-sub">Urgency × Importance</span>
         </div>
-        <div class="card-bd" style="display:flex;flex-direction:column;min-height:0;overflow:hidden;">
+        <div class="card-bd" id="eisen-card-bd" style="display:flex;flex-direction:column;min-height:0;overflow:hidden;">
           <div class="eisen" style="flex:1;min-height:0;">
             <div class="corner"></div>
             <div class="axis-top"><div>Urgent</div><div>Not Urgent</div></div>
