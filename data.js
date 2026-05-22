@@ -89,7 +89,10 @@ const JOBS = [
   {no:46, job:"Materi PSKR - Opsi strateri Risk Management System (1)Razor, (2)Razor-LSEG, (3)LSEG",           cat:"Support Project",     cc:"cat-sp", pics:["BAI"], prio:"Q2", pl:"I·NU", st:"on",   wl:4},
   {no:47, job:"Asessment IM dan Stresstest PUVA (volatilitas nilai hasil kalkulasi) ke Razor",           cat:"Adhoc",     cc:"cat-np", pics:["RFA"], prio:"Q2", pl:"I·NU", st:"on",   wl:4},
   {no:48, job:"Review Piagam Komite Haircut - Pasar Modal",           cat:"Adhoc",     cc:"cat-np", pics:["NDI"], prio:"Q2", pl:"I·NU", st:"done",   wl:2},
+  {no:49, job:"Analisa Potensi Inflow/Outflow transaksi Pasar Modal based on Rebal Simulation Data",           cat:"Adhoc",     cc:"cat-np", pics:["SSO","RFA","BAI"], prio:"Q2", pl:"I·NU", st:"on",   wl:2},
+  {no:50, job:"Adhoc analisa perubahan haircut for rebalancing dan persetujuan komite",           cat:"Adhoc",     cc:"cat-np", pics:["NDI"], prio:"Q2", pl:"I·NU", st:"on",   wl:}4,
 ];
+]9
 
 const WL_LABELS = {
   1: "Ringan",
