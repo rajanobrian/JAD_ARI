@@ -45,7 +45,7 @@ const JOBS = [
   {no:2,  job:"Stresstesting PUVA Mei-26",                                                cat:"Operasional",         cc:"cat-op", pics:["RFA"],       prio:"Q1", pl:"I·U",  st:"done", wl:3},
   {no:3,  job:"Perhitungan KCCP PUVA Mei-26",                                             cat:"Operasional",         cc:"cat-op", pics:["RFA"],       prio:"Q1", pl:"I·U",  st:"done", wl:4},
   {no:4,  job:"Backtesting PM Mei-26",                                                    cat:"Operasional",         cc:"cat-op", pics:["SSO"],       prio:"Q1", pl:"I·U",  st:"done", wl:4},
-  {no:5,  job:"Input dan Analisa Laporan Keuangan - Signifikan",                   cat:"Operasional",         cc:"cat-op", pics:["NDI"],       prio:"Q1", pl:"I·U",  st:"on", wl:4},
+  {no:5,  job:"Input dan Analisa Laporan Keuangan - Signifikan",                   cat:"Operasional",         cc:"cat-op", pics:["NDI"],       prio:"Q1", pl:"I·U",  st:"done", wl:4},
   {no:6,  job:"Kalkulasi Haircut, Eligible SBL, Colldiss April-26",                     cat:"Operasional",         cc:"cat-op", pics:["NDI"],       prio:"Q1", pl:"I·U",  st:"on",   wl:5},
   {no:7,  job:"Sensitivity Analysis April-26: Simulasi MKBD, Simulasi Trading Limit",      cat:"Operasional",         cc:"cat-op", pics:["NDI"],       prio:"Q1", pl:"I·U",  st:"on",   wl:3},
   {no:8,  job:"Finalisasi Pengujian Backtest PUVA (EOM-April)",                       cat:"Inisiatif Project",   cc:"cat-ip", pics:["RFA"],       prio:"Q1", pl:"I·U",  st:"on",   wl:5},
@@ -89,10 +89,9 @@ const JOBS = [
   {no:46, job:"Materi PSKR - Opsi strateri Risk Management System (1)Razor, (2)Razor-LSEG, (3)LSEG",           cat:"Support Project",     cc:"cat-sp", pics:["BAI"], prio:"Q2", pl:"I·NU", st:"on",   wl:4},
   {no:47, job:"Asessment IM dan Stresstest PUVA (volatilitas nilai hasil kalkulasi) ke Razor",           cat:"Adhoc",     cc:"cat-np", pics:["RFA"], prio:"Q2", pl:"I·NU", st:"on",   wl:4},
   {no:48, job:"Review Piagam Komite Haircut - Pasar Modal",           cat:"Adhoc",     cc:"cat-np", pics:["NDI"], prio:"Q2", pl:"I·NU", st:"done",   wl:2},
-  {no:49, job:"Analisa Potensi Inflow/Outflow transaksi Pasar Modal based on Rebal Simulation Data",           cat:"Adhoc",     cc:"cat-np", pics:["SSO","RFA","BAI"], prio:"Q2", pl:"I·NU", st:"on",   wl:2},
-  {no:50, job:"Adhoc analisa perubahan haircut for rebalancing dan persetujuan komite",           cat:"Adhoc",     cc:"cat-np", pics:["NDI"], prio:"Q2", pl:"I·NU", st:"on",   wl:4},
+  {no:49, job:"Analisa Potensi Inflow/Outflow transaksi Pasar Modal based on Rebal Simulation Data",           cat:"Adhoc",     cc:"cat-np", pics:["SSO","RFA","BAI"], prio:"Q1", pl:"I·U", st:"on",   wl:2},
+  {no:50, job:"Adhoc analisa perubahan haircut for rebalancing dan persetujuan komite",           cat:"Adhoc",     cc:"cat-np", pics:["NDI"], prio:"Q1", pl:"I·U", st:"on",   wl:4},
 ];
-]9
 
 const WL_LABELS = {
   1: "Ringan",
