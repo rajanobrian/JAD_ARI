@@ -86,11 +86,13 @@ const JOBS = [
   {no:43, job:"Analisa dan asessment ACS-EKU (No Restu Kadiv-BOD)",           cat:"Adhoc",     cc:"cat-np", pics:["SSO"], prio:"Q4", pl:"NI·NU", st:"closed",   wl:0},
   {no:44, job:"Permohonan Assessment Penerimaan Data Instrumen Operasi Moneter Bank Indonesia pada Sistem e-CLEARS",           cat:"Adhoc",     cc:"cat-np", pics:["RFA"], prio:"Q4", pl:"NI·NU", st:"closed",   wl:0},
   {no:45, job:"Permohonan Assessment Pengelolaan jaminan dan Penjaminan Transaksi Margin PEI",           cat:"Support Project",     cc:"cat-sp", pics:["BAI","SSO"], prio:"Q2", pl:"I·NU", st:"on",   wl:4},
-  {no:46, job:"Materi PSKR - Opsi strateri Risk Management System (1)Razor, (2)Razor-LSEG, (3)LSEG",           cat:"Support Project",     cc:"cat-sp", pics:["BAI"], prio:"Q2", pl:"I·NU", st:"on",   wl:4},
+  {no:46, job:"Materi PSKR - Opsi strateri Risk Management System (1)Razor, (2)Razor-LSEG, (3)LSEG",           cat:"Support Project",     cc:"cat-sp", pics:["BAI"], prio:"Q1", pl:"I·U", st:"on",   wl:4},
   {no:47, job:"Asessment IM dan Stresstest PUVA (volatilitas nilai hasil kalkulasi) ke Razor",           cat:"Adhoc",     cc:"cat-np", pics:["RFA"], prio:"Q2", pl:"I·NU", st:"on",   wl:4},
   {no:48, job:"Review Piagam Komite Haircut - Pasar Modal",           cat:"Adhoc",     cc:"cat-np", pics:["NDI"], prio:"Q2", pl:"I·NU", st:"done",   wl:2},
-  {no:49, job:"Analisa Potensi Inflow/Outflow transaksi Pasar Modal based on Rebal Simulation Data",           cat:"Adhoc",     cc:"cat-np", pics:["SSO","RFA","BAI"], prio:"Q1", pl:"I·U", st:"on",   wl:2},
-  {no:50, job:"Adhoc analisa perubahan haircut for rebalancing dan persetujuan komite",           cat:"Adhoc",     cc:"cat-np", pics:["NDI"], prio:"Q1", pl:"I·U", st:"on",   wl:4},
+  {no:49, job:"Analisa Potensi Inflow/Outflow transaksi Pasar Modal based on Rebal Simulation Data",           cat:"Adhoc",     cc:"cat-np", pics:["SSO","RFA","BAI"], prio:"Q1", pl:"I·U", st:"done",   wl:2},
+  {no:50, job:"Advanced analysis proyeksi Inflow/Outflow berdasarkan median serapan/realisasi dan Laporan ke OJK  ",           cat:"Adhoc",     cc:"cat-np", pics:["SSO","BAI", "NDI"], prio:"Q1", pl:"I·U", st:"done",   wl:4},
+  {no:51, job:"Adhoc analisa perubahan haircut for rebalancing dan persetujuan komite",           cat:"Adhoc",     cc:"cat-np", pics:["NDI"], prio:"Q1", pl:"I·U", st:"on",   wl:4},
+  {no:52, job:"Materi Opsi Strategis konsep penjaminan PALN sesuai konsep bisnis(4 Opsi)",           cat:"Adhoc",     cc:"cat-np", pics:["BAI","RFA"], prio:"Q1", pl:"I·U", st:"on",   wl:2},
 ];
 
 const WL_LABELS = {
