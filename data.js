@@ -92,7 +92,7 @@ const JOBS = [
   {no:49, job:"Analisa Potensi Inflow/Outflow transaksi Pasar Modal based on Rebal Simulation Data",           cat:"Adhoc",     cc:"cat-np", pics:["SSO","RFA","BAI"], prio:"Q1", pl:"I·U", st:"done",   wl:2},
   {no:50, job:"Advanced analysis proyeksi Inflow/Outflow berdasarkan median serapan/realisasi dan Laporan ke OJK  ",           cat:"Adhoc",     cc:"cat-np", pics:["SSO","BAI", "NDI"], prio:"Q1", pl:"I·U", st:"done",   wl:4},
   {no:51, job:"Adhoc analisa perubahan haircut for rebalancing dan persetujuan komite",           cat:"Adhoc",     cc:"cat-np", pics:["NDI"], prio:"Q1", pl:"I·U", st:"on",   wl:4},
-  {no:52, job:"Materi Opsi Strategis konsep penjaminan PALN sesuai konsep bisnis(4 Opsi)",           cat:"Adhoc",     cc:"cat-np", pics:["BAI","RFA"], prio:"Q1", pl:"I·U", st:"on",   wl:2},
+  {no:52, job:"Materi Opsi Strategis konsep penjaminan PALN sesuai konsep bisnis(4 Opsi)",           cat:"Adhoc",     cc:"cat-np", pics:["BAI"], prio:"Q1", pl:"I·U", st:"on",   wl:2},
 ];
 
 const WL_LABELS = {
