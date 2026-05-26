@@ -46,8 +46,8 @@ const JOBS = [
   {no:3,  job:"Perhitungan KCCP PUVA Mei-26",                                             cat:"Operasional",         cc:"cat-op", pics:["RFA"],       prio:"Q1", pl:"I·U",  st:"done", wl:4},
   {no:4,  job:"Backtesting PM Mei-26",                                                    cat:"Operasional",         cc:"cat-op", pics:["SSO"],       prio:"Q1", pl:"I·U",  st:"done", wl:4},
   {no:5,  job:"Input dan Analisa Laporan Keuangan - Signifikan",                   cat:"Operasional",         cc:"cat-op", pics:["NDI"],       prio:"Q1", pl:"I·U",  st:"done", wl:4},
-  {no:6,  job:"Kalkulasi Haircut, Eligible SBL, Colldiss April-26",                     cat:"Operasional",         cc:"cat-op", pics:["NDI"],       prio:"Q1", pl:"I·U",  st:"on",   wl:5},
-  {no:7,  job:"Sensitivity Analysis April-26: Simulasi MKBD, Simulasi Trading Limit",      cat:"Operasional",         cc:"cat-op", pics:["NDI"],       prio:"Q1", pl:"I·U",  st:"on",   wl:3},
+  {no:6,  job:"Kalkulasi Haircut, Eligible SBL, Colldiss April-26",                     cat:"Operasional",         cc:"cat-op", pics:["NDI"],       prio:"Q1", pl:"I·U",  st:"done",   wl:5},
+  {no:7,  job:"Sensitivity Analysis April-26: Simulasi MKBD, Simulasi Trading Limit",      cat:"Operasional",         cc:"cat-op", pics:["NDI"],       prio:"Q1", pl:"I·U",  st:"done",   wl:3},
   {no:8,  job:"Finalisasi Pengujian Backtest PUVA (EOM-April)",                       cat:"Inisiatif Project",   cc:"cat-ip", pics:["RFA"],       prio:"Q1", pl:"I·U",  st:"on",   wl:5},
   {no:9,  job:"Weekly Report Analisa Risiko PM-PUVA",                              cat:"Inisiatif non Proj.", cc:"cat-np", pics:["SSO","NDI"], prio:"Q2", pl:"I·NU", st:"on",   wl:5},
   {no:10, job:"Review & Analisa LK + parameter fundamental",                      cat:"Kajian & Review",     cc:"cat-np", pics:["NDI"],       prio:"Q2", pl:"I·NU", st:"on",   wl:5},
@@ -91,8 +91,8 @@ const JOBS = [
   {no:48, job:"Review Piagam Komite Haircut - Pasar Modal",           cat:"Adhoc",     cc:"cat-np", pics:["NDI"], prio:"Q2", pl:"I·NU", st:"done",   wl:2},
   {no:49, job:"Analisa Potensi Inflow/Outflow transaksi Pasar Modal based on Rebal Simulation Data",           cat:"Adhoc",     cc:"cat-np", pics:["SSO","RFA","BAI"], prio:"Q1", pl:"I·U", st:"done",   wl:2},
   {no:50, job:"Advanced analysis proyeksi Inflow/Outflow berdasarkan median serapan/realisasi dan Laporan ke OJK  ",           cat:"Adhoc",     cc:"cat-np", pics:["SSO","BAI", "NDI"], prio:"Q1", pl:"I·U", st:"done",   wl:4},
-  {no:51, job:"Adhoc analisa perubahan haircut for rebalancing dan persetujuan komite",           cat:"Adhoc",     cc:"cat-np", pics:["NDI"], prio:"Q1", pl:"I·U", st:"on",   wl:4},
-  {no:52, job:"Materi Opsi Strategis konsep penjaminan PALN sesuai konsep bisnis(4 Opsi)",           cat:"Adhoc",     cc:"cat-np", pics:["BAI"], prio:"Q1", pl:"I·U", st:"on",   wl:2},
+  {no:51, job:"Adhoc analisa perubahan haircut for rebalancing dan persetujuan komite",           cat:"Adhoc",     cc:"cat-np", pics:["NDI"], prio:"Q1", pl:"I·U", st:"done",   wl:4},
+  {no:52, job:"Materi Opsi Strategis konsep penjaminan PALN sesuai konsep bisnis(4 Opsi)",           cat:"Adhoc",     cc:"cat-np", pics:["BAI"], prio:"Q1", pl:"I·U", st:"done",   wl:2},
 ];
 
 const WL_LABELS = {
