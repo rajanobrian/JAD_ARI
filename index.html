@@ -1,0 +1,1432 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Job Assignment Dashboard — Unit ARI · A2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Sans:wght@500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  @page { size: 2200px 1740px; margin: 0; }
+  @media screen { @page { size: auto; } }
+  :root {
+    --red: #C8102E;
+    --red-700: #9E0C23;
+    --red-50: #FDECEF;
+    --red-100: #F8D3D9;
+    --red-200: #EDB5BE;
+    --ink: #18191C;
+    --ink-2: #2A2D33;
+    --ink-3: #484C55;
+    --mute: #6C7079;
+    --mute-2: #9A9EA7;
+    --line: #D8DBE0;
+    --line-2: #EAECEF;
+    --paper: #F3F4F6;
+    --paper-2: #FAFAFB;
+    --white: #FFFFFF;
+    --green: #1F7A4D;
+    --amber: #B7791F;
+    --slate: #334155;
+    --navy: #1E2740;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { background: #2A2D33; min-height: 100vh; overflow-x: hidden; }
+  body {
+    background: #2A2D33;
+    min-height: 100vh;
+    overflow-x: hidden;
+    font-family: 'Inter', system-ui, sans-serif;
+    color: var(--ink);
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-size-adjust: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  .num { font-family: 'IBM Plex Sans', 'Inter', sans-serif; font-variant-numeric: tabular-nums; }
+  .mono { font-family: 'IBM Plex Mono', ui-monospace, monospace; }
+
+  /* Dashboard: fluid, stacks vertically */
+  .sheet {
+    width: 100%;
+    min-height: 100vh;
+    background: var(--paper);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+  }
+
+  /* ============ HEADER ============ */
+  .header {
+    background: var(--ink);
+    color: #fff;
+    padding: 20px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 6px solid var(--red);
+    flex-wrap: wrap;
+    gap: 16px;
+    flex-shrink: 0;
+  }
+  .brand-wrap { display: flex; align-items: center; gap: 22px; }
+  .brand-mark {
+    width: 56px; height: 56px; border-radius: 50%;
+    background: conic-gradient(var(--red) 0 28%, #B8BCC2 28% 100%);
+    position: relative; flex-shrink: 0;
+  }
+  .brand-mark::after {
+    content: ''; position: absolute; inset: 13px; background: var(--ink); border-radius: 50%;
+  }
+  .brand-title { font-size: 15px; color: #B8BCC2; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600; }
+  h1.page-title { font-size: 42px; font-weight: 800; letter-spacing: -0.02em; margin-top: 4px; }
+  h1.page-title .accent { color: var(--red); }
+  .header-meta { display: flex; gap: 36px; color: #C8CCD2; font-size: 13px; }
+  .header-meta .item { text-align: right; }
+  .header-meta .label { text-transform: uppercase; letter-spacing: 0.1em; font-size: 11px; color: #8C919B; font-weight: 600; }
+  .header-meta .value { font-size: 17px; color: #fff; font-weight: 700; margin-top: 3px; font-family: 'IBM Plex Sans', sans-serif; }
+  .live-chip { display: inline-flex; align-items: center; gap: 8px; padding: 5px 12px; background: rgba(34,197,94,0.12); border: 1px solid rgba(34,197,94,0.3); border-radius: 99px; font-size: 11px; color: #7BE4A8; font-weight: 600; letter-spacing: 0.08em; }
+  .live-chip .dot { width: 7px; height: 7px; border-radius: 50%; background: #22C55E; animation: livepulse 1.8s ease-in-out infinite; }
+  @keyframes livepulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.45;transform:scale(0.85)} }
+
+  /* ============ TICKER BAR ============ */
+  .ticker-bar {
+    background: var(--red);
+    height: 40px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    flex-shrink: 0;
+    width: 100%;
+  }
+  .ticker-label {
+    background: var(--red-700);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 0 22px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    white-space: nowrap;
+    border-right: 2px solid rgba(255,255,255,0.18);
+    gap: 8px;
+  }
+  .ticker-label .ticker-dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: #fff; opacity: 0.8;
+    animation: tickerdot 1.2s ease-in-out infinite;
+  }
+  @keyframes tickerdot { 0%,100%{opacity:0.8} 50%{opacity:0.2} }
+  .ticker-scroll-wrap {
+    flex: 1;
+    overflow: hidden;
+    position: relative;
+  }
+  .ticker-content {
+    display: inline-block;
+    white-space: nowrap;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    animation: ticker-scroll 55s linear infinite;
+  }
+  @keyframes ticker-scroll {
+    from { transform: translateX(100vw); }
+    to   { transform: translateX(-100%); }
+  }
+
+  /* ============ BODY GRID ============ */
+  .body-grid {
+    padding: 12px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+    flex: 1;
+  }
+  .col { display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+
+  /* ============ CARD ============ */
+  .card {
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    display: flex; flex-direction: column;
+    overflow: hidden;
+  }
+  .card-hd {
+    padding: 16px 20px 14px;
+    border-bottom: 1px solid var(--line-2);
+    display: flex; align-items: center; justify-content: space-between;
+    background: var(--paper-2);
+  }
+  .card-hd h3 { font-size: 14px; font-weight: 700; color: var(--ink); letter-spacing: -0.005em; text-transform: uppercase; letter-spacing: 0.08em; }
+  .card-hd .hd-sub { color: var(--mute); font-size: 12px; font-weight: 500; }
+  .card-hd .hd-accent { width: 4px; height: 18px; background: var(--red); margin-right: 12px; }
+  .card-hd-l { display: flex; align-items: center; }
+  .card-bd { padding: 20px; flex: 1; min-height: 0; overflow: hidden; }
+  .export-btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 6px 13px; background: var(--ink); color: #fff;
+    border: none; border-radius: 5px; font-size: 10.5px; font-weight: 700;
+    letter-spacing: 0.07em; text-transform: uppercase; cursor: pointer;
+    font-family: 'Inter', sans-serif; transition: background 0.15s; flex-shrink: 0;
+  }
+  .export-btn:hover { background: var(--red); }
+  .export-btn svg { width: 12px; height: 12px; flex-shrink: 0; }
+
+  /* ============ KPI ROW ============ */
+  .kpi-row { display: grid; grid-template-columns: repeat(6, 1fr); gap: 14px; }
+  .kpi {
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 12px 14px;
+    position: relative;
+    overflow: hidden;
+  }
+  .kpi .bar { position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: var(--line); }
+  .kpi.red .bar { background: var(--red); }
+  .kpi.ink .bar { background: var(--ink); }
+  .kpi.slate .bar { background: var(--slate); }
+  .kpi.amber .bar { background: var(--amber); }
+  .kpi.green .bar { background: var(--green); }
+  .kpi.navy .bar { background: var(--navy); }
+  .kpi.green { background: #00A36C; border-color: #00845A; }
+  .kpi.blue { background: #54A0EB; border-color: #3A8AD4; }
+  .kpi.blue .lb { color: rgba(255,255,255,0.75); }
+  .kpi.blue .val { color: #ffffff; }
+  .kpi.blue .hint { color: rgba(255,255,255,0.7); }
+  .kpi.crimson { background: #E0616C; border-color: #C44E58; }
+  .kpi.crimson .lb { color: rgba(255,255,255,0.75); }
+  .kpi.crimson .val { color: #ffffff; }
+  .kpi.crimson .hint { color: rgba(255,255,255,0.7); }
+  .kpi .lb { color: var(--mute); font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700; }
+  .kpi.green .lb { color: rgba(255,255,255,0.75); }
+  .kpi .val { font-size: 34px; font-weight: 800; letter-spacing: -0.025em; margin-top: 4px; line-height: 1; color: var(--ink); font-family: 'IBM Plex Sans', sans-serif; }
+  .kpi.red .val { color: var(--red); }
+  .kpi.green .val { color: #ffffff; }
+  .kpi .hint { color: var(--mute); font-size: 10.5px; margin-top: 4px; }
+  .kpi.green .hint { color: rgba(255,255,255,0.7); }
+
+  /* ============ PIC WORKLOAD ============ */
+  .split-bar {
+    display: flex; gap: 8px; margin-bottom: 16px;
+  }
+  .split-chip { flex: 1; padding: 8px 12px; background: var(--paper-2); border: 1px solid var(--line); border-radius: 6px; }
+  .split-chip.red { background: var(--red-50); border-color: var(--red-100); }
+  .split-chip .lb { font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--mute); }
+  .split-chip.red .lb { color: var(--red-700); }
+  .split-chip .row { display: flex; align-items: baseline; gap: 8px; margin-top: 4px; }
+  .split-chip .n { font-size: 28px; font-weight: 800; letter-spacing: -0.02em; font-family: 'IBM Plex Sans', sans-serif; color: var(--ink); }
+  .split-chip.red .n { color: var(--red); }
+  .split-chip .pct { font-size: 12px; font-weight: 600; color: var(--mute); }
+
+  .pic-row {
+    display: grid;
+    grid-template-columns: 46px 1fr auto;
+    gap: 12px;
+    padding: 8px 0;
+    border-bottom: 1px dashed var(--line-2);
+    align-items: center;
+  }
+  .pic-row:last-child { border-bottom: none; }
+  .pic-badge {
+    width: 42px; height: 42px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: #fff; font-weight: 800; font-size: 13px; letter-spacing: 0.02em;
+  }
+  .pic-badge.BAI { background: #0284C7; }
+  .pic-badge.RFA { background: var(--red); }
+  .pic-badge.SSO { background: #D97706; }
+  .pic-badge.NDI { background: #7C3AED; }
+  .pic-body .name { font-size: 13px; font-weight: 700; color: var(--ink); }
+  .pic-body .name .total { color: var(--mute); font-weight: 500; margin-left: 6px; font-size: 12px; }
+  .pic-body .desc { font-size: 11px; color: var(--mute); margin-top: 2px; }
+  .pic-body .bar { margin-top: 6px; height: 8px; background: var(--line-2); border-radius: 2px; display: flex; overflow: hidden; }
+  .pic-body .bar .ind { background: var(--ink); height: 100%; }
+  .pic-body .bar .col { background: var(--red); height: 100%; }
+  .pic-stats { display: flex; gap: 12px; }
+  .pic-stat { text-align: center; }
+  .pic-stat .n { font-size: 16px; font-weight: 800; color: var(--ink); font-family: 'IBM Plex Sans', sans-serif; line-height: 1; }
+  .pic-stat.red .n { color: var(--red); }
+  .pic-stat .l { font-size: 9.5px; color: var(--mute); text-transform: uppercase; letter-spacing: 0.08em; margin-top: 3px; font-weight: 700; }
+
+  /* ============ COLLAB ============ */
+  .collab-matrix {
+    display: grid;
+    grid-template-columns: 60px repeat(4, 1fr);
+    gap: 4px;
+    font-size: 11px;
+  }
+  .collab-matrix .ch {
+    display: flex; align-items: center; justify-content: center;
+    background: var(--paper-2); color: var(--mute);
+    padding: 8px 0; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;
+    font-size: 10.5px;
+    border-radius: 4px;
+  }
+  .collab-matrix .rh {
+    display: flex; align-items: center; justify-content: center;
+    background: var(--paper-2); color: var(--ink); font-weight: 700;
+    border-radius: 4px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em;
+  }
+  .collab-matrix .cell {
+    display: flex; align-items: center; justify-content: center;
+    padding: 10px 0; font-weight: 700;
+    font-family: 'IBM Plex Sans', sans-serif; font-size: 15px;
+    border-radius: 4px;
+  }
+  .cell.diag { background: var(--line-2); color: var(--mute-2); font-weight: 500; }
+  .cell.z { background: var(--paper-2); color: var(--mute-2); }
+  .cell.v2 { background: #F8D3D9; color: var(--red-700); }
+  .cell.v3 { background: #ED8E9B; color: #fff; }
+  .cell.v5 { background: var(--red); color: #fff; }
+
+  .top-partnership { margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--line-2); }
+  .partnership { display: flex; align-items: center; gap: 10px; padding: 6px 0; font-size: 12px; }
+  .pchip { display: inline-flex; align-items: center; gap: 5px; padding: 2px 8px 2px 5px; background: var(--paper); border: 1px solid var(--line); border-radius: 99px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-weight: 600; color: var(--ink-2); }
+  .pchip .d { width: 7px; height: 7px; border-radius: 50%; }
+  .pchip .d.BAI { background: #0284C7; }
+  .pchip .d.RFA { background: var(--red); }
+  .pchip .d.SSO { background: #D97706; }
+  .pchip .d.NDI { background: #7C3AED; }
+  .partnership .x { color: var(--mute-2); }
+  .partnership .track { flex: 1; height: 6px; background: var(--line-2); border-radius: 3px; overflow: hidden; }
+  .partnership .fill { height: 100%; background: var(--red); }
+  .partnership .n { width: 24px; text-align: right; font-weight: 800; font-family: 'IBM Plex Sans', sans-serif; font-size: 14px; }
+
+  /* ============ ini template untuk EISENHOWER ============ */
+  .eisen {
+    display: grid;
+    grid-template-columns: 42px 1fr 1fr;
+    grid-template-rows: 28px 1fr 1fr;
+    gap: 0;
+  }
+  .eisen .corner { background: transparent; }
+  .eisen .axis-top {
+    grid-column: 2 / 4;
+    display: grid; grid-template-columns: 1fr 1fr;
+  }
+  .eisen .axis-top > div {
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.14em;
+    color: var(--ink-3); background: var(--paper-2);
+    border: 1px solid var(--line); border-bottom: none;
+  }
+  .eisen .axis-top > div:first-child { border-radius: 6px 0 0 0; border-right: none; }
+  .eisen .axis-top > div:last-child { border-radius: 0 6px 0 0; }
+  .eisen .axis-left {
+    grid-column: 1; grid-row: 2 / 4;
+    display: grid; grid-template-rows: 1fr 1fr;
+  }
+  .eisen .axis-left > div {
+    writing-mode: vertical-rl; transform: rotate(180deg);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.14em;
+    color: var(--ink-3); background: var(--paper-2);
+    border: 1px solid var(--line); border-right: none;
+  }
+  .eisen .axis-left > div:first-child { border-radius: 6px 0 0 0; border-bottom: none; }
+  .eisen .axis-left > div:last-child { border-radius: 0 0 0 6px; }
+  .quad {
+    border: 1px solid var(--line); background: var(--white);
+    padding: 14px 16px;
+    display: flex; flex-direction: column;
+    min-height: 0;
+    overflow: hidden;
+  }
+  .quad.Q1 { background: #FFF7F9; }
+  .quad-hd { display: flex; justify-content: space-between; align-items: baseline; padding-bottom: 10px; border-bottom: 1px dashed var(--line); margin-bottom: 10px; }
+  .quad-title { font-size: 14px; font-weight: 800; letter-spacing: -0.01em; color: var(--ink); }
+  .quad-title .qlbl { display: inline-block; padding: 2px 6px; background: var(--ink); color: #fff; font-size: 10px; border-radius: 3px; margin-right: 8px; letter-spacing: 0.08em; font-weight: 700; vertical-align: middle; }
+  .quad.Q1 .qlbl { background: var(--red); }
+  .quad.Q1 .quad-title { color: var(--red); }
+  .quad-action { font-size: 10px; color: var(--mute); text-transform: uppercase; letter-spacing: 0.14em; font-weight: 700; margin-bottom: 10px; }
+  .quad-meta { font-size: 11px; color: var(--mute); }
+  .quad-meta .big { font-size: 18px; font-weight: 800; color: var(--ink); margin-right: 4px; font-family: 'IBM Plex Sans', sans-serif; }
+  .quad.Q1 .quad-meta .big { color: var(--red); }
+  .quad-list { list-style: none; font-size: 11.5px; line-height: 1.35; flex: 1; overflow-y: auto; min-height: 0; scrollbar-width: thin; scrollbar-color: var(--line) transparent; }
+  .quad-list::-webkit-scrollbar { width: 4px; }
+  .quad-list::-webkit-scrollbar-track { background: transparent; }
+  .quad-list::-webkit-scrollbar-thumb { background: var(--line); border-radius: 2px; }
+  .quad-list li { padding: 5px 0; border-bottom: 1px dotted var(--line-2); display: flex; gap: 6px; align-items: baseline; }
+  .quad-list li:last-child { border-bottom: none; }
+  .quad-list li.done { background: #EDFAF3; border-radius: 4px; border-bottom: 1px dotted #B6E8CE; padding: 5px 6px; }
+  .quad-list li.done .txt { color: #1F7A4D; text-decoration: line-through; text-decoration-color: #74C99A; }
+  .quad-list li.done .idx { color: #74C99A; }
+  .quad-list li.done .tag { background: #D0F0E0; border-color: #9ADCBC; color: #1F7A4D; }
+  .quad-list .idx { color: var(--mute); font-family: 'IBM Plex Mono', monospace; font-size: 10px; width: 18px; flex-shrink: 0; font-weight: 600; }
+  .quad-list .txt { flex: 1; color: var(--ink-2); }
+  .quad-list .tag { font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; color: var(--ink-3); background: var(--paper); border: 1px solid var(--line); padding: 1px 5px; border-radius: 3px; flex-shrink: 0; font-weight: 600; }
+
+  /* ============ WORKLOAD SCALE ============ */
+  table.jobs .c-wl { width: 60px; text-align: center; }
+  table.jobs th.c-wl { text-align: center; }
+  .wl-pill {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 28px; height: 22px; border-radius: 4px;
+    font-family: 'IBM Plex Sans', sans-serif; font-size: 13px; font-weight: 800;
+    border: 1px solid transparent;
+  }
+  .wl-1 { background: var(--line-2);  color: var(--mute);    border-color: var(--line);    }
+  .wl-2 { background: #EEF3FA;        color: #1E3A5F;         border-color: #CCD6E5;         }
+  .wl-3 { background: #FBF5E9;        color: var(--amber);   border-color: #E5D9C5;         }
+  .wl-4 { background: var(--red-50);  color: var(--red-700); border-color: var(--red-100);  }
+  .wl-5 { background: var(--red);     color: #ffffff;         border-color: var(--red-700);  }
+  .pic-stat.wl-stat .n { color: var(--red); }
+  #wl-scale-card { min-height: 180px; }
+  .wl-chart-row {
+    display: grid; grid-template-columns: 42px 1fr 36px;
+    gap: 10px; align-items: center; margin-bottom: 10px;
+  }
+  .wl-chart-row:last-child { margin-bottom: 0; }
+  .wl-track { height: 14px; background: var(--line-2); border-radius: 2px; overflow: hidden; }
+  .wl-fill  { height: 100%; background: var(--ink); border-radius: 2px; }
+  .wl-fill.warn { background: var(--red); }
+  .wl-val { font-family: 'IBM Plex Sans', sans-serif; font-size: 14px; font-weight: 800;
+            color: var(--ink); text-align: right; white-space: nowrap; }
+  .wl-val.warn { color: var(--red); }
+  .wl-warn-badge {
+    display: inline-block; margin-left: 4px; font-size: 9px; font-weight: 700;
+    padding: 1px 4px; background: var(--red-50); color: var(--red-700);
+    border: 1px solid var(--red-100); border-radius: 3px;
+    text-transform: uppercase; letter-spacing: 0.06em; vertical-align: middle;
+  }
+  .burnout-banner {
+    display: flex; align-items: center; gap: 14px;
+    padding: 10px 14px; border-radius: 6px; margin-bottom: 14px;
+    background: var(--red-50); border: 1px solid var(--red-100);
+  }
+  .burnout-banner.ok   { background: #EDFAF3; border-color: #B6E8CE; }
+  .burnout-banner.warn { background: #FBF5E9; border-color: #E5D9C5; }
+  .burnout-icon { font-size: 28px; line-height: 1; flex-shrink: 0; }
+  .burnout-body { display: flex; flex-direction: column; gap: 1px; }
+  .burnout-rate { font-family: 'IBM Plex Sans', sans-serif; font-size: 28px; font-weight: 800;
+                  letter-spacing: -0.02em; line-height: 1; color: var(--red); }
+  .burnout-banner.ok   .burnout-rate { color: var(--green); }
+  .burnout-banner.warn .burnout-rate { color: var(--amber); }
+  .burnout-label { font-size: 10px; font-weight: 700; text-transform: uppercase;
+                   letter-spacing: 0.1em; color: var(--mute); margin-top: 3px; }
+  .burnout-hint  { font-size: 10.5px; color: var(--mute); margin-top: 1px; }
+
+  .wl-legend { display: flex; gap: 10px; margin-top: 12px; padding-top: 10px;
+               border-top: 1px solid var(--line-2); flex-wrap: wrap; }
+  .wl-legend-item { display: inline-flex; align-items: center; gap: 4px;
+                    font-size: 9.5px; color: var(--mute); font-weight: 600; }
+  .wl-legend-dot { width: 8px; height: 8px; border-radius: 2px; flex-shrink: 0; }
+  .wl-legend-dot.wl-1 { background: var(--line-2); border: 1px solid var(--line);    }
+  .wl-legend-dot.wl-2 { background: #EEF3FA;       border: 1px solid #CCD6E5;        }
+  .wl-legend-dot.wl-3 { background: #FBF5E9;       border: 1px solid #E5D9C5;        }
+  .wl-legend-dot.wl-4 { background: var(--red-50); border: 1px solid var(--red-100); }
+  .wl-legend-dot.wl-5 { background: var(--red);                                       }
+
+  /* ============ TABLE ============ */
+  .table-wrap { flex: 1; overflow: auto; display: flex; flex-direction: column; min-height: 0; scrollbar-width: thin; scrollbar-color: var(--line) transparent; }
+  .table-wrap::-webkit-scrollbar { width: 5px; }
+  .table-wrap::-webkit-scrollbar-track { background: transparent; }
+  .table-wrap::-webkit-scrollbar-thumb { background: var(--line); border-radius: 3px; }
+  table.jobs { width: 100%; border-collapse: collapse; font-size: 11px; table-layout: fixed; }
+  table.jobs th {
+    text-align: left; padding: 8px 10px;
+    background: var(--ink); color: #fff;
+    font-size: 10px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.08em;
+    position: sticky; top: 0; z-index: 1;
+  }
+
+  /* ============ KEY TAKEAWAYS ============ */
+  .kt-list { list-style: none; display: flex; flex-direction: column; gap: 6px; align-items: flex-start; }
+  .kt-item { display: inline-flex; gap: 9px; align-items: baseline; font-size: 12px; color: var(--ink-2); line-height: 1.5; max-width: 100%; }
+  .kt-item .kt-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--red); flex-shrink: 0; margin-top: 5px; }
+  .kt-item span { white-space: normal; }
+  table.jobs td {
+    padding: 7px 10px;
+    border-bottom: 1px solid var(--line-2);
+    vertical-align: middle;
+    font-size: 11px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  table.jobs tr:nth-child(even) td { background: var(--paper-2); }
+  table.jobs .c-no { font-family: 'IBM Plex Mono', monospace; color: var(--mute); font-size: 10px; width: 34px; }
+  table.jobs .c-job { color: var(--ink); font-weight: 500; }
+  table.jobs .c-cat { width: 130px; }
+  table.jobs .c-pic { width: 130px; }
+  table.jobs .c-prio { width: 80px; }
+  table.jobs .c-stat { width: 80px; }
+  .cat-pill {
+    display: inline-block; padding: 1px 6px; border-radius: 3px;
+    font-size: 9.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.03em;
+    border: 1px solid var(--line); background: var(--white); color: var(--ink-3);
+    white-space: nowrap;
+  }
+  .cat-op { border-color: #CCD6E5; color: #1E3A5F; background: #EEF3FA; }
+  .cat-ip { border-color: var(--red-100); color: var(--red-700); background: var(--red-50); }
+  .cat-np { border-color: #E5D4D9; color: var(--red-700); background: #FBF3F5; }
+  .cat-sp { border-color: #D5DBE5; color: var(--slate); background: #F0F3F8; }
+  .cat-ad { border-color: #E5D9C5; color: var(--amber); background: #FBF5E9; }
+
+  .pcell { display: flex; gap: 3px; align-items: center; flex-wrap: wrap; }
+  .pt-chip { display: inline-flex; align-items: center; gap: 3px; padding: 1px 6px 1px 4px; background: var(--paper); border: 1px solid var(--line); border-radius: 99px; font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 700; color: var(--ink-2); }
+  .pt-chip .d { width: 5px; height: 5px; border-radius: 50%; }
+  .pt-chip .d.BAI { background: #0284C7; }
+  .pt-chip .d.RFA { background: var(--red); }
+  .pt-chip .d.SSO { background: #D97706; }
+  .pt-chip .d.NDI { background: #7C3AED; }
+  .prio-b {
+    display: inline-flex; align-items: center; gap: 4px;
+    font-size: 10px; font-weight: 700;
+  }
+  .prio-b .sq { width: 8px; height: 8px; border-radius: 1px; }
+  .prio-b.Q1 { color: var(--red); } .prio-b.Q1 .sq { background: var(--red); }
+  .prio-b.Q2 { color: var(--ink); } .prio-b.Q2 .sq { background: var(--ink); }
+  .prio-b.Q3 { color: var(--amber); } .prio-b.Q3 .sq { background: var(--amber); }
+  .prio-b.Q4 { color: var(--mute); } .prio-b.Q4 .sq { background: var(--mute); }
+  .status-b { display: inline-flex; align-items: center; gap: 4px; font-size: 9.5px; font-weight: 700; padding: 2px 7px; border-radius: 99px; text-transform: uppercase; letter-spacing: 0.05em; }
+  .status-b.done { background: #E8F4EE; color: var(--green); }
+  .status-b.on { background: #FFF4E6; color: var(--amber); }
+  .status-b .d { width: 5px; height: 5px; border-radius: 50%; }
+  .status-b.done .d { background: var(--green); }
+  .status-b.on .d { background: var(--amber); }
+  .status-b.closed { background: #F0F3F8; color: var(--slate); }
+  .status-b.closed .d { background: var(--slate); }
+
+  /* ============ Ini FOOTER ============ */
+  .footer {
+    position: relative;
+    background: var(--ink); color: #9FA3AC;
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 6px;
+    padding: 12px 32px;
+    font-size: 11px;
+    border-top: 3px solid var(--red);
+    flex-shrink: 0;
+    margin-top: auto;
+  }
+  .footer strong { color: #fff; font-weight: 700; }
+
+  /* ============ kata gua sih iya ini CATEGORY BREAKDOWN ============ */
+  .cat-bd { display: flex; flex-direction: column; gap: 8px; }
+  .cat-line { display: grid; grid-template-columns: 140px 1fr 56px; gap: 10px; align-items: center; font-size: 11.5px; }
+  .cat-line .name { font-weight: 600; color: var(--ink-2); font-size: 11.5px; }
+  .cat-line .tr { height: 14px; background: var(--line-2); border-radius: 2px; overflow: hidden; display: block; }
+  .cat-line .fl { height: 100%; background: var(--ink); display: block; border-radius: 2px; }
+  .cat-line.red .fl { background: var(--red); }
+  .cat-line.slate .fl { background: var(--slate); }
+  .cat-line.navy .fl { background: var(--navy); }
+  .cat-line.amber .fl { background: var(--amber); }
+  .cat-line .v { text-align: right; font-weight: 800; font-family: 'IBM Plex Sans', sans-serif; font-size: 13px; color: var(--ink); }
+
+  /* ============ TABLE SCROLL WRAPPER ============ */
+  .table-wrap { overflow-x: auto; }
+  table.jobs { min-width: 560px; }
+
+  /* ============ Q4 ELIMINATE — red strikethrough ============ */
+  #q4-content .quad-list li .txt {
+    color: var(--red);
+    text-decoration: line-through;
+    text-decoration-color: var(--red-200);
+  }
+  #q4-content .quad-list li .idx { color: var(--red-200); }
+  #q4-content .quad-list li .tag {
+    background: var(--red-50);
+    border-color: var(--red-100);
+    color: var(--red-700);
+  }
+  #q4-content .quad-list li.done .txt {
+    color: var(--red);
+    text-decoration: line-through;
+    text-decoration-color: var(--red-200);
+  }
+
+  /* ============================================================
+     RESPONSIVE BREAKPOINTS
+     ============================================================ */
+
+  /* --- Tablet: ≥ 640px — 2 kolom --- */
+  @media (min-width: 640px) {
+    .header { padding: 20px 32px; }
+    .body-grid {
+      grid-template-columns: 1fr 1fr;
+      padding: 16px;
+      gap: 16px;
+    }
+    .body-grid > .col:last-child { grid-column: 1 / -1; }
+    .col { gap: 16px; }
+    .kpi-row { grid-template-columns: repeat(3, 1fr); }
+    .footer { padding: 12px 32px; }
+  }
+
+  /* --- Desktop: ≥ 1200px — 3 kolom penuh + centered sheet --- */
+  @media (min-width: 1200px) {
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 20px;
+      background: #2A2D33;
+    }
+    .sheet {
+      max-width: 2200px;
+      min-height: calc(100vh - 40px);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+      overflow: hidden;
+    }
+    .body-grid {
+      grid-template-columns: 430px 1fr 760px;
+      padding: 22px;
+      gap: 20px;
+    }
+    .body-grid > .col:last-child { grid-column: auto; }
+    .col { gap: 22px; min-height: 0; }
+    .header { padding: 28px 48px; }
+    .footer { padding: 0 48px; height: 46px; }
+  }
+
+  /* --- Mobile: < 640px — 1 kolom --- */
+  @media (max-width: 639px) {
+    /* Header */
+    .header {
+      padding: 16px;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      text-align: center;
+    }
+    .brand-wrap { gap: 12px; justify-content: center; }
+    .brand-mark { width: 40px; height: 40px; }
+    .brand-mark::after { inset: 10px; }
+    h1.page-title { font-size: 22px; }
+    .brand-title { font-size: 11px; }
+    .header-meta { flex-wrap: wrap; gap: 8px 20px; width: 100%; justify-content: center; }
+    .header-meta .item { text-align: center; align-items: center !important; }
+    .header-meta .value { font-size: 13px; }
+    .live-chip { font-size: 10px; padding: 4px 10px; }
+
+    /* Ticker */
+    .ticker-label { padding: 0 12px; font-size: 10px; }
+    .ticker-content { font-size: 12px; }
+
+    /* Body & Cards — pastikan semua kolom dan card tidak overflow viewport */
+    .body-grid { padding: 10px; gap: 10px; }
+    .col { gap: 10px; min-width: 0; overflow: hidden; }
+    .card { max-width: 100%; overflow: hidden; }
+    .card-hd { padding: 12px 14px 10px; }
+    .card-hd h3 { font-size: 11.5px; }
+    .card-bd { padding: 12px 14px; min-width: 0; }
+
+    /* KPI Grid — 2 columns for < 480px (JS handles > 480px) */
+    #kpi-grid { grid-template-columns: 1fr 1fr !important; }
+    .kpi { padding: 10px 12px; }
+    .kpi .val { font-size: 24px; }
+    .kpi .lb { font-size: 9px; }
+    .kpi .hint { font-size: 9.5px; }
+
+    /* PIC Workload */
+    .split-chip .n { font-size: 22px; }
+    .pic-badge { width: 36px; height: 36px; font-size: 11px; }
+    .pic-row { gap: 8px; grid-template-columns: 38px 1fr auto; min-width: 0; }
+    .pic-body { min-width: 0; }
+    .pic-stats { gap: 6px; flex-shrink: 0; }
+    .pic-stat .n { font-size: 13px; }
+    .pic-stat .l { font-size: 8.5px; }
+
+    /* Collab Matrix — override JS inline style untuk first column width */
+    #collab-matrix {
+      grid-template-columns: 44px repeat(4, 1fr) !important;
+      gap: 3px;
+      width: 100%;
+    }
+    .collab-matrix { font-size: 9.5px; }
+    .collab-matrix .ch { padding: 6px 2px; font-size: 9px; letter-spacing: 0.04em; }
+    .collab-matrix .rh { font-size: 9px; }
+    .collab-matrix .cell { padding: 8px 0; font-size: 13px; }
+
+    /* Workload Analysis */
+    .burnout-rate { font-size: 22px; }
+    .burnout-icon { font-size: 22px; }
+    .wl-chart-row { grid-template-columns: 36px 1fr 30px; gap: 8px; }
+    .wl-val { font-size: 12px; }
+
+    /* Eisenhower — fix height collapse pada single-column mobile */
+    .quad-hd { flex-wrap: wrap; gap: 2px 6px; padding-bottom: 8px; margin-bottom: 8px; }
+    .quad-title { font-size: 11px; }
+    .quad-meta .big { font-size: 14px; }
+    .quad-meta { font-size: 10px; }
+    #eisen-card { flex: 0 0 auto !important; }
+    #eisen-card-bd { overflow: visible !important; min-height: auto !important; }
+    .eisen .axis-left { display: none; }
+    .eisen .corner { display: none; }
+    .eisen {
+      flex: none !important;
+      min-height: auto !important;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 28px auto auto;
+    }
+    .eisen .axis-top { grid-column: 1 / 3; }
+    .quad { padding: 10px 12px; overflow: visible !important; }
+    .quad-list { font-size: 11px; overflow-y: visible !important; min-height: auto !important; }
+    #q1-content, #q2-content, #q3-content, #q4-content {
+      flex: 0 0 auto !important;
+      overflow-y: visible !important;
+      min-height: auto !important;
+    }
+    #eisen-summary {
+      flex-direction: column !important;
+      align-items: flex-start !important;
+      gap: 4px;
+      font-size: 11px;
+      margin-top: 12px;
+    }
+
+    /* Category Breakdown */
+    .cat-line { grid-template-columns: 90px 1fr 40px; gap: 8px; }
+    .cat-line .name { font-size: 10.5px; }
+    .cat-line .v { font-size: 12px; }
+
+    /* Table — fixed layout agar tidak overflow viewport, scrollable jika perlu */
+    table.jobs .c-cat,
+    table.jobs th.c-cat { display: none; }
+    table.jobs .c-prio,
+    table.jobs th.c-prio { display: none; }
+    table.jobs {
+      min-width: 0;
+      width: 100%;
+      table-layout: fixed;
+    }
+    table.jobs .c-no   { width: 24px; }
+    table.jobs .c-pic  { width: 78px; }
+    table.jobs .c-stat { width: 60px; }
+    table.jobs td {
+      font-size: 10px;
+      padding: 6px 7px;
+      vertical-align: top;
+    }
+    table.jobs td.c-job {
+      white-space: normal;
+      word-break: break-word;
+      overflow-wrap: break-word;
+      line-height: 1.35;
+    }
+    table.jobs td.c-no,
+    table.jobs td.c-pic,
+    table.jobs td.c-stat { vertical-align: middle; }
+    table.jobs th { font-size: 8.5px; padding: 6px 7px; white-space: nowrap; }
+    .table-wrap {
+      max-height: 420px;
+      overflow-x: auto;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      width: 100%;
+    }
+    .pt-chip { font-size: 9px; padding: 1px 5px 1px 3px; }
+    .pt-chip .d { width: 4px; height: 4px; }
+    .status-b { font-size: 8.5px; padding: 2px 5px; }
+
+    /* Key Takeaways */
+    .kt-item { font-size: 11.5px; }
+
+    /* Footer */
+    .footer {
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 10px 16px;
+      gap: 4px;
+      font-size: 10px;
+    }
+  }
+
+  /* --- Medium phones: 480px–639px — manfaatkan ruang lebih lebar --- */
+  @media (min-width: 480px) and (max-width: 639px) {
+    #kpi-grid { grid-template-columns: repeat(3, 1fr) !important; }
+    .kpi .val { font-size: 28px; }
+    .kpi .hint { font-size: 10px; }
+    .card-bd { padding: 14px 16px; }
+    h1.page-title { font-size: 26px; }
+    table.jobs .c-pic  { width: 86px; }
+    table.jobs .c-stat { width: 64px; }
+    table.jobs td { font-size: 10.5px; }
+  }
+
+  /* --- Very small phones: < 380px --- */
+  @media (max-width: 380px) {
+    h1.page-title { font-size: 18px; }
+    .brand-mark { width: 32px; height: 32px; }
+    .brand-mark::after { inset: 8px; }
+    .header-meta .value { font-size: 12px; }
+    .kpi .val { font-size: 20px; }
+    .kpi { padding: 8px 10px; }
+    .card-bd { padding: 10px 12px; }
+    table.jobs .c-pic  { width: 68px; }
+    table.jobs .c-stat { width: 56px; }
+    table.jobs td { font-size: 9.5px; padding: 5px 6px; }
+    .pt-chip { font-size: 8.5px; }
+    #collab-matrix { grid-template-columns: 38px repeat(4, 1fr) !important; }
+    .collab-matrix .ch { font-size: 8px; }
+    .collab-matrix .cell { font-size: 11px; }
+  }
+
+  /* --- Tablet table height --- */
+  @media (min-width: 640px) and (max-width: 1199px) {
+    .table-wrap { max-height: 480px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="sheet">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="brand-wrap">
+      <div class="brand-mark"></div>
+      <div>
+        <div class="brand-title" id="h-unit-title"></div>
+        <h1 class="page-title" id="h-page-title"></h1>
+        <p style="font-size:small;color:#d0d0d0;" id="h-head-line"></p>
+      </div>
+    </div>
+    <div class="header-meta">
+      <div class="item">
+        <div class="label">Reporting Period</div>
+        <div class="value" id="hm-period"></div>
+      </div>
+      <div class="item">
+        <div class="label">Total Jobdesk</div>
+        <div class="value" id="hm-total"></div>
+      </div>
+      <div class="item">
+        <div class="label">Active PIC</div>
+        <div class="value" id="hm-pic-count"></div>
+      </div>
+      <div class="item">
+        <div class="label">Framework</div>
+        <div class="value" id="hm-framework"></div>
+      </div>
+      <div class="item" style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;">
+        <div class="label">Status</div>
+        <span class="live-chip"><span class="dot"></span><span id="hm-live"></span></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- TICKER BAR: running text between header and content -->
+  <div class="ticker-bar">
+    <div class="ticker-label"><span class="ticker-dot"></span>INFO</div>
+    <div class="ticker-scroll-wrap">
+      <span class="ticker-content" id="ticker-text"></span>
+    </div>
+  </div>
+
+  <!-- BODY GRID: 3 columns -->
+  <div class="body-grid">
+
+    <!-- ============ LEFT COLUMN ============ -->
+    <div class="col">
+      <!-- KPI stacked -->
+      <div id="kpi-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:14px;"></div>
+
+      <!-- PIC Workload -->
+      <div class="card" style="flex:0 0 auto;">
+        <div class="card-hd">
+          <div class="card-hd-l"><span class="hd-accent"></span><h3>Job Assignment per PIC</h3></div>
+          <span class="hd-sub">Individu vs Kolaborasi</span>
+        </div>
+        <div class="card-bd">
+          <div id="pic-split-bar" class="split-bar"></div>
+          <div id="pic-list"></div>
+          <div style="margin-top:8px;padding-top:8px;border-top:1px solid var(--line-2);font-size:11px;color:var(--mute);line-height:1.4;">
+            Dihitung dari kemunculan inisial di kolom PIC. Pada tugas kolaborasi, masing-masing PIC dihitung satu kali.
+          </div>
+        </div>
+      </div>
+
+      <!-- Collaboration -->
+      <div class="card" style="flex:0 0 auto;">
+        <div class="card-hd">
+          <div class="card-hd-l"><span class="hd-accent"></span><h3>Collaboration Matrix</h3></div>
+          <span class="hd-sub">Jumlah tugas bersama</span>
+        </div>
+        <div class="card-bd">
+          <div id="collab-matrix" class="collab-matrix"></div>
+        </div>
+      </div>
+
+      <!-- Skala Workload -->
+      <div class="card" id="wl-scale-card" style="flex:1;">
+        <div class="card-hd">
+          <div class="card-hd-l"><span class="hd-accent"></span><h3>Workload Analysis</h3></div>
+          <span class="hd-sub" id="wl-hd-sub"></span>
+        </div>
+        <div class="card-bd">
+          <div id="burnout-stat"></div>
+          <div id="wl-bar-chart"></div>
+          <div id="wl-legend" class="wl-legend"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ MIDDLE COLUMN: Eisenhower Matrix ============ -->
+    <div class="col">
+      <div class="card" id="eisen-card" style="flex:1;">
+        <div class="card-hd">
+          <div class="card-hd-l"><span class="hd-accent"></span><h3>Priority Matrix</h3></div>
+          <span class="hd-sub">Urgency × Importance</span>
+        </div>
+        <div class="card-bd" id="eisen-card-bd" style="display:flex;flex-direction:column;min-height:0;overflow:hidden;">
+          <div class="eisen" style="flex:1;min-height:0;">
+            <div class="corner"></div>
+            <div class="axis-top"><div>Urgent</div><div>Not Urgent</div></div>
+            <div class="axis-left"><div>Important</div><div>Not Important</div></div>
+
+            <!-- Q1 -->
+            <div class="quad Q1">
+              <div class="quad-hd">
+                <div class="quad-title"><span class="qlbl">Q1</span>DO</div>
+                <div class="quad-meta"><span class="big num" id="q1-count">0</span>tugas remaining</div>
+              </div>
+              <div class="quad-action">Important · Urgent — Kerjakan Sekarang</div>
+              <div id="q1-content" style="flex:1;overflow-y:auto;display:flex;flex-direction:column;min-height:0;"></div>
+            </div>
+
+            <!-- Q2 -->
+            <div class="quad">
+              <div class="quad-hd">
+                <div class="quad-title"><span class="qlbl">Q2</span>SCHEDULE</div>
+                <div class="quad-meta"><span class="big num" id="q2-count">0</span>tugas remaining</div>
+              </div>
+              <div class="quad-action">Important · Not Urgent — Rencanakan</div>
+              <div id="q2-content" style="flex:1;overflow-y:auto;display:flex;flex-direction:column;min-height:0;"></div>
+            </div>
+
+            <!-- Q3 -->
+            <div class="quad">
+              <div class="quad-hd">
+                <div class="quad-title"><span class="qlbl">Q3</span>DELEGATE</div>
+                <div class="quad-meta"><span class="big num" id="q3-count">0</span>tugas remaining</div>
+              </div>
+              <div class="quad-action">Urgent · Not Important — Delegasikan</div>
+              <div id="q3-content" style="flex:1;overflow-y:auto;display:flex;flex-direction:column;min-height:0;"></div>
+            </div>
+
+            <!-- Q4 -->
+            <div class="quad">
+              <div class="quad-hd">
+                <div class="quad-title"><span class="qlbl">Q4</span>ELIMINATE</div>
+                <div class="quad-meta"><span class="big num" id="q4-count">0</span>tugas remaining</div>
+              </div>
+              <div class="quad-action">Not Important · Not Urgent — Tunda/Hapus</div>
+              <div id="q4-content" style="flex:1;overflow-y:auto;display:flex;flex-direction:column;min-height:0;"></div>
+            </div>
+          </div>
+
+          <!-- Summary strip -->
+          <div id="eisen-summary" style="margin-top:16px;padding:12px 16px;background:var(--paper-2);border:1px solid var(--line);border-radius:6px;display:flex;justify-content:space-between;align-items:center;font-size:12px;"></div>
+        </div>
+      </div>
+
+      <!-- Category breakdown -->
+      <div class="card">
+        <div class="card-hd">
+          <div class="card-hd-l"><span class="hd-accent"></span><h3>Category Distribution</h3></div>
+          <span class="hd-sub" id="cat-hd-sub"></span>
+        </div>
+        <div class="card-bd">
+          <div class="cat-bd" id="cat-bd"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ RIGHT COLUMN: Full table + Job Desk Highlights ============ -->
+    <div class="col">
+      <div class="card" style="flex:1; min-height:0;">
+        <div class="card-hd">
+          <div class="card-hd-l"><span class="hd-accent"></span><h3>Completed List Jobdesk</h3></div>
+          <div style="display:flex;align-items:center;gap:12px;">
+            <span class="hd-sub" id="table-hd-sub"></span>
+            <button class="export-btn" onclick="exportReport()">
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M2 11v2a1 1 0 001 1h10a1 1 0 001-1v-2M8 2v8M5 7l3 3 3-3"/>
+              </svg>
+              Export Report
+            </button>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table class="jobs">
+            <thead>
+              <tr>
+                <th class="c-no">#</th>
+                <th>Jobdesk</th>
+                <th class="c-cat">Kategori</th>
+                <th class="c-pic">PIC</th>
+                <th class="c-prio">Priority</th>
+                <th class="c-stat">Status</th>
+              </tr>
+            </thead>
+            <tbody id="jobs-body"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- KEY TAKEAWAYS -->
+      <div class="card" style="flex:0 0 auto;">
+        <div class="card-hd">
+          <div class="card-hd-l"><span class="hd-accent"></span><h3>🔥 Job Desk Highlights</h3></div>
+          <span class="hd-sub">Highlight catatan jobdesk</span>
+        </div>
+        <div class="card-bd" style="overflow-y:auto; max-height:220px; scrollbar-width:thin; scrollbar-color:var(--line) transparent;">
+          <ul class="kt-list" id="kt-list"></ul>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div id="footer-l"></div>
+    <div id="footer-m"></div>
+    <div id="footer-r"></div>
+  </div>
+
+</div>
+
+<script src="data.js"></script>
+<script>
+(function () {
+  const picIds = PIC_CONFIG.map(p => p.id);
+  const total     = JOBS.length;
+  const done      = JOBS.filter(j => j.st === 'done').length;
+  const onProg    = total - done;
+  const q1Count   = JOBS.filter(j => j.prio === 'Q1').length;
+  const soloCount = JOBS.filter(j => j.pics.length === 1).length;
+  const collabCount = JOBS.filter(j => j.pics.length > 1).length;
+
+  // ── TICKER ──────────────────────────────────────────────────────────────────
+  if (typeof RUNNING_TEXT !== 'undefined') {
+    document.getElementById('ticker-text').textContent = RUNNING_TEXT;
+  }
+
+  // ── HEADER ──────────────────────────────────────────────────────────────────
+  document.getElementById('h-unit-title').textContent = DASHBOARD_META.unitTitle;
+  document.getElementById('h-page-title').innerHTML =
+    DASHBOARD_META.pageTitle + ' <span class="accent">' + DASHBOARD_META.titleAccent + '</span>';
+  document.getElementById('h-head-line').innerHTML =
+    'Kepala Unit Analisis Risiko Bisnis: <span style="color:#ffffff"><b>' + DASHBOARD_META.headName + '</b></span>';
+  document.getElementById('hm-period').textContent    = DASHBOARD_META.period;
+  document.getElementById('hm-total').textContent     = total + ' items';
+  document.getElementById('hm-pic-count').textContent = picIds.length + ' personel';
+  document.getElementById('hm-framework').textContent = DASHBOARD_META.framework;
+  (function updateLiveDateTime() {
+    var now = new Date();
+    var months = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
+    var day = String(now.getDate()).padStart(2,'0');
+    var mon = months[now.getMonth()];
+    var yr  = now.getFullYear();
+    var hh  = String(now.getHours()).padStart(2,'0');
+    var mm  = String(now.getMinutes()).padStart(2,'0');
+    var ss  = String(now.getSeconds()).padStart(2,'0');
+    var el  = document.getElementById('hm-live');
+    if (el) el.textContent = 'LIVE · ' + day + ' ' + mon + ' ' + yr + '  ' + hh + ':' + mm + ':' + ss;
+    setTimeout(updateLiveDateTime, 1000);
+  })();
+
+  // ── FOOTER ──────────────────────────────────────────────────────────────────
+  document.getElementById('footer-l').innerHTML =
+    '<strong>Job Assignment Dashboard · ' + DASHBOARD_META.titleAccent + '</strong> · Analisa Risiko · ' + DASHBOARD_META.period;
+  document.getElementById('footer-m').innerHTML =
+    'Kepala unit Analisa Risiko Bisnis: <strong>' + DASHBOARD_META.headName + '</strong> · April - 2026';
+  document.getElementById('footer-r').innerHTML =
+    '<strong>' + total + '</strong> Total · <strong>' + done + '</strong> Done · <strong>' + onProg + '</strong> On Progress';
+
+  // ── WORKLOAD ──────────────────────────────────────────────────────────────────
+  var WL_WARN_THRESHOLD = 25;
+  var picWL = {};
+  picIds.forEach(function(id) { picWL[id] = 0; });
+  var activeJobs = JOBS.filter(function(j) { return j.st !== 'done'; });
+  activeJobs.forEach(function(j) {
+    var w = j.wl || 3;
+    j.pics.forEach(function(id) { if (picWL[id] !== undefined) picWL[id] += w; });
+  });
+  var totalWL = activeJobs.reduce(function(s, j) { return s + (j.wl || 3); }, 0);
+  var maxPicWL = Math.max.apply(null, picIds.map(function(id) { return picWL[id]; }));
+
+  // ── KPI CARDS ───────────────────────────────────────────────────────────────
+  var kpis = [
+    { color:'blue',    label:'Total Jobdesk',  val:total,       hint:DASHBOARD_META.period + ' period' },
+    { color:'green',  label:'Completed',       val:done,        hint:Math.round(done/total*100)+'% · done' },
+    { color:'crimson',label:'On Progress',     val:onProg,      hint:Math.round(onProg/total*100)+'% · aktif berjalan' },
+    { color:'red',   label:'Q1 · Do Now',     val:q1Count,     hint:'Important · Urgent' },
+    { color:'slate', label:'PIC Individu',    val:soloCount,   hint:Math.round(soloCount/total*100)+'% · solo PIC' },
+    { color:'red',   label:'PIC Kolaborasi',  val:collabCount, hint:Math.round(collabCount/total*100)+'% · 2 PIC per item' },
+  ];
+  document.getElementById('kpi-grid').style.gridTemplateColumns = window.innerWidth < 480 ? '1fr 1fr' : '1fr 1fr 1fr';
+  document.getElementById('kpi-grid').innerHTML = kpis.map(function(k) {
+    return '<div class="kpi ' + k.color + '">' +
+      '<div class="bar"></div>' +
+      '<div class="lb">' + k.label + '</div>' +
+      '<div class="val num">' + k.val + '</div>' +
+      '<div class="hint">' + k.hint + '</div>' +
+      '</div>';
+  }).join('');
+
+  // ── PIC WORKLOAD ─────────────────────────────────────────────────────────────
+  var picStats = {};
+  picIds.forEach(function(id) { picStats[id] = { indv:0, col:0 }; });
+  JOBS.forEach(function(j) {
+    if (j.pics.length === 1) {
+      if (picStats[j.pics[0]]) picStats[j.pics[0]].indv++;
+    } else {
+      j.pics.forEach(function(id) { if (picStats[id]) picStats[id].col++; });
+    }
+  });
+
+  document.getElementById('pic-split-bar').innerHTML =
+    '<div class="split-chip">' +
+      '<div class="lb">PIC Individu</div>' +
+      '<div class="row"><span class="n num">' + soloCount + '</span><span class="pct">' + Math.round(soloCount/total*100) + '%</span></div>' +
+    '</div>' +
+    '<div class="split-chip red">' +
+      '<div class="lb">PIC Kolaborasi</div>' +
+      '<div class="row"><span class="n num">' + collabCount + '</span><span class="pct">' + Math.round(collabCount/total*100) + '%</span></div>' +
+    '</div>';
+
+  document.getElementById('pic-list').innerHTML = PIC_CONFIG.map(function(p) {
+    var s = picStats[p.id];
+    var tot = s.indv + s.col;
+    var indPct = tot > 0 ? (s.indv / tot * 100).toFixed(1) : 0;
+    var colPct = tot > 0 ? (s.col  / tot * 100).toFixed(1) : 0;
+    var note = s.indv === s.col ? ' · balance' : '';
+    return '<div class="pic-row">' +
+      '<div class="pic-badge ' + p.id + '">' + p.id + '</div>' +
+      '<div class="pic-body">' +
+        '<div class="name">' + p.id + '<span class="total">· ' + tot + ' assignment total</span></div>' +
+        '<div class="desc">' + s.indv + ' individu · ' + s.col + ' kolaborasi' + note + '</div>' +
+        '<div class="bar"><div class="ind" style="width:' + indPct + '%"></div><div class="col" style="width:' + colPct + '%"></div></div>' +
+      '</div>' +
+      '<div class="pic-stats">' +
+        '<div class="pic-stat"><div class="n">' + s.indv + '</div><div class="l">Indv</div></div>' +
+        '<div class="pic-stat"><div class="n">' + s.col  + '</div><div class="l">Col</div></div>' +
+        '<div class="pic-stat red"><div class="n">' + tot + '</div><div class="l">Total</div></div>' +
+      '</div>' +
+    '</div>';
+  }).join('');
+
+  // ── COLLAB MATRIX ────────────────────────────────────────────────────────────
+  var matrix = {};
+  picIds.forEach(function(a) {
+    matrix[a] = {};
+    picIds.forEach(function(b) { matrix[a][b] = a === b ? null : 0; });
+  });
+  JOBS.forEach(function(j) {
+    if (j.pics.length < 2) return;
+    for (var i = 0; i < j.pics.length; i++) {
+      for (var k = i + 1; k < j.pics.length; k++) {
+        var a = j.pics[i], b = j.pics[k];
+        if (matrix[a] && matrix[a][b] !== undefined) { matrix[a][b]++; matrix[b][a]++; }
+      }
+    }
+  });
+
+  function cellClass(v) {
+    if (v === null) return 'diag';
+    if (v === 0)   return 'z';
+    if (v <= 2)    return 'v2';
+    if (v <= 4)    return 'v3';
+    return 'v5';
+  }
+
+  var mEl = document.getElementById('collab-matrix');
+  mEl.style.gridTemplateColumns = (window.innerWidth < 640 ? '44px' : '60px') + ' repeat(' + picIds.length + ', 1fr)';
+  var mHtml = '<div class="ch"></div>';
+  picIds.forEach(function(id) { mHtml += '<div class="ch">' + id + '</div>'; });
+  picIds.forEach(function(row) {
+    mHtml += '<div class="rh">' + row + '</div>';
+    picIds.forEach(function(col) {
+      var v = matrix[row][col];
+      mHtml += '<div class="cell ' + cellClass(v) + '">' + (v === null ? '—' : v) + '</div>';
+    });
+  });
+  mEl.innerHTML = mHtml;
+
+
+  // ── WORKLOAD ANALYSIS CARD ───────────────────────────────────────────────────────
+  var sortedPics = picIds.slice().sort(function(a, b) { return picWL[b] - picWL[a]; });
+  var teamCapacity = WL_WARN_THRESHOLD * picIds.length;
+  var burnoutRate  = Math.round(totalWL / teamCapacity * 100);
+  var burnoutClass = burnoutRate < 80 ? 'ok' : burnoutRate < 100 ? 'warn' : '';
+  var burnoutIcon  = burnoutRate < 80 ? '✅' : burnoutRate < 100 ? '⚠️' : '🔥';
+  document.getElementById('burnout-stat').innerHTML =
+    '<div class="burnout-banner ' + burnoutClass + '">' +
+      '<div class="burnout-icon">' + burnoutIcon + '</div>' +
+      '<div class="burnout-body">' +
+        '<div class="burnout-rate">' + burnoutRate + '%</div>' +
+        '<div class="burnout-label">Burnout Rate</div>' +
+        '<div class="burnout-hint">Total WL ' + totalWL + ' ÷ kapasitas tim ' + teamCapacity + '</div>' +
+      '</div>' +
+    '</div>';
+  document.getElementById('wl-hd-sub').textContent = 'Beban total per PIC · threshold ' + WL_WARN_THRESHOLD;
+  document.getElementById('wl-bar-chart').innerHTML = sortedPics.map(function(id) {
+    var wl = picWL[id];
+    var pct = maxPicWL > 0 ? Math.round(wl / maxPicWL * 100) : 0;
+    var warn = wl > WL_WARN_THRESHOLD;
+    return '<div class="wl-chart-row">' +
+      '<div class="pic-badge ' + id + '">' + id + '</div>' +
+      '<div class="wl-track"><div class="wl-fill' + (warn ? ' warn' : '') +
+        '" style="width:' + pct + '%"></div></div>' +
+      '<div class="wl-val' + (warn ? ' warn' : '') + '">' + wl +
+        (warn ? '<span class="wl-warn-badge">!</span>' : '') + '</div>' +
+    '</div>';
+  }).join('');
+  document.getElementById('wl-legend').innerHTML = [1,2,3,4,5].map(function(v) {
+    return '<span class="wl-legend-item"><span class="wl-legend-dot wl-' + v + '"></span>' +
+      v + ' ' + WL_LABELS[v] + '</span>';
+  }).join('');
+
+  // ── EISENHOWER QUADS ─────────────────────────────────────────────────────────
+  var Q3_NOTE = 'Tugas mendesak namun bukan prioritas strategis. Pertimbangkan delegasi atau otomasi agar tim fokus pada Q1 & Q2.';
+  var EMPTY_STATE = '<div style="flex:1;display:flex;align-items:center;justify-content:center;color:var(--mute-2);font-size:11px;text-align:center;padding:18px;line-height:1.5;">' +
+    '<div><div style="font-size:44px;font-weight:200;color:var(--line);margin-bottom:6px;line-height:1;">∅</div>' +
+    'Tidak ada jobdesk dalam kategori ini.<br/>Seluruh tugas memiliki kepentingan strategis.</div></div>';
+
+  ['Q1','Q2','Q3','Q4'].forEach(function(q) {
+    var tasks = JOBS.filter(function(j) { return j.prio === q; })
+      .sort(function(a, b) { return (b.st === 'done' ? 1 : 0) - (a.st === 'done' ? 1 : 0); });
+    var activeCount = tasks.filter(function(j) { return (j.st || '').toLowerCase() !== 'done' && (j.st || '').toLowerCase() !== 'closed'; }).length;
+    document.getElementById(q.toLowerCase() + '-count').textContent = activeCount;
+    var el = document.getElementById(q.toLowerCase() + '-content');
+    if (tasks.length === 0) {
+      el.innerHTML = EMPTY_STATE;
+    } else {
+      var listHtml = '<ul class="quad-list">' + tasks.map(function(j, idx) {
+        var isDone = j.st === 'done';
+        return '<li' + (isDone ? ' class="done"' : '') + '>' +
+          '<span class="idx">' + String(idx+1).padStart(2,'0') + '</span>' +
+          '<span class="txt">' + j.job + '</span>' +
+          '<span class="tag">' + j.pics.join('·') + '</span>' +
+        '</li>';
+      }).join('') + '</ul>';
+      var noteHtml = q === 'Q3'
+        ? '<div style="margin-top:12px;padding:10px 12px;background:var(--paper-2);border:1px dashed var(--line);border-radius:4px;font-size:11px;color:var(--mute);line-height:1.5;">' + Q3_NOTE + '</div>'
+        : '';
+      el.innerHTML = listHtml + noteHtml;
+    }
+  });
+
+  // Eisenhower summary strip — active jobs only
+  var qCounts = { Q1:0, Q2:0, Q3:0, Q4:0 };
+  JOBS.forEach(function(j) { var s = (j.st || '').toLowerCase(); if (s !== 'done' && s !== 'closed' && qCounts[j.prio] !== undefined) qCounts[j.prio]++; });
+  document.getElementById('eisen-summary').innerHTML =
+    '<div style="color:var(--ink-3);">' +
+      '<strong style="color:var(--red);font-size:13px;">' + Math.round(qCounts.Q1/total*100) + '% (' + qCounts.Q1 + ')</strong> di Q1 · ' +
+      '<strong style="color:var(--ink);font-size:13px;">'  + Math.round(qCounts.Q2/total*100) + '% (' + qCounts.Q2 + ')</strong> di Q2 · ' +
+      '<strong style="color:var(--amber);font-size:13px;">'+ Math.round(qCounts.Q3/total*100) + '% (' + qCounts.Q3 + ')</strong> di Q3' +
+    '</div>' +
+    '<div style="color:var(--mute);font-size:11px;">Distribusi sehat — mayoritas pekerjaan bersifat Important</div>';
+
+  // ── CATEGORY BREAKDOWN ───────────────────────────────────────────────────────
+  var catCounts = {};
+  CATEGORY_CONFIG.forEach(function(c) { catCounts[c.label] = 0; });
+  JOBS.forEach(function(j) {
+    var cfg = CATEGORY_CONFIG.find(function(c) { return c.match.indexOf(j.cat) !== -1; });
+    if (cfg) catCounts[cfg.label]++;
+  });
+
+  document.getElementById('cat-hd-sub').textContent = 'Total ' + total + ' jobdesk';
+  document.getElementById('cat-bd').innerHTML = CATEGORY_CONFIG.map(function(c) {
+    var count = catCounts[c.label];
+    var pct = total > 0 ? (count / total * 100).toFixed(1) : 0;
+    return '<div class="cat-line ' + c.colorClass + '">' +
+      '<span class="name">' + c.label + '</span>' +
+      '<span class="tr"><span class="fl" style="width:' + pct + '%"></span></span>' +
+      '<span class="v">' + count + ' <span style="font-size:10px;font-weight:500;color:var(--mute);">(' + pct + '%)</span></span>' +
+    '</div>';
+  }).join('');
+
+  // ── KEY TAKEAWAYS ────────────────────────────────────────────────────────────
+  document.getElementById('kt-list').innerHTML = KEY_TAKEAWAYS.map(function(note) {
+    return '<li class="kt-item"><span class="kt-dot"></span><span>' + note + '</span></li>';
+  }).join('');
+
+  // ── JOBS TABLE ───────────────────────────────────────────────────────────────
+  document.getElementById('table-hd-sub').textContent = total + ' items · ' + DASHBOARD_META.period;
+  document.getElementById('jobs-body').innerHTML = JOBS.map(function(j) {
+    var pics = j.pics.map(function(p) {
+      return '<span class="pt-chip"><span class="d ' + p + '"></span>' + p + '</span>';
+    }).join('');
+    var stLower = (j.st || '').toLowerCase();
+    var stat = stLower === 'done'
+      ? '<span class="status-b done"><span class="d"></span>DONE</span>'
+      : stLower === 'closed'
+      ? '<span class="status-b closed"><span class="d"></span>CLOSED</span>'
+      : '<span class="status-b on"><span class="d"></span>ON</span>';
+    return '<tr>' +
+      '<td class="c-no">' + String(j.no).padStart(2,'0') + '</td>' +
+      '<td class="c-job">' + j.job + '</td>' +
+      '<td class="c-cat"><span class="cat-pill ' + j.cc + '">' + j.cat + '</span></td>' +
+      '<td class="c-pic"><div class="pcell">' + pics + '</div></td>' +
+      '<td class="c-prio"><span class="prio-b ' + j.prio + '"><span class="sq"></span>' + j.pl + '</span></td>' +
+      '<td class="c-stat">' + stat + '</td>' +
+    '</tr>';
+  }).join('');
+})();
+</script>
+
+<script>
+function exportReport() {
+  var now = new Date();
+  var MONTHS = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
+  var dateStr = now.getDate() + ' ' + MONTHS[now.getMonth()] + ' ' + now.getFullYear();
+  var timeStr = String(now.getHours()).padStart(2,'0') + ':' + String(now.getMinutes()).padStart(2,'0');
+  var filenameDate = now.getFullYear() + '-' + String(now.getMonth()+1).padStart(2,'0') + '-' + String(now.getDate()).padStart(2,'0');
+
+  var doneJobs   = JOBS.filter(function(j) { return j.st === 'done'; });
+  var onJobs     = JOBS.filter(function(j) { return j.st === 'on'; });
+  var closedJobs = JOBS.filter(function(j) { return j.st === 'closed'; });
+
+  // Per-PIC outstanding jobs map
+  var picMap = {};
+  PIC_CONFIG.forEach(function(p) { picMap[p.id] = []; });
+  onJobs.forEach(function(j) {
+    j.pics.forEach(function(pid) { if (picMap[pid]) picMap[pid].push(j); });
+  });
+
+  function makeRow(j, idx) {
+    return '<tr>' +
+      '<td class="mono">' + String(idx + 1).padStart(2, '0') + '</td>' +
+      '<td>' + j.job + '</td>' +
+      '<td class="cat">' + j.cat + '</td>' +
+      '<td class="pics">' + j.pics.join(', ') + '</td>' +
+      '<td class="prio">' + j.pl + '</td>' +
+    '</tr>';
+  }
+
+  var doneRows = doneJobs.map(makeRow).join('');
+
+  var picSections = PIC_CONFIG.map(function(p) {
+    var jobs = picMap[p.id];
+    var rows = jobs.map(makeRow).join('');
+    var picColors = { NDI:'#1E2740', RFA:'#C8102E', BAI:'#334155', SSO:'#B7791F' };
+    var bg = picColors[p.id] || '#18191C';
+    return '<div class="pic-section">' +
+      '<div class="pic-hdr">' +
+        '<span class="pic-badge" style="background:' + bg + '">' + p.id + '</span>' +
+        '<span class="pic-label">' + p.id + '</span>' +
+        '<span class="pic-cnt">' + jobs.length + ' pekerjaan outstanding</span>' +
+      '</div>' +
+      (jobs.length > 0
+        ? '<table><thead><tr><th>#</th><th>Jobdesk</th><th>Kategori</th><th>PIC</th><th>Priority</th></tr></thead>' +
+          '<tbody>' + rows + '</tbody></table>'
+        : '<div class="empty-state">Tidak ada pekerjaan outstanding — semua selesai ✓</div>'
+      ) +
+    '</div>';
+  }).join('');
+
+  var donePct  = JOBS.length > 0 ? Math.round(doneJobs.length / JOBS.length * 100) : 0;
+  var onPct    = JOBS.length > 0 ? Math.round(onJobs.length   / JOBS.length * 100) : 0;
+
+  var html = '<!doctype html>\n' +
+    '<html lang="id">\n<head>\n' +
+    '<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">\n' +
+    '<title>Laporan Pekerjaan Unit ARI · ' + dateStr + '</title>\n' +
+    '<link rel="preconnect" href="https://fonts.googleapis.com">' +
+    '<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">\n' +
+    '<style>\n' +
+    ':root{--red:#C8102E;--ink:#18191C;--ink3:#484C55;--green:#1F7A4D;--amber:#B7791F;--mute:#6C7079;--line:#D8DBE0;--paper:#F3F4F6;}\n' +
+    '*{box-sizing:border-box;margin:0;padding:0;}\n' +
+    'body{font-family:"Inter",sans-serif;color:var(--ink);background:#fff;padding:40px 52px;font-size:12.5px;line-height:1.55;}\n' +
+    '@media print{body{padding:20px 28px;font-size:11.5px;}}\n' +
+    '.report-hdr{border-bottom:4px solid var(--red);padding-bottom:18px;margin-bottom:26px;}\n' +
+    '.unit-line{font-size:10px;text-transform:uppercase;letter-spacing:.13em;color:var(--mute);font-weight:700;}\n' +
+    '.rpt-title{font-size:26px;font-weight:800;letter-spacing:-.02em;margin-top:5px;}\n' +
+    '.rpt-title .acc{color:var(--red);}\n' +
+    '.rpt-meta{margin-top:7px;font-size:11.5px;color:var(--mute);}\n' +
+    '.sum-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:32px;}\n' +
+    '.sum-card{border:1px solid var(--line);border-radius:7px;padding:14px 18px;}\n' +
+    '.sum-card .lbl{font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--mute);}\n' +
+    '.sum-card .val{font-size:30px;font-weight:800;margin-top:3px;font-family:"Inter",sans-serif;}\n' +
+    '.sum-card .sub{font-size:10.5px;color:var(--mute);margin-top:2px;}\n' +
+    '.sum-card.green{border-color:#9ADCBC;background:#F0FAF5;}.sum-card.green .val{color:var(--green);}\n' +
+    '.sum-card.red{border-color:#EDB5BE;background:#FEF2F4;}.sum-card.red .val{color:var(--red);}\n' +
+    '.sec-title{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;' +
+      'padding:7px 0 10px;border-bottom:2px solid var(--ink);margin-bottom:14px;' +
+      'display:flex;align-items:center;gap:10px;margin-top:4px;}\n' +
+    '.sec-badge{font-size:9.5px;font-weight:700;padding:2px 9px;border-radius:3px;letter-spacing:.06em;color:#fff;}\n' +
+    '.sec-badge.green{background:var(--green);}.sec-badge.red{background:var(--red);}\n' +
+    'table{width:100%;border-collapse:collapse;margin-bottom:28px;}\n' +
+    'thead th{background:var(--paper);font-size:9.5px;font-weight:700;text-transform:uppercase;' +
+      'letter-spacing:.08em;color:var(--mute);padding:7px 10px;text-align:left;border-bottom:1px solid var(--line);}\n' +
+    'tbody tr:nth-child(even){background:#FAFAFB;}\n' +
+    'tbody td{padding:7px 10px;border-bottom:1px solid #EAECEF;vertical-align:top;}\n' +
+    'td.mono{font-family:"IBM Plex Mono",monospace;font-size:10.5px;color:var(--mute);white-space:nowrap;}\n' +
+    'td.cat{font-size:11px;color:var(--ink3);white-space:nowrap;}\n' +
+    'td.pics{font-size:11px;font-weight:600;white-space:nowrap;}\n' +
+    'td.prio{font-size:11px;white-space:nowrap;}\n' +
+    '.pic-section{margin-bottom:28px;page-break-inside:avoid;}\n' +
+    '.pic-hdr{display:flex;align-items:center;gap:11px;margin-bottom:10px;}\n' +
+    '.pic-badge{display:inline-flex;align-items:center;justify-content:center;' +
+      'width:36px;height:36px;border-radius:50%;color:#fff;font-size:11px;font-weight:800;flex-shrink:0;}\n' +
+    '.pic-label{font-size:14px;font-weight:800;letter-spacing:.02em;}\n' +
+    '.pic-cnt{font-size:11.5px;color:var(--mute);font-weight:500;}\n' +
+    '.empty-state{padding:11px 14px;background:var(--paper);border:1px dashed var(--line);border-radius:4px;color:var(--mute);font-size:11.5px;margin-bottom:16px;}\n' +
+    '.page-break{page-break-before:always;margin-top:0;}\n' +
+    '.rpt-footer{margin-top:40px;padding-top:12px;border-top:1px solid var(--line);font-size:10.5px;color:var(--mute);display:flex;justify-content:space-between;}\n' +
+    '@media print{.page-break{page-break-before:always;}}\n' +
+    '</style>\n</head>\n<body>\n\n' +
+
+    '<div class="report-hdr">' +
+      '<div class="unit-line">Unit Analisa Risiko Bisnis (ARI) · PT Kliring Penjaminan Efek Indonesia</div>' +
+      '<div class="rpt-title">Laporan Status Pekerjaan <span class="acc">Unit ARI</span></div>' +
+      '<div class="rpt-meta">Dicetak: ' + dateStr + ', pukul ' + timeStr + ' WIB' +
+        ' &nbsp;·&nbsp; Periode: ' + DASHBOARD_META.period +
+        ' &nbsp;·&nbsp; Kepala Unit: ' + DASHBOARD_META.headName + '</div>' +
+    '</div>\n\n' +
+
+    '<div class="sum-grid">' +
+      '<div class="sum-card"><div class="lbl">Total Jobdesk</div><div class="val">' + JOBS.length + '</div><div class="sub">Semua status</div></div>' +
+      '<div class="sum-card green"><div class="lbl">Selesai (Done)</div><div class="val">' + doneJobs.length + '</div><div class="sub">' + donePct + '% dari total</div></div>' +
+      '<div class="sum-card red"><div class="lbl">Outstanding (On)</div><div class="val">' + onJobs.length + '</div><div class="sub">' + onPct + '% dari total</div></div>' +
+      '<div class="sum-card"><div class="lbl">Closed / Deferred</div><div class="val">' + closedJobs.length + '</div><div class="sub">Tidak dilanjutkan</div></div>' +
+    '</div>\n\n' +
+
+    '<div class="sec-title"><span class="sec-badge green">DONE</span> Daftar Pekerjaan Selesai (' + doneJobs.length + ' item)</div>\n' +
+    '<table><thead><tr><th>#</th><th>Jobdesk</th><th>Kategori</th><th>PIC</th><th>Priority</th></tr></thead>' +
+    '<tbody>' + doneRows + '</tbody></table>\n\n' +
+
+    '<div class="page-break"></div>\n\n' +
+
+    '<div class="sec-title"><span class="sec-badge red">OUTSTANDING</span> Daftar Pekerjaan Outstanding per PIC (' + onJobs.length + ' item)</div>\n' +
+    picSections + '\n' +
+
+    '<div class="rpt-footer">' +
+      '<span>Job Assignment Dashboard · Unit ARI · ' + DASHBOARD_META.period + '</span>' +
+      '<span>Digenerate otomatis &nbsp;·&nbsp; ' + dateStr + ' ' + timeStr + ' WIB</span>' +
+    '</div>\n\n' +
+    '</body>\n</html>';
+
+  var blob = new Blob([html], { type: 'text/html;charset=utf-8' });
+  var url  = URL.createObjectURL(blob);
+  var win  = window.open(url, '_blank');
+  if (!win) {
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = 'laporan-ari-' + filenameDate + '.html';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  }
+  setTimeout(function() { URL.revokeObjectURL(url); }, 120000);
+}
+</script>
+
+</body>
+</html>
