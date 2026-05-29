@@ -1426,6 +1426,36 @@ function exportReport() {
   }
   setTimeout(function() { URL.revokeObjectURL(url); }, 120000);
 }
+
+// ── RIGHT-PANEL HEIGHT SYNC ─────────────────────────────────────────────────
+function matchRightColHeight() {
+  var grid = document.querySelector('.body-grid');
+  var cols = grid ? grid.querySelectorAll(':scope > .col') : [];
+  if (cols.length < 3) return;
+
+  var leftCol  = cols[0];
+  var rightCol = cols[2];
+
+  if (window.innerWidth < 1200) {
+    rightCol.style.maxHeight = '';
+    rightCol.style.overflow  = '';
+    return;
+  }
+
+  // Temporarily switch to content-height layout so left col reflects its
+  // natural height without being stretched by the taller right col.
+  // No paint occurs because we restore in the same synchronous call.
+  var savedAlign = grid.style.alignItems;
+  grid.style.alignItems = 'start';
+  var targetH = leftCol.getBoundingClientRect().height;
+  grid.style.alignItems = savedAlign;
+
+  rightCol.style.maxHeight = targetH + 'px';
+  rightCol.style.overflow  = 'hidden';
+}
+
+window.addEventListener('load',   matchRightColHeight);
+window.addEventListener('resize', matchRightColHeight);
 </script>
 
 </body>
