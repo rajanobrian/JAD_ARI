@@ -307,6 +307,7 @@
     display: grid;
     grid-template-columns: 42px 1fr 1fr;
     grid-template-rows: 28px 1fr 1fr;
+    align-items: stretch;
     gap: 0;
   }
   .eisen .corner { background: transparent; }
@@ -339,8 +340,10 @@
     border: 1px solid var(--line); background: var(--white);
     padding: 14px 16px;
     display: flex; flex-direction: column;
+    height: 100%;
     min-height: 0;
     overflow: hidden;
+    box-sizing: border-box;
   }
   .quad.Q1 { background: #FFF7F9; }
   .quad-hd { display: flex; justify-content: space-between; align-items: baseline; padding-bottom: 10px; border-bottom: 1px dashed var(--line); margin-bottom: 10px; }
@@ -353,9 +356,20 @@
   .quad-meta .big { font-size: 18px; font-weight: 800; color: var(--ink); margin-right: 4px; font-family: 'IBM Plex Sans', sans-serif; }
   .quad.Q1 .quad-meta .big { color: var(--red); }
   .quad-list { list-style: none; font-size: 11.5px; line-height: 1.35; flex: 1; overflow-y: auto; min-height: 0; scrollbar-width: thin; scrollbar-color: var(--line) transparent; }
-  .quad-list::-webkit-scrollbar { width: 4px; }
+  .quad-list::-webkit-scrollbar { width: 3px; }
   .quad-list::-webkit-scrollbar-track { background: transparent; }
-  .quad-list::-webkit-scrollbar-thumb { background: var(--line); border-radius: 2px; }
+  .quad-list::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.15); border-radius: 2px; }
+  /* quad content containers — fill quad, scroll internally */
+  #q1-content, #q2-content, #q3-content, #q4-content {
+    flex: 1; overflow-y: auto; display: flex; flex-direction: column; min-height: 0;
+    scrollbar-width: thin; scrollbar-color: rgba(0,0,0,0.12) transparent;
+  }
+  #q1-content::-webkit-scrollbar, #q2-content::-webkit-scrollbar,
+  #q3-content::-webkit-scrollbar, #q4-content::-webkit-scrollbar { width: 3px; }
+  #q1-content::-webkit-scrollbar-thumb, #q2-content::-webkit-scrollbar-thumb,
+  #q3-content::-webkit-scrollbar-thumb, #q4-content::-webkit-scrollbar-thumb {
+    background: rgba(0,0,0,0.15); border-radius: 2px;
+  }
   .quad-list li { padding: 5px 0; border-bottom: 1px dotted var(--line-2); display: flex; gap: 6px; align-items: baseline; }
   .quad-list li:last-child { border-bottom: none; }
   .quad-list li.done { background: #EDFAF3; border-radius: 4px; border-bottom: 1px dotted #B6E8CE; padding: 5px 6px; }
@@ -589,6 +603,26 @@
     .col { gap: 22px; min-height: 0; }
     .header { padding: 28px 48px; }
     .footer { padding: 0 48px; height: 46px; }
+
+    /* Viewport-locked left and center columns */
+    .col-panel-locked {
+      height: 100vh;
+      max-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      gap: 0;
+    }
+    .panel-part-b {
+      flex: 1;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+      min-height: 0;
+      padding-right: 2px;
+    }
+
   }
 
   /* --- Mobile: < 640px — 1 kolom --- */
@@ -672,7 +706,7 @@
       grid-template-rows: 28px auto auto;
     }
     .eisen .axis-top { grid-column: 1 / 3; }
-    .quad { padding: 10px 12px; overflow: visible !important; }
+    .quad { padding: 10px 12px; height: auto !important; overflow: visible !important; }
     .quad-list { font-size: 11px; overflow-y: visible !important; min-height: auto !important; }
     #q1-content, #q2-content, #q3-content, #q4-content {
       flex: 0 0 auto !important;
@@ -756,6 +790,28 @@
     table.jobs td { font-size: 10.5px; }
   }
 
+  /* ============ LEFT / CENTER PANEL SCROLL (desktop) ============ */
+  @media (min-width: 1200px) {
+    .left-panel-b,
+    .center-panel-b {
+      scrollbar-width: thin;
+      scrollbar-color: rgba(255,255,255,0.2) transparent;
+    }
+    .left-panel-b::-webkit-scrollbar,
+    .center-panel-b::-webkit-scrollbar { width: 4px; }
+    .left-panel-b::-webkit-scrollbar-track,
+    .center-panel-b::-webkit-scrollbar-track { background: transparent; }
+    .left-panel-b::-webkit-scrollbar-thumb,
+    .center-panel-b::-webkit-scrollbar-thumb {
+      background: rgba(255,255,255,0.2);
+      border-radius: 2px;
+    }
+    .left-panel-b::-webkit-scrollbar-thumb:hover,
+    .center-panel-b::-webkit-scrollbar-thumb:hover {
+      background: rgba(255,255,255,0.4);
+    }
+  }
+
   /* --- Very small phones: < 380px --- */
   @media (max-width: 380px) {
     h1.page-title { font-size: 18px; }
@@ -830,58 +886,70 @@
   <div class="body-grid">
 
     <!-- ============ LEFT COLUMN ============ -->
-    <div class="col">
-      <!-- KPI stacked -->
-      <div id="kpi-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:14px;"></div>
+    <div class="col col-panel-locked">
 
-      <!-- PIC Workload -->
-      <div class="card" style="flex:0 0 auto;">
-        <div class="card-hd">
-          <div class="card-hd-l"><span class="hd-accent"></span><h3>Job Assignment per PIC</h3></div>
-          <span class="hd-sub">Individu vs Kolaborasi</span>
-        </div>
-        <div class="card-bd">
-          <div id="pic-split-bar" class="split-bar"></div>
-          <div id="pic-list"></div>
-          <div style="margin-top:8px;padding-top:8px;border-top:1px solid var(--line-2);font-size:11px;color:var(--mute);line-height:1.4;">
-            Dihitung dari kemunculan inisial di kolom PIC. Pada tugas kolaborasi, masing-masing PIC dihitung satu kali.
+      <!-- Part A: fixed — KPI cards -->
+      <div style="flex-shrink:0;padding-bottom:22px;">
+        <div id="kpi-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:14px;"></div>
+      </div>
+
+      <!-- Part B: scrollable — PIC Workload + Collaboration + Workload Analysis -->
+      <div class="left-panel-b panel-part-b">
+
+        <!-- PIC Workload -->
+        <div class="card" style="flex:0 0 auto;">
+          <div class="card-hd">
+            <div class="card-hd-l"><span class="hd-accent"></span><h3>Job Assignment per PIC</h3></div>
+            <span class="hd-sub">Individu vs Kolaborasi</span>
+          </div>
+          <div class="card-bd">
+            <div id="pic-split-bar" class="split-bar"></div>
+            <div id="pic-list"></div>
+            <div style="margin-top:8px;padding-top:8px;border-top:1px solid var(--line-2);font-size:11px;color:var(--mute);line-height:1.4;">
+              Dihitung dari kemunculan inisial di kolom PIC. Pada tugas kolaborasi, masing-masing PIC dihitung satu kali.
+            </div>
           </div>
         </div>
-      </div>
 
-      <!-- Collaboration -->
-      <div class="card" style="flex:0 0 auto;">
-        <div class="card-hd">
-          <div class="card-hd-l"><span class="hd-accent"></span><h3>Collaboration Matrix</h3></div>
-          <span class="hd-sub">Jumlah tugas bersama</span>
+        <!-- Collaboration -->
+        <div class="card" style="flex:0 0 auto;">
+          <div class="card-hd">
+            <div class="card-hd-l"><span class="hd-accent"></span><h3>Collaboration Matrix</h3></div>
+            <span class="hd-sub">Jumlah tugas bersama</span>
+          </div>
+          <div class="card-bd">
+            <div id="collab-matrix" class="collab-matrix"></div>
+          </div>
         </div>
-        <div class="card-bd">
-          <div id="collab-matrix" class="collab-matrix"></div>
-        </div>
-      </div>
 
-      <!-- Skala Workload -->
-      <div class="card" id="wl-scale-card" style="flex:1;">
-        <div class="card-hd">
-          <div class="card-hd-l"><span class="hd-accent"></span><h3>Workload Analysis</h3></div>
-          <span class="hd-sub" id="wl-hd-sub"></span>
+        <!-- Workload Analysis -->
+        <div class="card" id="wl-scale-card" style="flex:0 0 auto;">
+          <div class="card-hd">
+            <div class="card-hd-l"><span class="hd-accent"></span><h3>Workload Analysis</h3></div>
+            <span class="hd-sub" id="wl-hd-sub"></span>
+          </div>
+          <div class="card-bd">
+            <div id="burnout-stat"></div>
+            <div id="wl-bar-chart"></div>
+            <div id="wl-legend" class="wl-legend"></div>
+          </div>
         </div>
-        <div class="card-bd">
-          <div id="burnout-stat"></div>
-          <div id="wl-bar-chart"></div>
-          <div id="wl-legend" class="wl-legend"></div>
-        </div>
+
       </div>
     </div>
 
     <!-- ============ MIDDLE COLUMN: Eisenhower Matrix ============ -->
-    <div class="col">
-      <div class="card" id="eisen-card" style="flex:1;">
-        <div class="card-hd">
+    <div class="col col-panel-locked">
+
+      <!-- Eisen card: title bar fixed (flex-shrink:0 via card-hd), body scrolls -->
+      <div class="card" id="eisen-card" style="flex:1;min-height:0;display:flex;flex-direction:column;">
+        <!-- Part A: fixed title bar -->
+        <div class="card-hd" style="flex-shrink:0;">
           <div class="card-hd-l"><span class="hd-accent"></span><h3>Priority Matrix</h3></div>
           <span class="hd-sub">Urgency × Importance</span>
         </div>
-        <div class="card-bd" id="eisen-card-bd" style="display:flex;flex-direction:column;min-height:0;overflow:hidden;">
+        <!-- Part B: grid + summary — overflow hidden so grid 1fr rows get defined height -->
+        <div class="card-bd center-panel-b" id="eisen-card-bd" style="flex:1;overflow:hidden;display:flex;flex-direction:column;min-height:0;">
           <div class="eisen" style="flex:1;min-height:0;">
             <div class="corner"></div>
             <div class="axis-top"><div>Urgent</div><div>Not Urgent</div></div>
@@ -894,7 +962,7 @@
                 <div class="quad-meta"><span class="big num" id="q1-count">0</span>tugas remaining</div>
               </div>
               <div class="quad-action">Important · Urgent — Kerjakan Sekarang</div>
-              <div id="q1-content" style="flex:1;overflow-y:auto;display:flex;flex-direction:column;min-height:0;"></div>
+              <div id="q1-content"></div>
             </div>
 
             <!-- Q2 -->
@@ -904,7 +972,7 @@
                 <div class="quad-meta"><span class="big num" id="q2-count">0</span>tugas remaining</div>
               </div>
               <div class="quad-action">Important · Not Urgent — Rencanakan</div>
-              <div id="q2-content" style="flex:1;overflow-y:auto;display:flex;flex-direction:column;min-height:0;"></div>
+              <div id="q2-content"></div>
             </div>
 
             <!-- Q3 -->
@@ -914,7 +982,7 @@
                 <div class="quad-meta"><span class="big num" id="q3-count">0</span>tugas remaining</div>
               </div>
               <div class="quad-action">Urgent · Not Important — Delegasikan</div>
-              <div id="q3-content" style="flex:1;overflow-y:auto;display:flex;flex-direction:column;min-height:0;"></div>
+              <div id="q3-content"></div>
             </div>
 
             <!-- Q4 -->
@@ -924,17 +992,17 @@
                 <div class="quad-meta"><span class="big num" id="q4-count">0</span>tugas remaining</div>
               </div>
               <div class="quad-action">Not Important · Not Urgent — Tunda/Hapus</div>
-              <div id="q4-content" style="flex:1;overflow-y:auto;display:flex;flex-direction:column;min-height:0;"></div>
+              <div id="q4-content"></div>
             </div>
           </div>
 
-          <!-- Summary strip -->
-          <div id="eisen-summary" style="margin-top:16px;padding:12px 16px;background:var(--paper-2);border:1px solid var(--line);border-radius:6px;display:flex;justify-content:space-between;align-items:center;font-size:12px;"></div>
+          <!-- Summary strip — fixed below grid -->
+          <div id="eisen-summary" style="flex-shrink:0;margin-top:12px;padding:12px 16px;background:var(--paper-2);border:1px solid var(--line);border-radius:6px;display:flex;justify-content:space-between;align-items:center;font-size:12px;"></div>
         </div>
       </div>
 
-      <!-- Category breakdown -->
-      <div class="card">
+      <!-- Category Distribution — separate card below eisen-card -->
+      <div class="card" style="flex:0 0 auto;margin-top:20px;">
         <div class="card-hd">
           <div class="card-hd-l"><span class="hd-accent"></span><h3>Category Distribution</h3></div>
           <span class="hd-sub" id="cat-hd-sub"></span>
@@ -943,6 +1011,7 @@
           <div class="cat-bd" id="cat-bd"></div>
         </div>
       </div>
+
     </div>
 
     <!-- ============ RIGHT COLUMN: Full table + Job Desk Highlights ============ -->
@@ -981,7 +1050,15 @@
       <div class="card" style="flex:0 0 auto;">
         <div class="card-hd">
           <div class="card-hd-l"><span class="hd-accent"></span><h3>🔥 Job Desk Highlights</h3></div>
-          <span class="hd-sub">Highlight catatan jobdesk</span>
+          <div style="display:flex;align-items:center;gap:12px;">
+            <span class="hd-sub">Highlight catatan jobdesk</span>
+            <button class="export-btn" onclick="exportHighlights()">
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M2 11v2a1 1 0 001 1h10a1 1 0 001-1v-2M8 2v8M5 7l3 3 3-3"/>
+              </svg>
+              Export Highlights
+            </button>
+          </div>
         </div>
         <div class="card-bd" style="overflow-y:auto; max-height:220px; scrollbar-width:thin; scrollbar-color:var(--line) transparent;">
           <ul class="kt-list" id="kt-list"></ul>
@@ -1194,9 +1271,9 @@
 
   // ── EISENHOWER QUADS ─────────────────────────────────────────────────────────
   var Q3_NOTE = 'Tugas mendesak namun bukan prioritas strategis. Pertimbangkan delegasi atau otomasi agar tim fokus pada Q1 & Q2.';
-  var EMPTY_STATE = '<div style="flex:1;display:flex;align-items:center;justify-content:center;color:var(--mute-2);font-size:11px;text-align:center;padding:18px;line-height:1.5;">' +
-    '<div><div style="font-size:44px;font-weight:200;color:var(--line);margin-bottom:6px;line-height:1;">∅</div>' +
-    'Tidak ada jobdesk dalam kategori ini.<br/>Seluruh tugas memiliki kepentingan strategis.</div></div>';
+  var EMPTY_STATE = '<div style="flex:1;display:flex;align-items:center;justify-content:center;padding:18px;">' +
+    '<span style="font-style:italic;color:var(--mute-2);font-size:12px;text-align:center;">Tidak ada tugas di kuadran ini</span>' +
+    '</div>';
 
   ['Q1','Q2','Q3','Q4'].forEach(function(q) {
     var tasks = JOBS.filter(function(j) { return j.prio === q; })
@@ -1293,6 +1370,15 @@ function exportReport() {
   var onJobs     = JOBS.filter(function(j) { return j.st === 'on'; });
   var closedJobs = JOBS.filter(function(j) { return j.st === 'closed'; });
 
+  var picColors = { NDI:'#1E2740', RFA:'#C8102E', BAI:'#334155', SSO:'#B7791F' };
+
+  // Per-PIC done jobs map
+  var picDoneMap = {};
+  PIC_CONFIG.forEach(function(p) { picDoneMap[p.id] = []; });
+  doneJobs.forEach(function(j) {
+    j.pics.forEach(function(pid) { if (picDoneMap[pid]) picDoneMap[pid].push(j); });
+  });
+
   // Per-PIC outstanding jobs map
   var picMap = {};
   PIC_CONFIG.forEach(function(p) { picMap[p.id] = []; });
@@ -1310,12 +1396,27 @@ function exportReport() {
     '</tr>';
   }
 
-  var doneRows = doneJobs.map(makeRow).join('');
+  var picDoneSections = PIC_CONFIG.map(function(p) {
+    var jobs = picDoneMap[p.id];
+    var rows = jobs.map(makeRow).join('');
+    var bg = picColors[p.id] || '#18191C';
+    return '<div class="pic-section">' +
+      '<div class="pic-hdr">' +
+        '<span class="pic-badge" style="background:' + bg + '">' + p.id + '</span>' +
+        '<span class="pic-label">' + p.id + '</span>' +
+        '<span class="pic-cnt">' + jobs.length + ' pekerjaan selesai</span>' +
+      '</div>' +
+      (jobs.length > 0
+        ? '<table><thead><tr><th>#</th><th>Jobdesk</th><th>Kategori</th><th>PIC</th><th>Priority</th></tr></thead>' +
+          '<tbody>' + rows + '</tbody></table>'
+        : '<div class="empty-state">Tidak ada pekerjaan selesai untuk PIC ini</div>'
+      ) +
+    '</div>';
+  }).join('');
 
   var picSections = PIC_CONFIG.map(function(p) {
     var jobs = picMap[p.id];
     var rows = jobs.map(makeRow).join('');
-    var picColors = { NDI:'#1E2740', RFA:'#C8102E', BAI:'#334155', SSO:'#B7791F' };
     var bg = picColors[p.id] || '#18191C';
     return '<div class="pic-section">' +
       '<div class="pic-hdr">' +
@@ -1398,9 +1499,8 @@ function exportReport() {
       '<div class="sum-card"><div class="lbl">Closed / Deferred</div><div class="val">' + closedJobs.length + '</div><div class="sub">Tidak dilanjutkan</div></div>' +
     '</div>\n\n' +
 
-    '<div class="sec-title"><span class="sec-badge green">DONE</span> Daftar Pekerjaan Selesai (' + doneJobs.length + ' item)</div>\n' +
-    '<table><thead><tr><th>#</th><th>Jobdesk</th><th>Kategori</th><th>PIC</th><th>Priority</th></tr></thead>' +
-    '<tbody>' + doneRows + '</tbody></table>\n\n' +
+    '<div class="sec-title"><span class="sec-badge green">DONE</span> Daftar Pekerjaan Selesai per PIC (' + doneJobs.length + ' item)</div>\n' +
+    picDoneSections + '\n' +
 
     '<div class="page-break"></div>\n\n' +
 
@@ -1420,6 +1520,90 @@ function exportReport() {
     var a = document.createElement('a');
     a.href = url;
     a.download = 'laporan-ari-' + filenameDate + '.html';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  }
+  setTimeout(function() { URL.revokeObjectURL(url); }, 120000);
+}
+
+function exportHighlights() {
+  var now = new Date();
+  var MONTHS = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
+  var dateStr = now.getDate() + ' ' + MONTHS[now.getMonth()] + ' ' + now.getFullYear();
+  var timeStr = String(now.getHours()).padStart(2,'0') + ':' + String(now.getMinutes()).padStart(2,'0');
+  var filenameDate = now.getFullYear() + '-' + String(now.getMonth()+1).padStart(2,'0') + '-' + String(now.getDate()).padStart(2,'0');
+
+  var notesHtml = KEY_TAKEAWAYS.map(function(note, idx) {
+    return '<li>' +
+      '<span class="note-num">' + String(idx + 1).padStart(2, '0') + '</span>' +
+      '<span class="note-txt">' + note + '</span>' +
+    '</li>';
+  }).join('');
+
+  var html = '<!doctype html>\n' +
+    '<html lang="id">\n<head>\n' +
+    '<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">\n' +
+    '<title>Highlights & Catatan Jobdesk ARI · ' + dateStr + '</title>\n' +
+    '<link rel="preconnect" href="https://fonts.googleapis.com">' +
+    '<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">\n' +
+    '<style>\n' +
+    ':root{--red:#C8102E;--ink:#18191C;--ink3:#484C55;--green:#1F7A4D;--amber:#B7791F;--mute:#6C7079;--line:#D8DBE0;--paper:#F3F4F6;}\n' +
+    '*{box-sizing:border-box;margin:0;padding:0;}\n' +
+    'body{font-family:"Inter",sans-serif;color:var(--ink);background:#fff;padding:40px 52px;font-size:12.5px;line-height:1.55;}\n' +
+    '@media print{body{padding:20px 28px;font-size:11.5px;}}\n' +
+    '.report-hdr{border-bottom:4px solid var(--red);padding-bottom:18px;margin-bottom:26px;}\n' +
+    '.unit-line{font-size:10px;text-transform:uppercase;letter-spacing:.13em;color:var(--mute);font-weight:700;}\n' +
+    '.rpt-title{font-size:26px;font-weight:800;letter-spacing:-.02em;margin-top:5px;}\n' +
+    '.rpt-title .acc{color:var(--red);}\n' +
+    '.rpt-meta{margin-top:7px;font-size:11.5px;color:var(--mute);}\n' +
+    '.sec-title{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;' +
+      'padding:7px 0 10px;border-bottom:2px solid var(--ink);margin-bottom:20px;' +
+      'display:flex;align-items:center;gap:10px;margin-top:4px;}\n' +
+    '.sec-badge{font-size:9.5px;font-weight:700;padding:2px 9px;border-radius:3px;letter-spacing:.06em;color:#fff;background:var(--red);}\n' +
+    '.notes-list{list-style:none;display:flex;flex-direction:column;gap:0;}\n' +
+    '.notes-list li{display:flex;gap:16px;align-items:baseline;padding:12px 16px;border-bottom:1px solid var(--line);}\n' +
+    '.notes-list li:last-child{border-bottom:none;}\n' +
+    '.notes-list li:nth-child(even){background:#FAFAFB;}\n' +
+    '.note-num{font-family:"IBM Plex Mono",monospace;font-size:11px;font-weight:600;color:var(--mute);width:22px;flex-shrink:0;}\n' +
+    '.note-txt{font-size:13px;color:var(--ink);line-height:1.6;flex:1;}\n' +
+    '.notes-box{border:1px solid var(--line);border-radius:8px;overflow:hidden;margin-bottom:32px;}\n' +
+    '.count-chip{font-size:10.5px;color:var(--mute);font-weight:500;}\n' +
+    '.rpt-footer{margin-top:40px;padding-top:12px;border-top:1px solid var(--line);font-size:10.5px;color:var(--mute);display:flex;justify-content:space-between;}\n' +
+    '@media print{.notes-list li:nth-child(even){background:#FAFAFB;}}\n' +
+    '</style>\n</head>\n<body>\n\n' +
+
+    '<div class="report-hdr">' +
+      '<div class="unit-line">Unit Analisa Risiko Bisnis (ARI) · PT Kliring Penjaminan Efek Indonesia</div>' +
+      '<div class="rpt-title">Highlights & Catatan Jobdesk <span class="acc">Unit ARI</span></div>' +
+      '<div class="rpt-meta">Dicetak: ' + dateStr + ', pukul ' + timeStr + ' WIB' +
+        ' &nbsp;·&nbsp; Periode: ' + DASHBOARD_META.period +
+        ' &nbsp;·&nbsp; Kepala Unit: ' + DASHBOARD_META.headName + '</div>' +
+    '</div>\n\n' +
+
+    '<div class="sec-title">' +
+      '<span class="sec-badge">HIGHLIGHTS</span>' +
+      ' Catatan & Informasi Penting Jobdesk' +
+      ' <span class="count-chip">(' + KEY_TAKEAWAYS.length + ' catatan)</span>' +
+    '</div>\n' +
+
+    '<div class="notes-box">' +
+      '<ul class="notes-list">' + notesHtml + '</ul>' +
+    '</div>\n\n' +
+
+    '<div class="rpt-footer">' +
+      '<span>Job Assignment Dashboard · Unit ARI · ' + DASHBOARD_META.period + '</span>' +
+      '<span>Digenerate otomatis &nbsp;·&nbsp; ' + dateStr + ' ' + timeStr + ' WIB</span>' +
+    '</div>\n\n' +
+    '</body>\n</html>';
+
+  var blob = new Blob([html], { type: 'text/html;charset=utf-8' });
+  var url  = URL.createObjectURL(blob);
+  var win  = window.open(url, '_blank');
+  if (!win) {
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = 'highlights-ari-' + filenameDate + '.html';
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
