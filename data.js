@@ -41,9 +41,9 @@ const CATEGORY_CONFIG = [
 //   st    – status: "done" | "on"
 //   wl    – workload scale 1–5: 1 Ringan · 2 Sedang-Ringan · 3 Sedang · 4 Sedang-Berat · 5 Berat
 const JOBS = [
-  {no:1,  job:"Stresstesting PM Juni-26",                                                  cat:"Operasional",         cc:"cat-op", pics:["BAI"],       prio:"Q1", pl:"I·U",  st:"on", wl:4},
-  {no:2,  job:"Stresstesting PUVA Juni-26",                                                cat:"Operasional",         cc:"cat-op", pics:["RFA"],       prio:"Q1", pl:"I·U",  st:"on", wl:3},
-  {no:3,  job:"Perhitungan KCCP PUVA Juni-26",                                             cat:"Operasional",         cc:"cat-op", pics:["RFA"],       prio:"Q1", pl:"I·U",  st:"on", wl:4},
+  {no:1,  job:"Stresstesting PM Juni-26",                                                  cat:"Operasional",         cc:"cat-op", pics:["BAI"],       prio:"Q1", pl:"I·U",  st:"done", wl:4},
+  {no:2,  job:"Stresstesting PUVA Juni-26",                                                cat:"Operasional",         cc:"cat-op", pics:["RFA"],       prio:"Q1", pl:"I·U",  st:"done", wl:3},
+  {no:3,  job:"Perhitungan KCCP PUVA Juni-26",                                             cat:"Operasional",         cc:"cat-op", pics:["RFA"],       prio:"Q1", pl:"I·U",  st:"done", wl:4},
   {no:4,  job:"Backtesting PM Juni-26",                                                    cat:"Operasional",         cc:"cat-op", pics:["SSO"],       prio:"Q1", pl:"I·U",  st:"on", wl:4},
   {no:5,  job:"Input dan Analisa Laporan Keuangan - Signifikan",                   cat:"Operasional",         cc:"cat-op", pics:["NDI"],       prio:"Q1", pl:"I·U",  st:"on", wl:4},
   {no:6,  job:"Kalkulasi Haircut, Eligible SBL, Colldiss Juni-26",                     cat:"Operasional",         cc:"cat-op", pics:["NDI"],       prio:"Q1", pl:"I·U",  st:"on",   wl:5},
@@ -78,10 +78,10 @@ const JOBS = [
   {no:35, job:"Assessment kesiapan sistem risk untuk live OIS/IRS PUVA",           cat:"Support Project",     cc:"cat-sp", pics:["RFA","SSO"], prio:"Q2", pl:"I·NU", st:"on",   wl:5},
   {no:36, job:"Pengisian & Review Public Quantitative Disclosure",           cat:"Legal Review",     cc:"cat-np", pics:["RFA"], prio:"Q1", pl:"I·U", st:"on",   wl:5},
   {no:37, job:"Materi dan Persiapan Checklist Onsite Visit Razor",           cat:"Adhoc",     cc:"cat-np", pics:["BAI"], prio:"Q1", pl:"I·U", st:"on",   wl:4},
-  {no:38, job:"Review SOP dan Kebijakan OCBC-PUVA",           cat:"Adhoc",     cc:"cat-np", pics:["RFA"], prio:"Q1", pl:"I·U", st:"on",   wl:3},
-  {no:39, job:"Permohonan Assessment Pengelolaan jaminan dan Penjaminan Transaksi Margin PEI",           cat:"Support Project",     cc:"cat-sp", pics:["BAI","SSO"], prio:"Q2", pl:"I·NU", st:"on",   wl:4},
-  {no:40, job:"Materi PSKR - Opsi strateri Risk Management System (1)Razor, (2)Razor-LSEG, (3)LSEG",           cat:"Support Project",     cc:"cat-sp", pics:["BAI"], prio:"Q2", pl:"I·NU", st:"on",   wl:4},
-  {no:41, job:"Asessment IM dan Stresstest PUVA (volatilitas nilai hasil kalkulasi) ke Razor",           cat:"Adhoc",     cc:"cat-np", pics:["RFA"], prio:"Q2", pl:"I·NU", st:"on",   wl:4},
+  {no:38, job:"Permohonan Assessment Pengelolaan jaminan dan Penjaminan Transaksi Margin PEI",           cat:"Support Project",     cc:"cat-sp", pics:["BAI","SSO"], prio:"Q2", pl:"I·NU", st:"on",   wl:4},
+  {no:39, job:"Materi PSKR - Opsi strategi Risk Management System (1)Razor, (2)Razor-LSEG, (3)LSEG",           cat:"Support Project",     cc:"cat-sp", pics:["BAI"], prio:"Q2", pl:"I·NU", st:"on",   wl:4},
+  {no:40, job:"Asessment IM dan Stresstest PUVA (volatilitas nilai hasil kalkulasi) ke Razor",           cat:"Adhoc",     cc:"cat-np", pics:["RFA"], prio:"Q2", pl:"I·NU", st:"on",   wl:4},
+  {no:41, job:"PIC persiapan Audit ISO - Divisi PPR/ARI",           cat:"Adhoc",     cc:"cat-np", pics:["BAI"], prio:"Q1", pl:"I·U", st:"on",   wl:5},
 ];
 
 const WL_LABELS = {
@@ -99,10 +99,10 @@ const RUNNING_TEXT =
   "SELAMAT PAGI ! ." +
   " ." +
   " ." +
-  "HARI INI SETTLEMENT REBALANCING ." +
+  "PREPARE FOR BIG DAY ! ." +
   " · " +
   " · " +
-  "SEMOGA LANCAR DAN AMAN SENTOSA ." +
+  "REBALANCING FTSE & PRE-LIVE OMNIBUS ." +
   " · " +
   " · " +
   "SEMANGAT SEMUANYA :) .";
