@@ -44,7 +44,7 @@ const JOBS = [
   {no:1,  job:"Stresstesting PM Juni-26",                                                  cat:"Operasional",         cc:"cat-op", pics:["BAI"],       prio:"Q1", pl:"I·U",  st:"done", wl:4},
   {no:2,  job:"Stresstesting PUVA Juni-26",                                                cat:"Operasional",         cc:"cat-op", pics:["RFA"],       prio:"Q1", pl:"I·U",  st:"done", wl:3},
   {no:3,  job:"Perhitungan KCCP PUVA Juni-26",                                             cat:"Operasional",         cc:"cat-op", pics:["RFA"],       prio:"Q1", pl:"I·U",  st:"done", wl:4},
-  {no:4,  job:"Backtesting PM Juni-26",                                                    cat:"Operasional",         cc:"cat-op", pics:["SSO"],       prio:"Q1", pl:"I·U",  st:"on", wl:4},
+  {no:4,  job:"Backtesting PM Juni-26",                                                    cat:"Operasional",         cc:"cat-op", pics:["SSO"],       prio:"Q1", pl:"I·U",  st:"done", wl:4},
   {no:5,  job:"Input dan Analisa Laporan Keuangan - Signifikan",                   cat:"Operasional",         cc:"cat-op", pics:["NDI"],       prio:"Q1", pl:"I·U",  st:"on", wl:4},
   {no:6,  job:"Kalkulasi Haircut, Eligible SBL, Colldiss Juni-26",                     cat:"Operasional",         cc:"cat-op", pics:["NDI"],       prio:"Q1", pl:"I·U",  st:"on",   wl:5},
   {no:7,  job:"Sensitivity Analysis April-26: Simulasi MKBD, Simulasi Trading Limit",      cat:"Operasional",         cc:"cat-op", pics:["NDI"],       prio:"Q1", pl:"I·U",  st:"on",   wl:3},
