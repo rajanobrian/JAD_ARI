@@ -58,7 +58,7 @@ const JOBS = [
   {no:15, job:"Review Credit Rating/Risk Charge CCP PUVA",                         cat:"Model Review",        cc:"cat-sp", pics:["RFA"],       prio:"Q2", pl:"I·NU", st:"on",   wl:5},
   {no:16, job:"VM request, Otomasi Proses ARI",                                    cat:"Inisiatif non Proj.", cc:"cat-np", pics:["SSO"],       prio:"Q2", pl:"I·NU", st:"on",   wl:5},
   {no:17, job:"SPAN License Updated",                                              cat:"Inisiatif non Proj.", cc:"cat-np", pics:["NDI"],       prio:"Q2", pl:"I·NU", st:"on",   wl:4},
-  {no:18, job:"Pengadaan Laptop Workstation @risk",                                cat:"Inisiatif non Proj.", cc:"cat-np", pics:["SSO"],       prio:"Q3", pl:"U·NI", st:"on",   wl:3},
+  {no:18, job:"Pengadaan Mobile Workstation @risk",                                cat:"Inisiatif non Proj.", cc:"cat-np", pics:["SSO"],       prio:"Q3", pl:"U·NI", st:"on",   wl:3},
   {no:19, job:"Migrasi DWH – Big Data (All PPR)",                                  cat:"Kajian & Review",     cc:"cat-np", pics:["BAI","SSO"], prio:"Q2", pl:"I·NU", st:"on",   wl:5},
   {no:20, job:"Impact Analysis Ticker Code (PSPP)",                                cat:"Kajian & Review",     cc:"cat-np", pics:["RFA","NDI"], prio:"Q2", pl:"I·NU", st:"on",   wl:5},
   {no:21, job:"Asessment Upgrade System Razor Risk 5.0",                                     cat:"Inisiatif non Proj.", cc:"cat-np", pics:["BAI","SSO"], prio:"Q1", pl:"I·U",  st:"on",   wl:5},
