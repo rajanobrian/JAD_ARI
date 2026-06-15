@@ -52,7 +52,7 @@ const JOBS = [
   {no:9,  job:"Weekly Report Analisa Risiko PM-PUVA",                              cat:"Inisiatif non Proj.", cc:"cat-np", pics:["SSO","NDI"], prio:"Q2", pl:"I·NU", st:"on",   wl:5},
   {no:10, job:"Review & Analisa LK + parameter fundamental",                      cat:"Kajian & Review",     cc:"cat-np", pics:["NDI"],       prio:"Q2", pl:"I·NU", st:"on",   wl:5},
   {no:11, job:"Kajian Transparansi Marjin PM-PUVA",                                cat:"Kajian & Review",     cc:"cat-np", pics:["RFA"],       prio:"Q2", pl:"I·NU", st:"on",   wl:4},
-  {no:12, job:"Concentration Limit SBN PUVA - Finalisasi",                         cat:"Kajian & Review",     cc:"cat-np", pics:["SSO"],       prio:"Q2", pl:"I·NU", st:"on",   wl:5},
+  {no:12, job:"Concentration Limit SBN PUVA - Finalisasi",                         cat:"Kajian & Review",     cc:"cat-np", pics:["SSO"],       prio:"Q1", pl:"I·U", st:"done",   wl:5},
   {no:13, job:"Review RC 0%, Min. Agunan Offline",                                 cat:"Model Review",        cc:"cat-sp", pics:["BAI","SSO"], prio:"Q2", pl:"I·NU", st:"on",   wl:5},
   {no:14, job:"Assessment Saham Not Eligible as Collateral",                       cat:"Kajian & Review",     cc:"cat-np", pics:["NDI","BAI"], prio:"Q2", pl:"I·NU", st:"on",   wl:5},
   {no:15, job:"Review Credit Rating/Risk Charge CCP PUVA",                         cat:"Model Review",        cc:"cat-sp", pics:["RFA"],       prio:"Q2", pl:"I·NU", st:"on",   wl:5},

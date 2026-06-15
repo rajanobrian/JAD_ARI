@@ -454,6 +454,11 @@
     text-transform: uppercase; letter-spacing: 0.08em;
     position: sticky; top: 0; z-index: 1;
   }
+  table.jobs th.sortable { cursor: pointer; user-select: none; transition: background 0.15s; }
+  table.jobs th.sortable:hover { background: var(--ink-2); }
+  table.jobs th.sort-asc::after { content: ' ↑'; font-size: 9px; opacity: 0.8; }
+  table.jobs th.sort-desc::after { content: ' ↓'; font-size: 9px; opacity: 0.8; }
+  table.jobs th.sort-asc, table.jobs th.sort-desc { background: var(--red); }
 
   /* ============ KEY TAKEAWAYS ============ */
   .kt-list { list-style: none; display: flex; flex-direction: column; gap: 6px; align-items: flex-start; }
@@ -1035,10 +1040,10 @@
               <tr>
                 <th class="c-no">#</th>
                 <th>Jobdesk</th>
-                <th class="c-cat">Kategori</th>
-                <th class="c-pic">PIC</th>
-                <th class="c-prio">Priority</th>
-                <th class="c-stat">Status</th>
+                <th class="c-cat sortable" data-col="cat" onclick="sortTable('cat')">Kategori</th>
+                <th class="c-pic sortable" data-col="pic" onclick="sortTable('pic')">PIC</th>
+                <th class="c-prio sortable" data-col="prio" onclick="sortTable('prio')">Priority</th>
+                <th class="c-stat sortable" data-col="stat" onclick="sortTable('stat')">Status</th>
               </tr>
             </thead>
             <tbody id="jobs-body"></tbody>
@@ -1640,6 +1645,59 @@ function matchRightColHeight() {
 
 window.addEventListener('load',   matchRightColHeight);
 window.addEventListener('resize', matchRightColHeight);
+</script>
+
+<script>
+(function() {
+  var sortCol = null;
+  var sortDir = 1;
+  var PRIO_ORDER = { Q1: 1, Q2: 2, Q3: 3, Q4: 4 };
+  var ST_ORDER   = { done: 1, on: 2, closed: 3 };
+
+  function buildRows(jobs) {
+    return jobs.map(function(j) {
+      var pics = j.pics.map(function(p) {
+        return '<span class="pt-chip"><span class="d ' + p + '"></span>' + p + '</span>';
+      }).join('');
+      var stLower = (j.st || '').toLowerCase();
+      var stat = stLower === 'done'
+        ? '<span class="status-b done"><span class="d"></span>DONE</span>'
+        : stLower === 'closed'
+        ? '<span class="status-b closed"><span class="d"></span>CLOSED</span>'
+        : '<span class="status-b on"><span class="d"></span>ON</span>';
+      return '<tr>' +
+        '<td class="c-no">' + String(j.no).padStart(2, '0') + '</td>' +
+        '<td class="c-job">' + j.job + '</td>' +
+        '<td class="c-cat"><span class="cat-pill ' + j.cc + '">' + j.cat + '</span></td>' +
+        '<td class="c-pic"><div class="pcell">' + pics + '</div></td>' +
+        '<td class="c-prio"><span class="prio-b ' + j.prio + '"><span class="sq"></span>' + j.pl + '</span></td>' +
+        '<td class="c-stat">' + stat + '</td>' +
+      '</tr>';
+    }).join('');
+  }
+
+  window.sortTable = function(col) {
+    sortDir = (sortCol === col) ? sortDir * -1 : 1;
+    sortCol = col;
+
+    document.querySelectorAll('table.jobs th.sortable').forEach(function(th) {
+      th.classList.remove('sort-asc', 'sort-desc');
+      if (th.dataset.col === col) {
+        th.classList.add(sortDir === 1 ? 'sort-asc' : 'sort-desc');
+      }
+    });
+
+    var sorted = JOBS.slice().sort(function(a, b) {
+      if (col === 'cat')  return sortDir * (a.cat || '').localeCompare(b.cat || '');
+      if (col === 'pic')  return sortDir * (a.pics[0] || '').localeCompare(b.pics[0] || '');
+      if (col === 'prio') return sortDir * ((PRIO_ORDER[a.prio] || 99) - (PRIO_ORDER[b.prio] || 99));
+      if (col === 'stat') return sortDir * ((ST_ORDER[(a.st || '').toLowerCase()] || 99) - (ST_ORDER[(b.st || '').toLowerCase()] || 99));
+      return 0;
+    });
+
+    document.getElementById('jobs-body').innerHTML = buildRows(sorted);
+  };
+})();
 </script>
 
 </body>
