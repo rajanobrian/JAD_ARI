@@ -81,7 +81,7 @@ const JOBS = [
   {no:38, job:"Permohonan Assessment Pengelolaan jaminan dan Penjaminan Transaksi Margin PEI",           cat:"Support Project",     cc:"cat-sp", pics:["BAI","SSO"], prio:"Q2", pl:"I·NU", st:"on",   wl:4},
   {no:39, job:"Materi PSKR - Opsi strategi Risk Management System (1)Razor, (2)Razor-LSEG, (3)LSEG",           cat:"Support Project",     cc:"cat-sp", pics:["BAI"], prio:"Q2", pl:"I·NU", st:"on",   wl:4},
   {no:40, job:"Asessment IM dan Stresstest PUVA (volatilitas nilai hasil kalkulasi) ke Razor",           cat:"Adhoc",     cc:"cat-np", pics:["RFA"], prio:"Q2", pl:"I·NU", st:"on",   wl:4},
-  {no:41, job:"PIC persiapan Audit ISO - Divisi PPR/ARI",           cat:"Adhoc",     cc:"cat-np", pics:["BAI"], prio:"Q1", pl:"I·U", st:"on",   wl:5},
+  {no:41, job:"PIC persiapan Audit ISO - Divisi PPR/ARI",           cat:"Adhoc",     cc:"cat-np", pics:["BAI"], prio:"Q1", pl:"I·U", st:"done",   wl:5},
 ];
 
 const WL_LABELS = {
@@ -111,7 +111,7 @@ const RUNNING_TEXT =
 // ─── KEY TAKEAWAYS ───────────────────────────────────────────────────────────
 // Tambah, hapus, atau edit poin di sini. Setiap string = satu bullet point.
 const KEY_TAKEAWAYS = [
-  "Jadwal Piket | Analisa IPO : BAI | Upload Parameter : SSO | Rebalancing : RFA | ",
+  "Jadwal Piket | Analisa IPO : NDI | Upload Parameter : BAI | Rebalancing : SSO | ",
   "JD.28 : (HSC Analysis) - Review ulang data analisa HSC dan Kepemilikan >1% sesuai arahan Kadiv",
   "JD.08 : (Backtest_PUVA) - BT summary sedang difollow up ke Priyank dan masuk JIRA",
   "JD.22 : (Omnibus Risk) - Final Testing, Release exposure omnibus Settlement sudah oke (finalisasi pengujian)",
