@@ -839,6 +839,212 @@
   @media (min-width: 640px) and (max-width: 1199px) {
     .table-wrap { max-height: 480px; }
   }
+
+  /* ============ INSIGHT BUTTON ============ */
+  .insight-btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 12px 28px;
+    background: var(--red);
+    color: #fff;
+    border: 3px solid rgba(255,255,255,0.92);
+    border-radius: 10px;
+    font-size: 15px; font-weight: 800; letter-spacing: 0.13em;
+    text-transform: uppercase;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    box-shadow: 0 5px 0 rgba(90,0,10,0.45), 0 10px 32px rgba(200,16,46,0.5);
+    transition: all 0.12s ease;
+    flex-shrink: 0;
+    position: relative; top: 0;
+    white-space: nowrap;
+    line-height: 1;
+  }
+  .insight-btn:hover {
+    background: var(--red-700);
+    box-shadow: 0 7px 0 rgba(90,0,10,0.45), 0 16px 40px rgba(200,16,46,0.55);
+    top: -2px;
+  }
+  .insight-btn:active {
+    top: 4px;
+    box-shadow: 0 1px 0 rgba(90,0,10,0.4), 0 3px 12px rgba(200,16,46,0.3);
+  }
+  .insight-btn svg { width: 16px; height: 16px; }
+
+  /* ============ INSIGHT OVERLAY ============ */
+  .ins-overlay {
+    position: fixed; inset: 0; z-index: 9999;
+    background: rgba(10,11,14,0.88);
+    backdrop-filter: blur(8px);
+    display: flex; align-items: flex-start; justify-content: center;
+    padding: 16px; overflow-y: auto;
+    opacity: 0; transition: opacity 0.22s ease;
+  }
+  .ins-overlay.vis { opacity: 1; }
+  .ins-panel {
+    background: var(--paper);
+    border-radius: 14px;
+    width: 100%; max-width: 1200px;
+    min-height: calc(100vh - 32px);
+    display: flex; flex-direction: column;
+    box-shadow: 0 40px 100px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.05);
+    transform: translateY(30px) scale(0.985);
+    transition: transform 0.3s cubic-bezier(0.34,1.26,0.64,1);
+    overflow: hidden;
+  }
+  .ins-overlay.vis .ins-panel { transform: translateY(0) scale(1); }
+  .ins-hd {
+    background: var(--ink); padding: 24px 32px;
+    display: flex; align-items: flex-start; justify-content: space-between; gap: 16px;
+    border-bottom: 5px solid var(--red); flex-shrink: 0; flex-wrap: wrap;
+  }
+  .ins-hd-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: rgba(200,16,46,0.18); border: 1px solid rgba(200,16,46,0.32);
+    border-radius: 99px; padding: 3px 11px 3px 7px;
+    font-size: 9.5px; font-weight: 800; letter-spacing: 0.14em;
+    text-transform: uppercase; color: #F29CA6; margin-bottom: 8px;
+  }
+  .ins-hd-badge .d { width: 5px; height: 5px; border-radius: 50%; background: var(--red); }
+  .ins-hd-title { font-size: 26px; font-weight: 800; color: #fff; letter-spacing: -0.02em; line-height: 1.1; }
+  .ins-hd-sub { font-size: 12px; color: #6C7079; margin-top: 6px; }
+  .ins-close {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 9px 18px; background: rgba(255,255,255,0.06);
+    border: 1.5px solid rgba(255,255,255,0.14); border-radius: 8px;
+    color: #fff; font-size: 11.5px; font-weight: 700; letter-spacing: 0.08em;
+    cursor: pointer; font-family: 'Inter', sans-serif; transition: background 0.15s;
+    flex-shrink: 0; margin-top: 4px;
+  }
+  .ins-close:hover { background: rgba(255,255,255,0.13); }
+  .ins-body { padding: 28px 32px; flex: 1; }
+  .ins-sec { margin-bottom: 34px; }
+  .ins-sec:last-child { margin-bottom: 0; }
+  .ins-sec-hd {
+    font-size: 10.5px; font-weight: 800; letter-spacing: 0.16em;
+    text-transform: uppercase; color: var(--mute);
+    display: flex; align-items: center; gap: 10px; margin-bottom: 16px;
+  }
+  .ins-sec-hd::after { content:''; flex:1; height:1px; background:var(--line); }
+  .ins-sec-hd .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--red); flex-shrink: 0; }
+  .ins-g4 { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; }
+  .ins-g3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; }
+  .ins-g2 { display: grid; grid-template-columns: repeat(2,1fr); gap: 12px; }
+  .ins-g21 { display: grid; grid-template-columns: 2fr 1fr; gap: 12px; }
+  .ins-g12 { display: grid; grid-template-columns: 1fr 2fr; gap: 12px; }
+  @media (max-width: 960px) {
+    .ins-g4 { grid-template-columns: repeat(2,1fr); }
+    .ins-g3 { grid-template-columns: repeat(2,1fr); }
+    .ins-g2,.ins-g21,.ins-g12 { grid-template-columns: 1fr; }
+    .ins-body { padding: 20px 16px; }
+    .ins-hd  { padding: 20px 16px; }
+    .ins-hd-title { font-size: 20px; }
+  }
+  @media (max-width: 480px) {
+    .ins-g4 { grid-template-columns: 1fr 1fr; }
+  }
+  .ins-card {
+    background: var(--white); border: 1px solid var(--line);
+    border-radius: 10px; padding: 18px 20px;
+    display: flex; flex-direction: column;
+  }
+  .ins-card-hd {
+    font-size: 10px; font-weight: 800; text-transform: uppercase;
+    letter-spacing: 0.12em; color: var(--mute);
+    display: flex; align-items: center; gap: 8px; margin-bottom: 14px;
+  }
+  .ins-card-hd .bar { width: 3px; height: 13px; background: var(--red); border-radius: 1.5px; flex-shrink: 0; }
+  .ins-big { font-size: 48px; font-weight: 800; letter-spacing: -0.03em; line-height: 1; font-family: 'IBM Plex Sans', sans-serif; }
+  .ins-big.red  { color: var(--red); }
+  .ins-big.grn  { color: var(--green); }
+  .ins-big.amb  { color: var(--amber); }
+  .ins-big.ink  { color: var(--ink); }
+  .ins-big.blue { color: #1D4ED8; }
+  .ins-hint { font-size: 11.5px; color: var(--mute); margin-top: 8px; line-height: 1.45; }
+  .ins-sub  { font-size: 13px; font-weight: 600; color: var(--mute); display: block; margin-top: 4px; }
+  /* WL bars */
+  .ins-br { display: flex; align-items: center; gap: 10px; margin-bottom: 11px; }
+  .ins-br:last-child { margin-bottom: 0; }
+  .ins-br-lbl { width: 40px; font-size: 11px; font-weight: 800; color: var(--ink); text-align: right; font-family: 'IBM Plex Mono', monospace; flex-shrink: 0; }
+  .ins-br-trk { flex: 1; height: 22px; background: var(--line-2); border-radius: 4px; overflow: hidden; }
+  .ins-br-fl  { height: 100%; border-radius: 4px; display: flex; align-items: center; padding: 0 10px; font-size: 10.5px; font-weight: 800; color: #fff; min-width: 0; box-sizing: border-box; transition: width 0.5s ease; }
+  .ins-br-fl.ok  { background: var(--green); }
+  .ins-br-fl.md  { background: var(--amber); }
+  .ins-br-fl.hi  { background: var(--red); }
+  .ins-br-fl.ink { background: var(--ink); }
+  .ins-br-val { width: 40px; text-align: right; font-size: 12.5px; font-weight: 800; font-family: 'IBM Plex Sans', sans-serif; color: var(--ink); flex-shrink: 0; }
+  .ins-br-val.red { color: var(--red); }
+  /* Stacked perf bar */
+  .ins-sk { margin-bottom: 14px; }
+  .ins-sk:last-child { margin-bottom: 0; }
+  .ins-sk-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 5px; }
+  .ins-sk-nm  { font-size: 12px; font-weight: 700; color: var(--ink); display: flex; align-items: center; gap: 8px; }
+  .ins-sk-rt  { font-size: 11px; color: var(--mute); font-weight: 600; }
+  .ins-sk-bar { height: 22px; background: var(--line-2); border-radius: 4px; overflow: hidden; display: flex; }
+  .ins-sk-d   { background: #16a34a; display: flex; align-items: center; justify-content: center; font-size: 9.5px; font-weight: 800; color: #fff; transition: width 0.5s ease; }
+  .ins-sk-o   { background: var(--ink); display: flex; align-items: center; justify-content: center; font-size: 9.5px; font-weight: 800; color: #fff; transition: width 0.5s ease; }
+  /* Donut wrapper */
+  .ins-donut-wrap { display: flex; align-items: center; gap: 20px; }
+  .ins-donut-leg  { flex: 1; display: flex; flex-direction: column; gap: 7px; min-width: 0; }
+  .ins-leg-row { display: flex; align-items: center; gap: 8px; font-size: 11px; }
+  .ins-leg-dot { width: 9px; height: 9px; border-radius: 2px; flex-shrink: 0; }
+  .ins-leg-lbl { flex: 1; color: var(--ink-3); font-weight: 600; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .ins-leg-v   { font-weight: 800; color: var(--ink); font-family: 'IBM Plex Sans', sans-serif; }
+  .ins-leg-p   { color: var(--mute); font-size: 10px; margin-left: 2px; }
+  /* Collab heatmap */
+  .ins-cm { display: grid; gap: 4px; font-size: 11px; }
+  .ins-cm-ch { background: var(--paper-2); color: var(--mute); font-weight: 700; text-transform: uppercase; font-size: 10px; letter-spacing: 0.08em; display: flex; align-items: center; justify-content: center; padding: 6px; border-radius: 4px; }
+  .ins-cm-rh { background: var(--paper-2); color: var(--ink); font-weight: 800; display: flex; align-items: center; justify-content: center; border-radius: 4px; font-size: 11px; padding: 6px; }
+  .ins-cm-cell { display: flex; align-items: center; justify-content: center; padding: 10px; font-weight: 800; font-family: 'IBM Plex Sans', sans-serif; font-size: 16px; border-radius: 4px; }
+  .ins-cm-cell.diag { background: var(--line-2); color: var(--mute-2); }
+  .ins-cm-cell.z  { background: var(--paper-2); color: var(--mute-2); font-size: 12px; }
+  .ins-cm-cell.v1 { background: #FECDD3; color: #9F1239; }
+  .ins-cm-cell.v2 { background: #FCA5A5; color: #7F1D1D; }
+  .ins-cm-cell.v3 { background: #EF4444; color: #fff; }
+  .ins-cm-cell.v4 { background: var(--red); color: #fff; }
+  /* Quadrant */
+  .ins-qd { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 6px; }
+  .ins-qd-cell { border-radius: 8px; padding: 14px 16px; }
+  .ins-qd-cell.q1 { background: var(--red-50); border: 1.5px solid var(--red-100); }
+  .ins-qd-cell.q2 { background: #EFF6FF; border: 1.5px solid #BFDBFE; }
+  .ins-qd-cell.q3 { background: #FFFBEB; border: 1.5px solid #FDE68A; }
+  .ins-qd-cell.q4 { background: var(--paper); border: 1.5px solid var(--line); }
+  .ins-qd-lbl { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--mute); margin-bottom: 4px; }
+  .ins-qd-n   { font-size: 38px; font-weight: 800; font-family: 'IBM Plex Sans', sans-serif; line-height: 1; }
+  .ins-qd-cell.q1 .ins-qd-n { color: var(--red); }
+  .ins-qd-cell.q2 .ins-qd-n { color: #1D4ED8; }
+  .ins-qd-cell.q3 .ins-qd-n { color: var(--amber); }
+  .ins-qd-cell.q4 .ins-qd-n { color: var(--mute); }
+  .ins-qd-hint { font-size: 10px; color: var(--mute); font-weight: 600; margin-top: 4px; }
+  /* WL complexity heatmap */
+  .ins-wm { display: grid; gap: 4px; }
+  .ins-wm-hd { font-size: 10px; font-weight: 700; color: var(--mute); text-align: center; text-transform: uppercase; letter-spacing: 0.06em; padding: 5px; line-height: 1.3; }
+  .ins-wm-rh { font-size: 11px; font-weight: 800; color: var(--ink); display: flex; align-items: center; justify-content: center; font-family: 'IBM Plex Mono', monospace; padding: 4px; }
+  .ins-wm-cell { border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 800; font-family: 'IBM Plex Sans', sans-serif; min-height: 36px; }
+  .ins-wm-cell.w0 { background: var(--line-2); color: var(--mute-2); }
+  .ins-wm-cell.w1 { background: #DBEAFE; color: #1D4ED8; }
+  .ins-wm-cell.w2 { background: #93C5FD; color: #1E3A8A; }
+  .ins-wm-cell.w3 { background: #FBBF24; color: #451A03; }
+  .ins-wm-cell.w4 { background: #F87171; color: #7F1D1D; }
+  .ins-wm-cell.w5 { background: #DC2626; color: #fff; }
+  /* Alert cards */
+  .ins-alert { display: flex; gap: 12px; padding: 13px 15px; border-radius: 8px; margin-bottom: 9px; border-left: 4px solid; align-items: flex-start; }
+  .ins-alert:last-child { margin-bottom: 0; }
+  .ins-alert.warn   { background: #FFFBEB; border-color: #F59E0B; }
+  .ins-alert.danger { background: #FEF2F2; border-color: var(--red); }
+  .ins-alert.ok     { background: #F0FDF4; border-color: #16A34A; }
+  .ins-alert.info   { background: #EFF6FF; border-color: #3B82F6; }
+  .ins-alert-ico  { font-size: 17px; flex-shrink: 0; line-height: 1.4; }
+  .ins-alert-ttl  { font-size: 12px; font-weight: 800; color: var(--ink); margin-bottom: 2px; }
+  .ins-alert-body { font-size: 11.5px; color: var(--mute); line-height: 1.5; }
+  /* Work-type mix table */
+  .ins-mix { display: grid; gap: 4px; }
+  .ins-mix-hd { font-size: 9.5px; font-weight: 700; color: var(--mute); text-align: center; text-transform: uppercase; letter-spacing: 0.07em; padding: 4px 2px; }
+  .ins-mix-rh { font-size: 11px; font-weight: 800; color: var(--ink); font-family: 'IBM Plex Mono', monospace; display: flex; align-items: center; justify-content: center; padding: 4px; }
+  .ins-mix-cell { border-radius: 4px; display: flex; align-items: center; justify-content: center; min-height: 32px; font-size: 11.5px; font-weight: 800; font-family: 'IBM Plex Sans', sans-serif; }
+  .ins-mix-cell.m0 { background: var(--paper-2); color: var(--mute-2); font-size: 10px; }
+  .ins-mix-cell.m1 { background: #E0E7FF; color: #3730A3; }
+  .ins-mix-cell.m2 { background: #818CF8; color: #fff; }
+  .ins-mix-cell.m3 { background: #4338CA; color: #fff; }
 </style>
 </head>
 <body>
@@ -851,7 +1057,13 @@
       <div class="brand-mark"></div>
       <div>
         <div class="brand-title" id="h-unit-title"></div>
-        <h1 class="page-title" id="h-page-title"></h1>
+        <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:4px;">
+          <h1 class="page-title" id="h-page-title" style="margin-top:0;"></h1>
+          <button class="insight-btn" onclick="openInsight()">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            Insight!
+          </button>
+        </div>
         <p style="font-size:small;color:#d0d0d0;" id="h-head-line"></p>
       </div>
     </div>
@@ -1080,6 +1292,26 @@
     <div id="footer-r"></div>
   </div>
 
+</div>
+
+<!-- ============ INSIGHT OVERLAY ============ -->
+<div id="ins-overlay" class="ins-overlay" style="display:none;" onclick="if(event.target===this)closeInsight()">
+  <div class="ins-panel">
+    <div class="ins-hd">
+      <div>
+        <div class="ins-hd-badge"><span class="d"></span>Intelligence Analytics · Unit ARI</div>
+        <div class="ins-hd-title">Workload &amp; Performance Insight</div>
+        <div class="ins-hd-sub">Auto-generated dari data JOBS · Analisis Risiko Bisnis · <span id="ins-period"></span></div>
+      </div>
+      <button class="ins-close" onclick="closeInsight()">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+        Tutup
+      </button>
+    </div>
+    <div class="ins-body" id="ins-body">
+      <!-- populated by renderInsight() -->
+    </div>
+  </div>
 </div>
 
 <script src="data.js"></script>
@@ -1698,6 +1930,433 @@ window.addEventListener('resize', matchRightColHeight);
     document.getElementById('jobs-body').innerHTML = buildRows(sorted);
   };
 })();
+</script>
+
+<script>
+// ── INSIGHT PAGE ─────────────────────────────────────────────────────────────
+function openInsight() {
+  var ov = document.getElementById('ins-overlay');
+  ov.style.display = 'flex';
+  setTimeout(function() { ov.classList.add('vis'); }, 10);
+  document.body.style.overflow = 'hidden';
+  document.getElementById('ins-period').textContent = DASHBOARD_META.period;
+  renderInsight();
+}
+
+function closeInsight() {
+  var ov = document.getElementById('ins-overlay');
+  ov.classList.remove('vis');
+  setTimeout(function() { ov.style.display = 'none'; }, 260);
+  document.body.style.overflow = '';
+}
+
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closeInsight();
+});
+
+function renderInsight() {
+  var picIds   = PIC_CONFIG.map(function(p) { return p.id; });
+  var total    = JOBS.length;
+  var doneJobs = JOBS.filter(function(j) { return j.st === 'done'; });
+  var actJobs  = JOBS.filter(function(j) { return j.st !== 'done'; });
+  var done     = doneJobs.length;
+  var onProg   = actJobs.length;
+  var donePct  = Math.round(done / total * 100);
+
+  var qAll = { Q1:0, Q2:0, Q3:0, Q4:0 };
+  JOBS.forEach(function(j) { if (qAll[j.prio] !== undefined) qAll[j.prio]++; });
+  var qAct = { Q1:0, Q2:0, Q3:0, Q4:0 };
+  actJobs.forEach(function(j) { if (qAct[j.prio] !== undefined) qAct[j.prio]++; });
+
+  var picWL = {}, picDone = {}, picAct = {}, picHeavy = {};
+  picIds.forEach(function(id) { picWL[id]=0; picDone[id]=0; picAct[id]=0; picHeavy[id]=0; });
+  actJobs.forEach(function(j) {
+    var w = j.wl || 3;
+    j.pics.forEach(function(id) {
+      if (picWL[id] === undefined) return;
+      picWL[id] += w;
+      picAct[id]++;
+      if (w >= 4) picHeavy[id]++;
+    });
+  });
+  doneJobs.forEach(function(j) {
+    j.pics.forEach(function(id) { if (picDone[id] !== undefined) picDone[id]++; });
+  });
+  var maxWL    = Math.max.apply(null, picIds.map(function(id){ return picWL[id]; })) || 1;
+  var maxHeavy = Math.max.apply(null, picIds.map(function(id){ return picHeavy[id]; })) || 1;
+  var maxWLPic = picIds.reduce(function(a,b){ return picWL[a]>picWL[b]?a:b; });
+  var minWLPic = picIds.reduce(function(a,b){ return picWL[a]<picWL[b]?a:b; });
+
+  // Category data
+  var catColors = { navy:'#1E2740', red:'#C8102E', slate:'#334155', amber:'#B7791F' };
+  var catData = CATEGORY_CONFIG.map(function(c) {
+    var count = 0;
+    JOBS.forEach(function(j) { if (c.match.indexOf(j.cat) !== -1) count++; });
+    return { label: c.label, count: count, color: catColors[c.colorClass] || '#888' };
+  }).filter(function(c){ return c.count > 0; });
+  var catTotal = catData.reduce(function(s,c){ return s+c.count; }, 0);
+
+  // Collab matrix
+  var mx = {};
+  picIds.forEach(function(a){ mx[a]={}; picIds.forEach(function(b){ mx[a][b]=a===b?null:0; }); });
+  JOBS.forEach(function(j) {
+    if (j.pics.length < 2) return;
+    for (var i=0;i<j.pics.length;i++) for (var k=i+1;k<j.pics.length;k++) {
+      var a=j.pics[i],b=j.pics[k];
+      if (mx[a]&&mx[a][b]!==undefined){ mx[a][b]++; mx[b][a]++; }
+    }
+  });
+  var pairs = [];
+  for (var i=0;i<picIds.length;i++) for (var k=i+1;k<picIds.length;k++) {
+    var v=mx[picIds[i]][picIds[k]]||0;
+    if (v>0) pairs.push({a:picIds[i],b:picIds[k],v:v});
+  }
+  pairs.sort(function(a,b){ return b.v-a.v; });
+
+  // WL complexity distribution per PIC (active)
+  var picWLDist = {};
+  picIds.forEach(function(id){ picWLDist[id]={1:0,2:0,3:0,4:0,5:0}; });
+  actJobs.forEach(function(j) {
+    var w=j.wl||3;
+    j.pics.forEach(function(id){ if(picWLDist[id]&&picWLDist[id][w]!==undefined) picWLDist[id][w]++; });
+  });
+
+  // Work-type mix per PIC (category x PIC count)
+  var picCatMix = {};
+  picIds.forEach(function(id){ picCatMix[id]={}; CATEGORY_CONFIG.forEach(function(c){ picCatMix[id][c.label]=0; }); });
+  JOBS.forEach(function(j) {
+    var cfg=CATEGORY_CONFIG.find(function(c){ return c.match.indexOf(j.cat)!==-1; });
+    if (!cfg) return;
+    j.pics.forEach(function(id){ if(picCatMix[id]) picCatMix[id][cfg.label]=(picCatMix[id][cfg.label]||0)+1; });
+  });
+
+  var q1DoneCt = doneJobs.filter(function(j){ return j.prio==='Q1'; }).length;
+  var q1DonePct = qAll.Q1>0 ? Math.round(q1DoneCt/qAll.Q1*100) : 0;
+  var teamScore = Math.round(donePct*0.5 + q1DonePct*0.5);
+
+  var soloCount   = JOBS.filter(function(j){ return j.pics.length===1; }).length;
+  var collabCount = JOBS.filter(function(j){ return j.pics.length>1; }).length;
+  var collabPct   = Math.round(collabCount/total*100);
+
+  var picColor = { NDI:'#7C3AED', RFA:'#C8102E', BAI:'#0284C7', SSO:'#D97706' };
+
+  var WL_WARN   = Math.round(maxWL * 0.7);
+  var WL_DANGER = Math.round(maxWL * 0.88);
+
+  // ─── Build HTML ───────────────────────────────────────────────────────────
+  var h = '';
+
+  // § 1 Executive Summary
+  h += sec('Ringkasan Eksekutif');
+  h += '<div class="ins-g4">';
+  h += iCard('Completion Rate',
+    '<div class="ins-big ' + (donePct>=50?'grn':'red') + '">' + donePct + '<span style="font-size:26px;font-weight:700;">%</span></div>' +
+    '<div class="ins-hint">' + done + ' dari ' + total + ' jobdesk selesai</div>');
+  h += iCard('Active Q1 Priority',
+    '<div class="ins-big red">' + qAct.Q1 + '</div>' +
+    '<div class="ins-hint">Item <em>Do&nbsp;Now</em> masih berjalan &nbsp;·&nbsp; total Q1: ' + qAll.Q1 + '</div>');
+  h += iCard('Beban Tertinggi',
+    '<div class="ins-big ' + (picWL[maxWLPic]>=WL_DANGER?'red':'amb') + '" style="font-size:34px;">' + maxWLPic + '</div>' +
+    '<div class="ins-sub">WL Score: ' + picWL[maxWLPic] + ' pts</div>' +
+    '<div class="ins-hint">Personel dengan kumulatif beban aktif terbesar</div>');
+  h += iCard('Team Efficiency Score',
+    '<div class="ins-big ' + (teamScore>=70?'grn':teamScore>=40?'amb':'red') + '">' + teamScore + '<span style="font-size:20px;font-weight:600;color:var(--mute);">/100</span></div>' +
+    '<div class="ins-hint">Composite: capaian umum + Q1 completion rate</div>');
+  h += '</div></div>';
+
+  // § 2 Workload Analysis
+  h += sec('Analisis Beban Kerja per Personel (Active Jobs Only)');
+  h += '<div class="ins-g2">';
+  // Cumulative WL bar
+  h += '<div class="ins-card"><div class="ins-card-hd"><span class="bar"></span>Kumulatif WL Score</div>';
+  picIds.forEach(function(id) {
+    var wl=picWL[id], pct=Math.round(wl/maxWL*100);
+    var cls=wl>=WL_DANGER?'hi':wl>=WL_WARN?'md':'ok';
+    h += '<div class="ins-br">' +
+      '<div class="ins-br-lbl">' + id + '</div>' +
+      '<div class="ins-br-trk"><div class="ins-br-fl ' + cls + '" style="width:' + pct + '%;">' + (pct>18?wl:'') + '</div></div>' +
+      '<div class="ins-br-val' + (cls==='hi'?' red':'') + '">' + (pct<=18?wl:'') + '</div>' +
+    '</div>';
+  });
+  h += '<div style="margin-top:14px;padding-top:11px;border-top:1px solid var(--line-2);font-size:11px;color:var(--mute);display:flex;gap:14px;flex-wrap:wrap;">' +
+    '<span style="display:flex;align-items:center;gap:5px;"><span style="width:10px;height:10px;border-radius:2px;background:var(--green);display:inline-block;flex-shrink:0;"></span>Normal</span>' +
+    '<span style="display:flex;align-items:center;gap:5px;"><span style="width:10px;height:10px;border-radius:2px;background:var(--amber);display:inline-block;flex-shrink:0;"></span>High Load</span>' +
+    '<span style="display:flex;align-items:center;gap:5px;"><span style="width:10px;height:10px;border-radius:2px;background:var(--red);display:inline-block;flex-shrink:0;"></span>Overload</span>' +
+  '</div></div>';
+  // Heavy jobs (WL 4-5)
+  h += '<div class="ins-card"><div class="ins-card-hd"><span class="bar"></span>Jumlah Tugas Berat (WL &#8805; 4, Active)</div>';
+  picIds.forEach(function(id) {
+    var hv=picHeavy[id], pct=Math.round(hv/maxHeavy*100);
+    var cls=hv>=Math.round(maxHeavy*0.8)?'hi':hv>=Math.round(maxHeavy*0.5)?'md':'ok';
+    h += '<div class="ins-br">' +
+      '<div class="ins-br-lbl">' + id + '</div>' +
+      '<div class="ins-br-trk"><div class="ins-br-fl ' + cls + '" style="width:' + pct + '%;">' + (pct>22?hv+' item':'') + '</div></div>' +
+      '<div class="ins-br-val">' + hv + '</div>' +
+    '</div>';
+  });
+  h += '<div style="margin-top:14px;padding-top:11px;border-top:1px solid var(--line-2);font-size:11px;color:var(--mute);">Tugas dengan skala WL 4 (Sedang-Berat) dan 5 (Berat) per personel pada pekerjaan aktif</div></div>';
+  h += '</div></div>';
+
+  // § 3 Category Distribution
+  h += sec('Distribusi Kategori Pekerjaan (' + total + ' Total Jobdesk)');
+  h += '<div class="ins-g21">';
+  h += '<div class="ins-card"><div class="ins-card-hd"><span class="bar"></span>Breakdown per Kategori</div>';
+  h += '<div class="ins-donut-wrap">';
+  h += makeDonut(catData.map(function(c){ return {val:c.count,color:c.color}; }), 148);
+  h += '<div class="ins-donut-leg">';
+  catData.forEach(function(c) {
+    var pct=(c.count/catTotal*100).toFixed(1);
+    h += '<div class="ins-leg-row">' +
+      '<span class="ins-leg-dot" style="background:' + c.color + '"></span>' +
+      '<span class="ins-leg-lbl">' + c.label + '</span>' +
+      '<span class="ins-leg-v">' + c.count + '</span>' +
+      '<span class="ins-leg-p">(' + pct + '%)</span>' +
+    '</div>';
+  });
+  h += '</div></div></div>';
+  h += '<div class="ins-card"><div class="ins-card-hd"><span class="bar"></span>Volume Relatif</div>';
+  var maxCat=Math.max.apply(null,catData.map(function(c){return c.count;})) || 1;
+  catData.forEach(function(c) {
+    var pct=Math.round(c.count/maxCat*100);
+    h += '<div class="ins-br">' +
+      '<div class="ins-br-lbl" style="width:auto;min-width:0;max-width:100px;font-size:9.5px;text-align:left;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">' + c.label + '</div>' +
+      '<div class="ins-br-trk"><div class="ins-br-fl ink" style="width:' + pct + '%;background:' + c.color + '">' + (pct>22?c.count:'') + '</div></div>' +
+      '<div class="ins-br-val">' + c.count + '</div>' +
+    '</div>';
+  });
+  h += '</div>';
+  h += '</div></div>';
+
+  // § 4 PIC Performance
+  h += sec('Capaian Kinerja per Personel');
+  h += '<div class="ins-g2">';
+  h += '<div class="ins-card"><div class="ins-card-hd"><span class="bar"></span>Done vs On Progress (per Assignment)</div>';
+  picIds.forEach(function(id) {
+    var d=picDone[id], a=picAct[id], tot=d+a;
+    if (!tot) return;
+    var dPct=Math.round(d/tot*100), aPct=100-dPct;
+    h += '<div class="ins-sk">' +
+      '<div class="ins-sk-top">' +
+        '<div class="ins-sk-nm"><span style="width:10px;height:10px;border-radius:50%;background:' + (picColor[id]||'#888') + ';display:inline-block;flex-shrink:0;"></span>' + id + '</div>' +
+        '<div class="ins-sk-rt">' + d + ' done · ' + a + ' on · <strong>' + dPct + '%</strong></div>' +
+      '</div>' +
+      '<div class="ins-sk-bar">' +
+        '<div class="ins-sk-d" style="width:' + dPct + '%">' + (dPct>14?d:'') + '</div>' +
+        '<div class="ins-sk-o" style="width:' + aPct + '%">' + (aPct>14?a:'') + '</div>' +
+      '</div>' +
+    '</div>';
+  });
+  h += '<div style="margin-top:12px;padding-top:10px;border-top:1px solid var(--line-2);font-size:11px;color:var(--mute);display:flex;gap:16px;">' +
+    '<span style="display:flex;align-items:center;gap:5px;"><span style="width:10px;height:10px;border-radius:2px;background:#16a34a;display:inline-block;"></span>Done</span>' +
+    '<span style="display:flex;align-items:center;gap:5px;"><span style="width:10px;height:10px;border-radius:2px;background:var(--ink);display:inline-block;"></span>On Progress</span>' +
+  '</div></div>';
+  // Q1 completion per PIC
+  h += '<div class="ins-card"><div class="ins-card-hd"><span class="bar"></span>Completion Rate Q1 (Do Now) per Personel</div>';
+  picIds.forEach(function(id) {
+    var q1t=JOBS.filter(function(j){ return j.prio==='Q1'&&j.pics.indexOf(id)!==-1; }).length;
+    var q1d=JOBS.filter(function(j){ return j.prio==='Q1'&&j.st==='done'&&j.pics.indexOf(id)!==-1; }).length;
+    var q1p=q1t>0?Math.round(q1d/q1t*100):0;
+    var cls=q1p>=60?'ok':q1p>=30?'md':'hi';
+    h += '<div class="ins-br">' +
+      '<div class="ins-br-lbl">' + id + '</div>' +
+      '<div class="ins-br-trk"><div class="ins-br-fl ' + cls + '" style="width:' + q1p + '%">' + (q1p>16?q1p+'%':'') + '</div></div>' +
+      '<div class="ins-br-val">' + q1d + '/' + q1t + '</div>' +
+    '</div>';
+  });
+  h += '<div style="margin-top:14px;padding-top:11px;border-top:1px solid var(--line-2);font-size:11px;color:var(--mute);">Persentase penyelesaian tugas Q1 (Important &amp; Urgent) per personel dari total assignment Q1-nya</div></div>';
+  h += '</div></div>';
+
+  // § 5 Collaboration Analysis
+  h += sec('Analisis Kolaborasi &amp; Jaringan Tim');
+  h += '<div class="ins-g21">';
+  h += '<div class="ins-card"><div class="ins-card-hd"><span class="bar"></span>Matrix Kolaborasi (Shared Assignments)</div>';
+  var cmStyle='grid-template-columns:50px repeat('+picIds.length+',1fr);';
+  h += '<div class="ins-cm" style="'+cmStyle+'">';
+  h += '<div class="ins-cm-ch"></div>';
+  picIds.forEach(function(id){ h+='<div class="ins-cm-ch">'+id+'</div>'; });
+  picIds.forEach(function(row) {
+    h += '<div class="ins-cm-rh">'+row+'</div>';
+    picIds.forEach(function(col) {
+      var v=mx[row][col];
+      var cls=v===null?'diag':v===0?'z':v<=2?'v1':v<=4?'v2':v<=6?'v3':'v4';
+      h += '<div class="ins-cm-cell '+cls+'">'+(v===null?'–':v||'·')+'</div>';
+    });
+  });
+  h += '</div>';
+  h += '<div style="margin-top:12px;padding-top:10px;border-top:1px solid var(--line-2);font-size:11px;color:var(--mute);">Nilai = jumlah tugas bersama antara 2 personel</div>';
+  h += '</div>';
+  // Top partnerships
+  h += '<div class="ins-card"><div class="ins-card-hd"><span class="bar"></span>Top Partnerships</div>';
+  if (!pairs.length) {
+    h += '<div style="color:var(--mute);font-size:12px;">Belum ada kolaborasi 2-PIC.</div>';
+  } else {
+    h += '<div style="display:flex;flex-direction:column;gap:13px;">';
+    pairs.slice(0,5).forEach(function(p,idx) {
+      var pct=Math.round(p.v/pairs[0].v*100);
+      h += '<div>' +
+        '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:5px;">' +
+          '<div style="display:flex;align-items:center;gap:7px;font-size:12px;font-weight:700;color:var(--ink);">' +
+            '<span style="width:9px;height:9px;border-radius:50%;background:'+(picColor[p.a]||'#888')+';display:inline-block;"></span>'+p.a+
+            ' &amp; '+
+            '<span style="width:9px;height:9px;border-radius:50%;background:'+(picColor[p.b]||'#888')+';display:inline-block;"></span>'+p.b+
+          '</div>' +
+          '<span style="font-size:12px;font-weight:800;color:var(--ink);font-family:IBM Plex Sans,sans-serif;">'+p.v+' shared</span>' +
+        '</div>' +
+        '<div style="height:8px;background:var(--line-2);border-radius:3px;overflow:hidden;">' +
+          '<div style="width:'+pct+'%;height:100%;background:'+(idx===0?'var(--red)':'var(--ink)')+';border-radius:3px;"></div>' +
+        '</div>' +
+      '</div>';
+    });
+    h += '</div>';
+  }
+  h += '<div style="margin-top:14px;padding:12px;background:var(--paper-2);border-radius:6px;border:1px solid var(--line-2);">' +
+    '<div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--mute);margin-bottom:6px;">Indeks Kolaborasi Tim</div>' +
+    '<div style="font-size:28px;font-weight:800;font-family:IBM Plex Sans,sans-serif;color:var(--ink);">' + collabPct + '<span style="font-size:15px;font-weight:600;color:var(--mute);">%</span></div>' +
+    '<div style="font-size:11px;color:var(--mute);margin-top:4px;">' + collabCount + ' dari ' + total + ' jobdesk melibatkan &ge;2 personel</div>' +
+  '</div>';
+  h += '</div>';
+  h += '</div></div>';
+
+  // § 6 Eisenhower Matrix
+  h += sec('Distribusi Matrix Eisenhower (All Jobs)');
+  h += '<div class="ins-g2">';
+  h += '<div class="ins-card"><div class="ins-card-hd"><span class="bar"></span>Quadrant View</div>';
+  h += '<div class="ins-qd">';
+  h += '<div class="ins-qd-cell q1"><div class="ins-qd-lbl">Q1 · Do Now</div><div class="ins-qd-n">'+qAll.Q1+'</div><div class="ins-qd-hint">Important &amp; Urgent</div></div>';
+  h += '<div class="ins-qd-cell q2"><div class="ins-qd-lbl">Q2 · Schedule</div><div class="ins-qd-n">'+qAll.Q2+'</div><div class="ins-qd-hint">Important · Not Urgent</div></div>';
+  h += '<div class="ins-qd-cell q3"><div class="ins-qd-lbl">Q3 · Delegate</div><div class="ins-qd-n">'+qAll.Q3+'</div><div class="ins-qd-hint">Urgent · Not Important</div></div>';
+  h += '<div class="ins-qd-cell q4"><div class="ins-qd-lbl">Q4 · Eliminate</div><div class="ins-qd-n">'+(qAll.Q4||0)+'</div><div class="ins-qd-hint">Not Important · Not Urgent</div></div>';
+  h += '</div></div>';
+  h += '<div class="ins-card"><div class="ins-card-hd"><span class="bar"></span>Analisa Distribusi</div>';
+  var q1Pct=Math.round(qAll.Q1/total*100), q2Pct=Math.round(qAll.Q2/total*100), q3Pct=Math.round(qAll.Q3/total*100);
+  [['Q1',q1Pct,qAll.Q1,'var(--red)'],['Q2',q2Pct,qAll.Q2,'#1D4ED8'],['Q3',q3Pct,qAll.Q3,'var(--amber)']].forEach(function(r) {
+    h += '<div class="ins-br">' +
+      '<div class="ins-br-lbl" style="color:'+r[3]+'">'+r[0]+'</div>' +
+      '<div class="ins-br-trk"><div class="ins-br-fl" style="width:'+r[1]+'%;background:'+r[3]+'">'+(r[1]>15?r[1]+'%':'')+'</div></div>' +
+      '<div class="ins-br-val">'+r[2]+'</div>' +
+    '</div>';
+  });
+  var healthScore = q2Pct>=30&&q1Pct<50 ? 'Sehat' : q1Pct>=50 ? 'Overloaded' : 'Perlu Perhatian';
+  var healthBg=healthScore==='Sehat'?'#F0FDF4':healthScore==='Overloaded'?'#FEF2F2':'#FFFBEB';
+  var healthBd=healthScore==='Sehat'?'#BBF7D0':healthScore==='Overloaded'?'#FECACA':'#FDE68A';
+  var healthCol=healthScore==='Sehat'?'#15803D':healthScore==='Overloaded'?'var(--red)':'#92400E';
+  h += '<div style="margin-top:14px;padding:12px 14px;background:'+healthBg+';border:1px solid '+healthBd+';border-radius:6px;">' +
+    '<div style="font-size:11px;font-weight:800;color:'+healthCol+';margin-bottom:4px;">Status Distribusi: '+healthScore+'</div>' +
+    '<div style="font-size:11px;color:var(--mute);">';
+  if (q1Pct>=50) h+='Lebih dari 50% tugas berada di Q1 — tim berada dalam tekanan tinggi. Pertimbangkan delegasi atau reprioritas.';
+  else if (q2Pct>=30) h+='Proporsi Q2 ('+q2Pct+'%) yang sehat menandakan keseimbangan antara urgensi dan investasi strategis jangka panjang.';
+  else h+='Proporsi Q2 masih '+q2Pct+'%. Pertimbangkan mengalokasikan lebih banyak kapasitas untuk pekerjaan strategis non-urgent.';
+  h += '</div></div></div>';
+  h += '</div></div>';
+
+  // § 7 Complexity Heatmap
+  h += sec('Peta Kompleksitas Beban (WL Level per Personel · Active)');
+  h += '<div class="ins-card"><div class="ins-card-hd"><span class="bar"></span>Distribusi WL Level per PIC (jumlah tugas aktif per level)</div>';
+  var wlLevels=[1,2,3,4,5], wlLabels={1:'Ringan',2:'Sdg-Ringan',3:'Sedang',4:'Sdg-Berat',5:'Berat'};
+  h += '<div class="ins-wm" style="grid-template-columns:62px repeat(5,1fr);">';
+  h += '<div class="ins-wm-hd">PIC</div>';
+  wlLevels.forEach(function(wl){ h+='<div class="ins-wm-hd">WL'+wl+'<br><span style="font-size:8px;font-weight:500;letter-spacing:0;color:var(--mute-2);">'+wlLabels[wl]+'</span></div>'; });
+  picIds.forEach(function(id) {
+    h += '<div class="ins-wm-rh">'+id+'</div>';
+    wlLevels.forEach(function(wl) {
+      var v=picWLDist[id][wl]||0;
+      var cls=v===0?'w0':v===1?'w1':v===2?'w2':v===3?'w3':v<=5?'w4':'w5';
+      h += '<div class="ins-wm-cell '+cls+'">'+(v||'·')+'</div>';
+    });
+  });
+  h += '</div>';
+  h += '<div style="margin-top:14px;padding-top:11px;border-top:1px solid var(--line-2);font-size:11px;color:var(--mute);display:flex;gap:10px;flex-wrap:wrap;">' +
+    ['·=0','<span style="background:#DBEAFE;color:#1D4ED8;border-radius:2px;padding:1px 4px;">1</span>=1 item',
+     '<span style="background:#93C5FD;color:#1E3A8A;border-radius:2px;padding:1px 4px;">2</span>=2 item',
+     '<span style="background:#FBBF24;color:#451A03;border-radius:2px;padding:1px 4px;">3</span>=3 item',
+     '<span style="background:#F87171;color:#7F1D1D;border-radius:2px;padding:1px 4px;">4</span>=4 item',
+     '<span style="background:#DC2626;color:#fff;border-radius:2px;padding:1px 4px;">5+</span>=5+ item'].map(function(s){ return '<span>'+s+'</span>'; }).join('') +
+  '</div></div></div>';
+
+  // § 8 Work Type Mix per PIC
+  h += sec('Distribusi Tipe Pekerjaan per Personel (Mix Analysis)');
+  h += '<div class="ins-card"><div class="ins-card-hd"><span class="bar"></span>Jumlah Tugas per Kategori per PIC (All Jobs)</div>';
+  var activeCategories = CATEGORY_CONFIG.filter(function(c) {
+    return picIds.some(function(id){ return picCatMix[id][c.label]>0; });
+  });
+  var mixCols='70px repeat('+activeCategories.length+',1fr)';
+  h += '<div class="ins-mix" style="grid-template-columns:'+mixCols+';">';
+  h += '<div class="ins-mix-hd">PIC</div>';
+  activeCategories.forEach(function(c) {
+    h += '<div class="ins-mix-hd" style="font-size:8.5px;">'+c.label+'</div>';
+  });
+  var maxMix=0;
+  picIds.forEach(function(id){ activeCategories.forEach(function(c){ var v=picCatMix[id][c.label]||0; if(v>maxMix) maxMix=v; }); });
+  picIds.forEach(function(id) {
+    h += '<div class="ins-mix-rh">'+id+'</div>';
+    activeCategories.forEach(function(c) {
+      var v=picCatMix[id][c.label]||0;
+      var cls=v===0?'m0':v<=Math.round(maxMix*0.33)?'m1':v<=Math.round(maxMix*0.66)?'m2':'m3';
+      h += '<div class="ins-mix-cell '+cls+'">'+(v||'·')+'</div>';
+    });
+  });
+  h += '</div>';
+  h += '<div style="margin-top:12px;padding-top:10px;border-top:1px solid var(--line-2);font-size:11px;color:var(--mute);">Semakin gelap = semakin banyak tugas di kategori tersebut. Bantu identifikasi siapa subject matter expert per tipe pekerjaan.</div>';
+  h += '</div></div>';
+
+  // § 9 Alerts
+  h += sec('Deteksi Risiko &amp; Rekomendasi Otomatis');
+  h += '<div class="ins-card"><div class="ins-card-hd"><span class="bar"></span>Peringatan Berdasarkan Data Real-Time</div>';
+  var alerts = [];
+  picIds.forEach(function(id) {
+    if (picWL[id]>=WL_DANGER) alerts.push({t:'danger',ico:'⚠️',ttl:'Overload: '+id,body:'WL Score '+id+' = '+picWL[id]+' poin ('+Math.round(picWL[id]/maxWL*100)+'% dari beban tertinggi). Pertimbangkan redistribusi tugas atau penundaan item non-Q1.'});
+    else if (picWL[id]>=WL_WARN) alerts.push({t:'warn',ico:'🟡',ttl:'High Load: '+id,body:'WL Score '+id+' = '+picWL[id]+' poin. Mendekati kapasitas puncak — hindari penambahan tugas baru dan monitor progress secara ketat.'});
+  });
+  if (qAct.Q1>6) alerts.push({t:'danger',ico:'🔴',ttl:'Q1 Backlog Tinggi',body:qAct.Q1+' tugas Q1 (Do Now) masih aktif. Risiko tidak terpenuhinya deadline meningkat — eskalasi segera jika ada hambatan.'});
+  else if (qAct.Q1>3) alerts.push({t:'warn',ico:'🟠',ttl:'Q1 Active Perlu Dimonitor',body:qAct.Q1+' tugas Q1 aktif. Pastikan alokasi waktu tim cukup dan tidak ada blocking issue.'});
+  if (donePct>=60) alerts.push({t:'ok',ico:'✅',ttl:'Completion Rate Solid',body:donePct+'% tugas telah selesai. Momentum positif — pertahankan dan fokus menyelesaikan sisa Q1 aktif.'});
+  else if (donePct<25) alerts.push({t:'warn',ico:'📊',ttl:'Completion Rate Rendah',body:'Baru '+donePct+'% terselesaikan. Identifikasi bottleneck dan percepat penyelesaian terutama item Q1 dan Q2.'});
+  if (pairs.length&&pairs[0].v>=6) alerts.push({t:'info',ico:'🤝',ttl:'Kolaborasi Intensif: '+pairs[0].a+' & '+pairs[0].b,body:pairs[0].v+' shared assignments terdeteksi. Pastikan keduanya sync rutin dan tidak ada single point of failure.'});
+  if (collabPct>=50) alerts.push({t:'info',ico:'👥',ttl:'Tim Berorientasi Kolaboratif',body:collabPct+'% tugas melibatkan 2+ personel — baik untuk knowledge sharing, namun perlu koordinasi aktif agar tidak ada tugas yang jatuh di celah.'});
+  else alerts.push({t:'ok',ico:'✅',ttl:'Distribusi Solo/Kolaborasi Proporsional',body:Math.round(soloCount/total*100)+'% tugas solo dan '+collabPct+'% kolaborasi — keseimbangan yang baik antara otonomi dan teamwork.'});
+  if (picWL[maxWLPic]-picWL[minWLPic]>maxWL*0.3) alerts.push({t:'info',ico:'⚖️',ttl:'Gap Beban Antar Personel Signifikan',body:'Kesenjangan WL Score: '+maxWLPic+' ('+picWL[maxWLPic]+') vs '+minWLPic+' ('+picWL[minWLPic]+'). Pertimbangkan redistributed assignment untuk pemerataan kapasitas.'});
+  if (!alerts.length) alerts.push({t:'ok',ico:'✅',ttl:'Semua Indikator Normal',body:'Tidak ada anomali yang terdeteksi dari data. Tim dalam kondisi optimal.'});
+  alerts.forEach(function(a) {
+    h += '<div class="ins-alert '+a.t+'">' +
+      '<div class="ins-alert-ico">'+a.ico+'</div>' +
+      '<div><div class="ins-alert-ttl">'+a.ttl+'</div><div class="ins-alert-body">'+a.body+'</div></div>' +
+    '</div>';
+  });
+  h += '</div></div>';
+
+  document.getElementById('ins-body').innerHTML = h;
+}
+
+function sec(title) {
+  return '<div class="ins-sec"><div class="ins-sec-hd"><span class="dot"></span>' + title + '</div>';
+}
+function iCard(title, content) {
+  return '<div class="ins-card"><div class="ins-card-hd"><span class="bar"></span>' + title + '</div>' + content + '</div>';
+}
+function makeDonut(data, size) {
+  size = size || 148;
+  var cx=size/2, cy=size/2, r=size*0.43, ir=size*0.27;
+  var tot=data.reduce(function(s,d){ return s+d.val; },0);
+  if (!tot) return '<svg width="'+size+'" height="'+size+'"></svg>';
+  var angle=-Math.PI/2;
+  var paths=data.map(function(d) {
+    var sl=(d.val/tot)*2*Math.PI, ea=angle+sl, la=sl>Math.PI?1:0;
+    var x1=cx+r*Math.cos(angle),  y1=cy+r*Math.sin(angle);
+    var x2=cx+r*Math.cos(ea),     y2=cy+r*Math.sin(ea);
+    var x3=cx+ir*Math.cos(ea),    y3=cy+ir*Math.sin(ea);
+    var x4=cx+ir*Math.cos(angle), y4=cy+ir*Math.sin(angle);
+    var path='M'+x1.toFixed(2)+' '+y1.toFixed(2)+
+              ' A'+r+' '+r+' 0 '+la+' 1 '+x2.toFixed(2)+' '+y2.toFixed(2)+
+              ' L'+x3.toFixed(2)+' '+y3.toFixed(2)+
+              ' A'+ir+' '+ir+' 0 '+la+' 0 '+x4.toFixed(2)+' '+y4.toFixed(2)+'Z';
+    angle=ea;
+    return '<path d="'+path+'" fill="'+d.color+'" stroke="white" stroke-width="1.5"/>';
+  }).join('');
+  var fs=Math.round(size*0.155), fs2=Math.round(size*0.082);
+  paths += '<text x="'+cx+'" y="'+(cy+fs*0.38)+'" text-anchor="middle" font-size="'+fs+'" font-weight="800" font-family="IBM Plex Sans,sans-serif" fill="#18191C">'+tot+'</text>';
+  paths += '<text x="'+cx+'" y="'+(cy+fs*0.38+fs2+3)+'" text-anchor="middle" font-size="'+fs2+'" font-weight="600" font-family="Inter,sans-serif" fill="#6C7079">total</text>';
+  return '<svg width="'+size+'" height="'+size+'" viewBox="0 0 '+size+' '+size+'" style="flex-shrink:0;">'+paths+'</svg>';
+}
 </script>
 
 </body>

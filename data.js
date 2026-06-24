@@ -99,10 +99,10 @@ const RUNNING_TEXT =
   "SELAMAT PAGI ! ." +
   " ." +
   " ." +
-  "PREPARE FOR BIG DAY ! ." +
+  "NEW BIG BOSS ." +
   " · " +
   " · " +
-  "REBALANCING FTSE & PRE-LIVE OMNIBUS ." +
+  "STAY CALM ." +
   " · " +
   " · " +
   "SEMANGAT SEMUANYA :) .";
