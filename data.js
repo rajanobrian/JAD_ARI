@@ -99,10 +99,10 @@ const RUNNING_TEXT =
   "SELAMAT PAGI ! ." +
   " ." +
   " ." +
-  "NEW BIG BOSS ." +
+  "MINTOL UPDATE LIST JOBDESK DAN INITIATIVE ." +
   " · " +
   " · " +
-  "STAY CALM ." +
+  "UPDATE KE BOS BARU ." +
   " · " +
   " · " +
   "SEMANGAT SEMUANYA :) .";
