@@ -87,6 +87,8 @@ const JOBS = [
   {no:44, job:"Finalisasi Draft Konsep Transaksi dan Penjaminan PALN to IDX",           cat:"Support Project",     cc:"cat-np", pics:["BAI"], prio:"Q1", pl:"I·U", st:"done",   wl:5},
   {no:45, job:"Follow up Issue Volatilitas Margin dan Stresstest PUVA",           cat:"Adhoc",     cc:"cat-ad", pics:["RFA"], prio:"Q1", pl:"I·U", st:"on",   wl:5},
   {no:46, job:"Third Parti Model Review & Validation",           cat:"Inisiatif Project",     cc:"cat-ip", pics:["SSO"], prio:"Q1", pl:"I·U", st:"on",   wl:5},
+  {no:47, job:"Asessment System - Perubahan nomenklatur ARI to ARP",           cat:"Adhoc",     cc:"cat-ad", pics:["SSO"], prio:"Q1", pl:"I·U", st:"on",   wl:5},
+  {no:48, job:"Asessment POS PM-PUVA - Perubahan nomenklatur ARI to ARP",           cat:"Adhoc",     cc:"cat-ad", pics:["BAI","RFA"], prio:"Q1", pl:"I·U", st:"on",   wl:5},
 ];
 
 const WL_LABELS = {
