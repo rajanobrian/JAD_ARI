@@ -61,7 +61,7 @@ const JOBS = [
   {no:18, job:"Pengadaan Mobile Workstation @risk",                                cat:"Inisiatif non Proj.", cc:"cat-np", pics:["SSO"],       prio:"Q3", pl:"U·NI", st:"on",   wl:3},
   {no:19, job:"Kajian Impact Coll & Risk System Migrasi DWH – Big Data (Scope PPR)",                                  cat:"Kajian & Review",     cc:"cat-np", pics:["BAI","SSO"], prio:"Q1", pl:"I·U", st:"on",   wl:5},
   {no:20, job:"Kajian Impact Analysis Ticker Code (PSPP)",                                cat:"Kajian & Review",     cc:"cat-np", pics:["RFA","NDI"], prio:"Q1", pl:"I·U", st:"on",   wl:5},
-  {no:21, job:"Asessment Upgrade System Razor Risk 5.0",                                     cat:"Inisiatif non Proj.", cc:"cat-np", pics:["BAI","SSO"], prio:"Q1", pl:"I·U",  st:"on",   wl:5},
+  {no:21, job:"Asessment Upgrade System Razor Risk 5.0",                                     cat:"Inisiatif non Proj.", cc:"cat-np", pics:["BAI","SSO"], prio:"Q2", pl:"I·NU",  st:"on",   wl:5},
   {no:22, job:"Omnibus – Kliring & Risk SETW (live Juni)",                       cat:"Support Project",     cc:"cat-sp", pics:["BAI","SSO"], prio:"Q1", pl:"I·U",  st:"done",   wl:4},
   {no:23, job:"Surrounding SKD Exchange – Risk System",                            cat:"Support Project",     cc:"cat-sp", pics:["RFA","NDI"], prio:"Q3", pl:"U·NI", st:"on",   wl:4},
   {no:24, job:"Pengembangan Produk PALN (Derivatif)",                              cat:"Support Project",     cc:"cat-sp", pics:["RFA", "BAI"],prio:"Q2", pl:"I·NU", st:"on",   wl:5},
