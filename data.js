@@ -80,6 +80,7 @@ const JOBS = [
   {no:37, job:"Asessment POS PM-PUVA - Perubahan nomenklatur ARI to ARP",           cat:"Adhoc",     cc:"cat-ad", pics:["BAI","RFA"], prio:"Q1", pl:"I·U", st:"done",   wl:2}, 
   {no:38, job:"Finalisasi SK Pengangkatan Komite Haircut",           cat:"Adhoc",     cc:"cat-ad", pics:["NDI"], prio:"Q1", pl:"I·U", st:"done",   wl:4}, 
   {no:39, job:"Persiapan Audit SPI : audit KPI & SMKI + Insided",           cat:"Adhoc",     cc:"cat-ad", pics:["NDI"], prio:"Q1", pl:"I·U", st:"on",   wl:4}, 
+  {no:40, job:"Perhitungan Risk Charge Anggota Kliring 3 Bulanan",           cat:"Operasional",     cc:"cat-op", pics:["BAI"], prio:"Q1", pl:"I·U", st:"on",   wl:4}, 
 ];
 
 const WL_LABELS = {
@@ -117,8 +118,8 @@ const KEY_TAKEAWAYS = [
   "JD.16 : (Virtual Machine) - Dalam proses Penetration Test",
   "JD.23 : (SKD Exchange) - Support Validasi hitungan VM dan Blocked coll",
   "REVISI RKAT : ",
-  "(1) Third Party Model Review & Validation = Rp 3 Bio," ,
-  "(2) Pengadaaan laptop Workstation @risk = Rp30 juta," ,
+  "(1) Third Party Model Review & Validation = Rp 4 Bio," ,
+  "(2) Pengadaaan laptop Workstation @risk = Rp29,881 juta," ,
   "(3) CR Razor PUVA = ??",
   "(4) Beban Rapat internal review risk model = Rp 5 Juta",
   "(5) XBRL Laporan Keuangan",
