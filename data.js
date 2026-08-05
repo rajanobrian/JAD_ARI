@@ -79,7 +79,7 @@ const JOBS = [
   {no:36, job:"Asessment System - Perubahan nomenklatur ARI to ARP",           cat:"Adhoc",     cc:"cat-ad", pics:["SSO"], prio:"Q1", pl:"I·U", st:"on",   wl:2},
   {no:37, job:"Asessment POS PM-PUVA - Perubahan nomenklatur ARI to ARP",           cat:"Adhoc",     cc:"cat-ad", pics:["BAI","RFA"], prio:"Q1", pl:"I·U", st:"done",   wl:2}, 
   {no:38, job:"Finalisasi SK Pengangkatan Komite Haircut",           cat:"Adhoc",     cc:"cat-ad", pics:["NDI"], prio:"Q1", pl:"I·U", st:"done",   wl:4}, 
-  {no:39, job:"Persiapan Audit SPI : audit KPI & SMKI + Insided"`,           cat:"Adhoc",     cc:"cat-ad", pics:["NDI"], prio:"Q1", pl:"I·U", st:"on",   wl:4}, 
+  {no:39, job:"Persiapan Audit SPI : audit KPI & SMKI + Insided",           cat:"Adhoc",     cc:"cat-ad", pics:["NDI"], prio:"Q1", pl:"I·U", st:"on",   wl:4}, 
   {no:40, job:"Perhitungan Risk Charge Anggota Kliring 3 Bulanan",           cat:"Operasional",     cc:"cat-op", pics:["BAI"], prio:"Q1", pl:"I·U", st:"on",   wl:4}, 
   {no:41, job:"Review HC Index GLobal -Global Junior Gold Miners Index (GDXJ)- ",           cat:"Operasional",     cc:"cat-op", pics:["NDI"], prio:"Q1", pl:"I·U", st:"done",   wl:4}, 
 ];
