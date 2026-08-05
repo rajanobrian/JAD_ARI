@@ -76,7 +76,7 @@ const JOBS = [
   {no:33, job:"Assessment impact Perubahan & perpanjangan jam bursa",              cat:"Support Project",     cc:"cat-sp", pics:["NDI","SSO"], prio:"Q2", pl:"I·NU", st:"on",   wl:4},
   {no:34, job:"Follow up Issue Volatilitas Margin dan Stresstest PUVA",           cat:"Adhoc",     cc:"cat-ad", pics:["RFA"], prio:"Q1", pl:"I·U", st:"on",   wl:3},
   {no:35, job:"Third Party- Model Review & Validation",           cat:"Inisiatif Project",     cc:"cat-ip", pics:["SSO"], prio:"Q1", pl:"I·U", st:"on",   wl:5},
-  {no:36, job:"Asessment System - Perubahan nomenklatur ARI to ARP",           cat:"Adhoc",     cc:"cat-ad", pics:["SSO"], prio:"Q1", pl:"I·U", st:"on",   wl:2},
+  {no:36, job:"Asessment System - Perubahan nomenklatur ARI to ARP",           cat:"Adhoc",     cc:"cat-ad", pics:["SSO"], prio:"Q1", pl:"I·U", st:"donea",   wl:2},
   {no:37, job:"Asessment POS PM-PUVA - Perubahan nomenklatur ARI to ARP",           cat:"Adhoc",     cc:"cat-ad", pics:["BAI","RFA"], prio:"Q1", pl:"I·U", st:"done",   wl:2}, 
   {no:38, job:"Finalisasi SK Pengangkatan Komite Haircut",           cat:"Adhoc",     cc:"cat-ad", pics:["NDI"], prio:"Q1", pl:"I·U", st:"done",   wl:4}, 
   {no:39, job:"Persiapan Audit SPI : audit KPI & SMKI + Insided",           cat:"Adhoc",     cc:"cat-ad", pics:["NDI"], prio:"Q1", pl:"I·U", st:"on",   wl:4}, 
