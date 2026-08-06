@@ -67,7 +67,7 @@ const JOBS = [
   {no:24, job:"Pengembangan Produk PALN (Derivatif)",                              cat:"Support Project",     cc:"cat-sp", pics:["RFA", "BAI"],prio:"Q2", pl:"I·NU", st:"on",   wl:5},
   {no:25, job:"Pengembangan CCP Repo",                                             cat:"Support Project",     cc:"cat-sp", pics:["RFA","BAI"], prio:"Q2", pl:"I·NU", st:"on",   wl:5},
   {no:26, job:"PSKR – Migrasi Nasdaq to LSEG",                                     cat:"Support Project",     cc:"cat-sp", pics:["BAI"],       prio:"Q1", pl:"I·U",  st:"done",   wl:5},
-  {no:27, job:"Pengembangan Produk UDR, EGR (Equity)",                             git cat:"Support Project",     cc:"cat-sp", pics:["RFA","NDI"], prio:"Q2", pl:"I·NU", st:"on",   wl:5},
+  {no:27, job:"Pengembangan Produk UDR, EGR (Equity)",                             cat:"Support Project",     cc:"cat-sp", pics:["RFA","NDI"], prio:"Q2", pl:"I·NU", st:"on",   wl:5},
   {no:28, job:"Asessment IM dan Stresstest PUVA (volatilitas nilai hasil kalkulasi) ke Razor",           cat:"Adhoc",     cc:"cat-ad", pics:["RFA"], prio:"Q2", pl:"I·NU", st:"on",   wl:4},
   {no:29, job:"Assessment Digital Asset Product in CCP Risk",                      cat:"Support Project",     cc:"cat-sp", pics:["BAI","SSO"], prio:"Q2", pl:"I·NU", st:"on",   wl:4},
   {no:30, job:"Assessment kesiapan sistem risk untuk live OIS/IRS PUVA",           cat:"Support Project",     cc:"cat-sp", pics:["RFA","SSO"], prio:"Q2", pl:"I·NU", st:"on",   wl:5},
@@ -82,7 +82,7 @@ const JOBS = [
   {no:39, job:"Persiapan Audit SPI : audit KPI & SMKI ",           cat:"Adhoc",     cc:"cat-ad", pics:["NDI"], prio:"Q1", pl:"I·U", st:"on",   wl:4}, 
   {no:40, job:"Perhitungan Risk Charge Anggota Kliring 3 Bulanan",           cat:"Operasional",     cc:"cat-op", pics:["BAI"], prio:"Q1", pl:"I·U", st:"done",   wl:4}, 
   {no:41, job:"Review HC Index GLobal -Global Junior Gold Miners Index (GDXJ)- ",           cat:"Operasional",     cc:"cat-op", pics:["NDI"], prio:"Q1", pl:"I·U", st:"done",   wl:4}, 
-  {no:42, job:"Third Party Model Review (phase 2) - Proposal, RKAT, Pengadaan.",           cat:"Operasional",     cc:"cat-op", pics:["SSO"], prio:"Q1", pl:"I·U", st:"done",   wl:4}, 
+  {no:42, job:"Third Party Model Review (phase 2) - Proposal, RKAT, Pengadaan.",           cat:"Operasional",     cc:"cat-op", pics:["SSO"], prio:"Q1", pl:"I·U", st:"on",   wl:4}, 
 ];
 
 const WL_LABELS = {
