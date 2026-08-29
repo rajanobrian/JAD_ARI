@@ -81,8 +81,9 @@
     content: ''; position: absolute; inset: 13px; background: var(--ink); border-radius: 50%;
   }
   .brand-title { font-size: 15px; color: #B8BCC2; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600; }
-  h1.page-title { font-size: 42px; font-weight: 800; letter-spacing: -0.02em; margin-top: 4px; }
+  h1.page-title { font-size: 42px; font-weight: 800; letter-spacing: -0.02em; margin-top: 4px; line-height: 1.12; }
   h1.page-title .accent { color: var(--red); }
+  h1.page-title .hl-initial { color: var(--red); }
   .header-meta { display: flex; gap: 36px; color: #C8CCD2; font-size: 13px; }
   .header-meta .item { text-align: right; }
   .header-meta .label { text-transform: uppercase; letter-spacing: 0.1em; font-size: 11px; color: #8C919B; font-weight: 600; }
@@ -1319,7 +1320,7 @@
 (function () {
   const picIds = PIC_CONFIG.map(p => p.id);
   const total     = JOBS.length;
-  const done      = JOBS.filter(j => j.st === 'done').length;
+  const done      = JOBS.filter(j => (j.st || '').toLowerCase() === 'done').length;
   const onProg    = total - done;
   const q1Count   = JOBS.filter(j => j.prio === 'Q1').length;
   const soloCount = JOBS.filter(j => j.pics.length === 1).length;
@@ -1332,8 +1333,20 @@
 
   // ── HEADER ──────────────────────────────────────────────────────────────────
   document.getElementById('h-unit-title').textContent = DASHBOARD_META.unitTitle;
+  // Break the title before "Assignment" so it wraps onto a second line,
+  // highlight each word's initial letter, but leave text inside (parens) untouched.
+  var titleLines = DASHBOARD_META.pageTitle.split(/\s+(?=Assignment\b)/);
+  var pageTitleHtml = '';
+  for (var ti = 0; ti < titleLines.length; ti++) {
+    var line = titleLines[ti].replace(
+      /(\([^)]*\))|\b([A-Za-z])/g,
+      function (m, paren, letter) {
+        return paren ? paren : '<span class="hl-initial">' + letter + '</span>';
+      });
+    pageTitleHtml += (ti ? '<br>' : '') + line;
+  }
   document.getElementById('h-page-title').innerHTML =
-    DASHBOARD_META.pageTitle + ' <span class="accent">' + DASHBOARD_META.titleAccent + '</span>';
+    pageTitleHtml + ' <span class="accent">' + DASHBOARD_META.titleAccent + '</span>';
   document.getElementById('h-head-line').innerHTML =
     'Kepala Unit Analisis Risiko Bisnis: <span style="color:#ffffff"><b>' + DASHBOARD_META.headName + '</b></span>';
   document.getElementById('hm-period').textContent    = DASHBOARD_META.period;

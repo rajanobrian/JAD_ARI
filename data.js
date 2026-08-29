@@ -1,7 +1,7 @@
 const DASHBOARD_META = {
   unitTitle:   "Unit ARI · Analisa Risiko Bisnis",
-  pageTitle:   "Job Assignment Dashboard",
-  titleAccent: "Unit ARI",
+  pageTitle:   "Job Internal Highlights Assignment Dashboard",
+  titleAccent: "Unit ARP",
   headName:    "Raja Nobriansyah [RNR]",
   period:      "Q2–Q3 2026",
   liveDate:    "27 APR 2026",
@@ -45,17 +45,17 @@ const JOBS = [
   {no:2,  job:"Stresstesting PUVA Aug-26",                                                cat:"Operasional",         cc:"cat-op", pics:["RFA","SSO"],       prio:"Q1", pl:"I·U",  st:"done", wl:3},
   {no:3,  job:"Perhitungan KCCP PUVA Aug-26",                                             cat:"Operasional",         cc:"cat-op", pics:["RFA"],       prio:"Q1", pl:"I·U",  st:"done", wl:4},
   {no:4,  job:"Backtesting PM Aug-26",                                                    cat:"Operasional",         cc:"cat-op", pics:["SSO"],       prio:"Q1", pl:"I·U",  st:"done", wl:4},
-  {no:5,  job:"Input dan Analisa Laporan Keuangan - Signifikan Aug-26",                   cat:"Operasional",         cc:"cat-op", pics:["NDI"],       prio:"Q1", pl:"I·U",  st:"on", wl:4},
-  {no:6,  job:"Kalkulasi Haircut, Eligible SBL, Colldiss Aug-26",                     cat:"Operasional",         cc:"cat-op", pics:["NDI"],       prio:"Q1", pl:"I·U",  st:"on",   wl:5},
-  {no:7,  job:"Sensitivity Analysis Aug-26-26: Simulasi MKBD, Simulasi Trading Limit",      cat:"Operasional",         cc:"cat-op", pics:["NDI"],       prio:"Q1", pl:"I·U",  st:"on",   wl:4},
+  {no:5,  job:"Input dan Analisa Laporan Keuangan - Signifikan Aug-26",                   cat:"Operasional",         cc:"cat-op", pics:["NDI"],       prio:"Q1", pl:"I·U",  st:"done", wl:4},
+  {no:6,  job:"Kalkulasi Haircut, Eligible SBL, Colldiss Aug-26",                     cat:"Operasional",         cc:"cat-op", pics:["NDI"],       prio:"Q1", pl:"I·U",  st:"done",   wl:5},
+  {no:7,  job:"Sensitivity Analysis Aug-26-26: Simulasi MKBD, Simulasi Trading Limit",      cat:"Operasional",         cc:"cat-op", pics:["NDI"],       prio:"Q1", pl:"I·U",  st:"done",   wl:4},
   {no:8,  job:"Implementasi Backtest PUVA - Production",                       cat:"Inisiatif Project",   cc:"cat-ip", pics:["RFA"],       prio:"Q1", pl:"I·U",  st:"on",   wl:4},
-  {no:9,  job:"Weekly Report Analisa Risiko PM-PUVA",                              cat:"Inisiatif non Proj.", cc:"cat-np", pics:["SSO","NDI"], prio:"Q2", pl:"I·NU", st:"on",   wl:5},
+  {no:9,  job:"Weekly Report Analisa Risiko PM-PUVA",                              cat:"Inisiatif non Proj.", cc:"cat-np", pics:["SSO","NDI"], prio:"Q2", pl:"I·NU", st:"done",   wl:5},
   {no:10, job:"Review & Analisa LK + parameter fundamental",                      cat:"Kajian & Review",     cc:"cat-np", pics:["NDI"],       prio:"Q2", pl:"I·NU", st:"on",   wl:5},
   {no:11, job:"Kajian Transparansi Marjin PM-PUVA",                                cat:"Kajian & Review",     cc:"cat-np", pics:["RFA"],       prio:"Q2", pl:"I·NU", st:"done",   wl:4},
   {no:12, job:"Review RC 0%, Min. Agunan Offline",                                 cat:"Model Review",        cc:"cat-sp", pics:["BAI","SSO"], prio:"Q2", pl:"I·NU", st:"done",   wl:5},
   {no:13, job:"Assessment Saham Not Eligible as Collateral",                       cat:"Kajian & Review",     cc:"cat-np", pics:["NDI","BAI"], prio:"Q1", pl:"I·U", st:"on",   wl:5},
   {no:14, job:"Review Credit Rating/Risk Charge CCP PUVA",                         cat:"Model Review",        cc:"cat-sp", pics:["RFA"],       prio:"Q1", pl:"I·NU", st:"on",   wl:5},
-  {no:15, job:"VM request, Otomasi Proses ARI",                                    cat:"Inisiatif non Proj.", cc:"cat-np", pics:["SSO"],       prio:"Q4", pl:"NI·NU", st:"Closed",   wl:5},
+  {no:15, job:"VM request, Otomasi Proses ARI",                                    cat:"Inisiatif non Proj.", cc:"cat-np", pics:["SSO"],       prio:"Q4", pl:"NI·NU", st:"closed",   wl:5},
   {no:16, job:"SPAN License Updated",                                              cat:"Inisiatif non Proj.", cc:"cat-np", pics:["NDI"],       prio:"Q2", pl:"I·NU", st:"done",   wl:4},
   {no:17, job:"Pengadaan Mobile Workstation @risk",                                cat:"Inisiatif non Proj.", cc:"cat-np", pics:["SSO"],       prio:"Q3", pl:"U·NI", st:"done",   wl:3},
   {no:18, job:"Kajian Impact Coll & Risk System Migrasi DWH – Big Data (Scope PPR)",                                  cat:"Kajian & Review",     cc:"cat-np", pics:["BAI","SSO"], prio:"Q1", pl:"I·U", st:"on",   wl:5},
@@ -88,12 +88,12 @@ const JOBS = [
   {no:43, job:"Support Industrial Test Calon Anggota CCP (OCBC & JTrust)",           cat:"Adhoc",     cc:"cat-ad", pics:["RFA"], prio:"Q1", pl:"I·U", st:"done",   wl:3},
   {no:44, job:"BCP Officer - Pengecekan Alternater Site DRC dan Aplikasi Unit ARP",           cat:"Adhoc",     cc:"cat-ad", pics:["RFA"], prio:"Q2", pl:"I·NU", st:"done",   wl:3},
   {no:45, job:"Design Study - LSEG (Marginining Methodology)",           cat:"Support Project",     cc:"cat-sp", pics:["BAI","SSO"], prio:"Q1", pl:"I·U", st:"done",   wl:5},
-  {no:46, job:"Materi Calculation Method and Collateral - for Management & FTSE",           cat:"Adhoc",     cc:"cat-ad", pics:["NDI","SSO"], prio:"Q1", pl:"I·U", st:"on",   wl:4},
-  {no:47, job:"Materi Haircut Flow & Calculation - For Blackrock",           cat:"Adhoc",     cc:"cat-ad", pics:["NDI","SSO"], prio:"Q1", pl:"I·U", st:"on",   wl:4},
+  {no:46, job:"Materi Calculation Method and Collateral - for Management & FTSE",           cat:"Adhoc",     cc:"cat-ad", pics:["NDI","SSO"], prio:"Q1", pl:"I·U", st:"done",   wl:4},
+  {no:47, job:"Materi Haircut Flow & Calculation - For Blackrock",           cat:"Adhoc",     cc:"cat-ad", pics:["NDI","SSO"], prio:"Q1", pl:"I·U", st:"done",   wl:4},
   {no:48, job:"Kalkulasi Persentase Kecukupan Sumber Keuangan CCP dan Keandalan Stress Testing - KPI Unggulan",           cat:"Operasional",     cc:"cat-op", pics:["NDI"], prio:"Q1", pl:"I·U", st:"done",   wl:4},
   {no:49, job:"Review Peraturan BEI Nomor I-E tentang Kewajiban Penyampaian Informasi",           cat:"Adhoc",     cc:"cat-ad", pics:["NDI"], prio:"Q3", pl:"I·U", st:"done",   wl:2},
-
- 
+  {no:50, job:"Materi Publikasi Haircut Website KPEI",           cat:"Adhoc",     cc:"cat-ad", pics:["NDI","SSO"], prio:"Q1", pl:"I·U", st:"done",   wl:4},
+  {no:51, job:"Materi Penyampaian Risk Management for Demutualisasi SRO",           cat:"Adhoc",     cc:"cat-ad", pics:["NDI","SSO"], prio:"Q1", pl:"I·U", st:"done",   wl:4},
 ];
 
 const WL_LABELS = {
@@ -111,10 +111,10 @@ const RUNNING_TEXT =
   "SELAMAT PAGI ! ." +
   " ." +
   " ." +
-  "FOKUS PERSIAPAN AUDIT ." +
+  "BOS KITA LAGI BADMOOD GUYS ." +
   " · " +
   " · " +
-  "UPDATE CAPAIAN DAN CATATAN PROGRESS MASING MASING PROJECT DAN ASSESSMENT ." +
+  "JAGA SIKAP YA ." +
   " · " +
   " · " +
   "SEMANGAT SEMUANYA :) .";
