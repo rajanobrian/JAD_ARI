@@ -41,11 +41,11 @@ const CATEGORY_CONFIG = [
 //   st    – status: "done" | "on"
 //   wl    – workload scale 1–5: 1 Ringan · 2 Sedang-Ringan · 3 Sedang · 4 Sedang-Berat · 5 Berat
 const JOBS = [
-  {no:1,  job:"Stresstesting PM Aug-26",                                                  cat:"Operasional",         cc:"cat-op", pics:["BAI"],       prio:"Q1", pl:"I·U",  st:"done", wl:4},
-  {no:2,  job:"Stresstesting PUVA Aug-26",                                                cat:"Operasional",         cc:"cat-op", pics:["RFA","SSO"],       prio:"Q1", pl:"I·U",  st:"done", wl:3},
-  {no:3,  job:"Perhitungan KCCP PUVA Aug-26",                                             cat:"Operasional",         cc:"cat-op", pics:["RFA"],       prio:"Q1", pl:"I·U",  st:"done", wl:4},
-  {no:4,  job:"Backtesting PM Aug-26",                                                    cat:"Operasional",         cc:"cat-op", pics:["SSO"],       prio:"Q1", pl:"I·U",  st:"done", wl:4},
-  {no:5,  job:"Input dan Analisa Laporan Keuangan - Signifikan Aug-26",                   cat:"Operasional",         cc:"cat-op", pics:["NDI"],       prio:"Q1", pl:"I·U",  st:"done", wl:4},
+  {no:1,  job:"Laporan & Analisa Stresstesting PM Aug-26",                                                  cat:"Operasional",         cc:"cat-op", pics:["BAI"],       prio:"Q1", pl:"I·U",  st:"done", wl:4},
+  {no:2,  job:"Laporan & Analisa Stresstesting PUVA Aug-26",                                                cat:"Operasional",         cc:"cat-op", pics:["RFA","SSO"],       prio:"Q1", pl:"I·U",  st:"done", wl:3},
+  {no:3,  job:"Laporan dan Analisa Perhitungan KCCP PUVA Aug-26",                                             cat:"Operasional",         cc:"cat-op", pics:["RFA"],       prio:"Q1", pl:"I·U",  st:"done", wl:4},
+  {no:4,  job:"Laporan & Analisa Backtesting PM Aug-26",                                                    cat:"Operasional",         cc:"cat-op", pics:["SSO"],       prio:"Q1", pl:"I·U",  st:"done", wl:4},
+  {no:5,  job:"Analisa Input dan Analisa Laporan Keuangan - Signifikan Aug-26",                   cat:"Operasional",         cc:"cat-op", pics:["NDI"],       prio:"Q1", pl:"I·U",  st:"done", wl:4},
   {no:6,  job:"Kalkulasi Haircut, Eligible SBL, Colldiss Aug-26",                     cat:"Operasional",         cc:"cat-op", pics:["NDI"],       prio:"Q1", pl:"I·U",  st:"done",   wl:5},
   {no:7,  job:"Sensitivity Analysis Aug-26-26: Simulasi MKBD, Simulasi Trading Limit",      cat:"Operasional",         cc:"cat-op", pics:["NDI"],       prio:"Q1", pl:"I·U",  st:"done",   wl:4},
   {no:8,  job:"Implementasi Backtest PUVA - Production",                       cat:"Inisiatif Project",   cc:"cat-ip", pics:["RFA"],       prio:"Q1", pl:"I·U",  st:"on",   wl:4},
@@ -67,7 +67,7 @@ const JOBS = [
   {no:24, job:"Assesment Pengembangan CCP Repo",                                             cat:"Support Project",     cc:"cat-sp", pics:["RFA","BAI"], prio:"Q2", pl:"I·NU", st:"on",   wl:5},
   {no:25, job:"Doc Requirement PSKR – Migrasi Nasdaq to LSEG",                                     cat:"Support Project",     cc:"cat-sp", pics:["BAI"],       prio:"Q1", pl:"I·U",  st:"done",   wl:5},
   {no:26, job:"Pengembangan Produk UDR, EGR (Equity)",                             cat:"Support Project",     cc:"cat-sp", pics:["RFA","NDI"], prio:"Q2", pl:"I·NU", st:"on",   wl:3},
-  {no:27, job:"Asessment IM dan Stresstest PUVA (volatilitas nilai hasil kalkulasi) ke Razor",           cat:"Adhoc",     cc:"cat-ad", pics:["RFA"], prio:"Q2", pl:"I·NU", st:"on",   wl:4},
+  {no:27, job:"Asessment IM dan Stresstest PUVA (volatilitas nilai hasil kalkulasi) ke Razor",           cat:"Adhoc",     cc:"cat-ad", pics:["RFA"], prio:"Q1", pl:"I·U", st:"on",   wl:4},
   {no:28, job:"Assessment Digital Asset Product in CCP Risk",                      cat:"Support Project",     cc:"cat-sp", pics:["BAI","SSO"], prio:"Q2", pl:"I·NU", st:"on",   wl:4},
   {no:29, job:"Assessment kesiapan sistem risk untuk live OIS PUVA",           cat:"Support Project",     cc:"cat-sp", pics:["RFA","SSO"], prio:"Q2", pl:"I·NU", st:"done",   wl:5},
   {no:30, job:"Review Kebijakan Manajemen Risiko seluruh pasal PM - KPEI",                       cat:"Legal Review",        cc:"cat-np", pics:["NDI"],       prio:"Q2", pl:"I·NU", st:"done",   wl:5},
@@ -75,7 +75,7 @@ const JOBS = [
   {no:32, job:"Assessment impact Perubahan & perpanjangan jam bursa",              cat:"Support Project",     cc:"cat-sp", pics:["NDI","SSO"], prio:"Q2", pl:"I·NU", st:"on",   wl:4},
   {no:33, job:"Follow up Issue Volatilitas Margin dan Stresstest PUVA",           cat:"Adhoc",     cc:"cat-ad", pics:["RFA"], prio:"Q1", pl:"I·U", st:"on",   wl:3},
   {no:34, job:"Third Party- Model Review & Validation (phase 1)",           cat:"Inisiatif Project",     cc:"cat-ip", pics:["SSO","RFA"], prio:"Q1", pl:"I·U", st:"done",   wl:5},
-  {no:35, job:"Persiapan Audit SPI : audit KPI & SMKI ",           cat:"Adhoc",     cc:"cat-ad", pics:["NDI","BAI"], prio:"Q1", pl:"I·U", st:"on",   wl:4},  
+  {no:35, job:"Persiapan Audit SPI : audit KPI & SMKI ",           cat:"Adhoc",     cc:"cat-ad", pics:["NDI","BAI"], prio:"Q1", pl:"I·U", st:"on",   wl:3},  
   {no:36, job:"Third Party Model Review (phase 2) - Proposal, RKAT, Pengadaan.",           cat:"Operasional",     cc:"cat-op", pics:["SSO"], prio:"Q1", pl:"I·U", st:"on",   wl:4},  
   {no:41, job:"Trading Limit Troubleshooting Calculation on Razor PM",           cat:"Operasional",     cc:"cat-op", pics:["BAI"], prio:"Q1", pl:"I·U", st:"done",   wl:4},
   {no:37, job:"KPI Officer - Update pemenuhan KPI Unit - bulanan",           cat:"Operasional",     cc:"cat-op", pics:["NDI"], prio:"Q1", pl:"I·U", st:"done",   wl:4}, 
@@ -94,6 +94,10 @@ const JOBS = [
   {no:49, job:"Review Peraturan BEI Nomor I-E tentang Kewajiban Penyampaian Informasi",           cat:"Adhoc",     cc:"cat-ad", pics:["NDI"], prio:"Q3", pl:"I·U", st:"done",   wl:2},
   {no:50, job:"Materi Publikasi Haircut Website KPEI",           cat:"Adhoc",     cc:"cat-ad", pics:["NDI","SSO"], prio:"Q1", pl:"I·U", st:"done",   wl:4},
   {no:51, job:"Materi Penyampaian Risk Management for Demutualisasi SRO",           cat:"Adhoc",     cc:"cat-ad", pics:["NDI","SSO"], prio:"Q1", pl:"I·U", st:"done",   wl:4},
+  {no:52, job:"Simulasi Rebalancing MSCI - Aug-26",           cat:"Adhoc",     cc:"cat-ad", pics:["NDI","SSO","RFA","BAI"], prio:"Q1", pl:"I·U", st:"done",   wl:5},
+  {no:53, job:"Update POS dan Risk Register atas penyesuaian operasional HC KPEI",           cat:"Adhoc",     cc:"cat-ad", pics:["BAI"], prio:"Q1", pl:"I·U", st:"on",   wl:3},
+  {no:54, job:"Koordinasi Aktivasi Scheduler penarikan data price intraday dari PDC",           cat:"Adhoc",     cc:"cat-ad", pics:["BAI"], prio:"Q2", pl:"I·NU", st:"on",   wl:3},
+  {no:55, job:"Pemenuhan data Statistik PUVA ke RPB periode Juli-26 (H+3 Awal Bulan)",           cat:"Adhoc",     cc:"cat-ad", pics:["RFA"], prio:"Q2", pl:"I·NU", st:"done",   wl:3},
 ];
 
 const WL_LABELS = {
