@@ -47,7 +47,7 @@ const JOBS = [
   {no:4,  job:"Laporan & Analisa Backtesting PM Aug-26",                                                    cat:"Operasional",         cc:"cat-op", pics:["SSO"],       prio:"Q1", pl:"I·U",  st:"done", wl:4},
   {no:5,  job:"Analisa Input dan Analisa Laporan Keuangan - Signifikan Aug-26",                   cat:"Operasional",         cc:"cat-op", pics:["NDI"],       prio:"Q1", pl:"I·U",  st:"done", wl:4},
   {no:6,  job:"Kalkulasi Haircut, Eligible SBL, Colldiss Aug-26",                     cat:"Operasional",         cc:"cat-op", pics:["NDI"],       prio:"Q1", pl:"I·U",  st:"done",   wl:5},
-  {no:7,  job:"Sensitivity Analysis Aug-26-26: Simulasi MKBD, Simulasi Trading Limit",      cat:"Operasional",         cc:"cat-op", pics:["NDI"],       prio:"Q1", pl:"I·U",  st:"done",   wl:4},
+  {no:7,  job:"Sensitivity Analysis Aug-26-26: Simulasi MKBD, Simulasi Trading Limit",      cat:"Operasional",         cc:"cat-op", pics:["NDI"],       prio:"Q1", pl:"I·U",  st:"on",   wl:4},
   {no:8,  job:"Implementasi Backtest PUVA - Production",                       cat:"Inisiatif Project",   cc:"cat-ip", pics:["RFA"],       prio:"Q1", pl:"I·U",  st:"on",   wl:4},
   {no:9,  job:"Weekly Report Analisa Risiko PM-PUVA",                              cat:"Inisiatif non Proj.", cc:"cat-np", pics:["SSO","NDI"], prio:"Q2", pl:"I·NU", st:"done",   wl:5},
   {no:10, job:"Review & Analisa LK + parameter fundamental",                      cat:"Kajian & Review",     cc:"cat-np", pics:["NDI"],       prio:"Q2", pl:"I·NU", st:"on",   wl:5},
@@ -127,7 +127,7 @@ const RUNNING_TEXT =
 // ─── KEY TAKEAWAYS ───────────────────────────────────────────────────────────
 // Tambah, hapus, atau edit poin di sini. Setiap string = satu bullet point.
 const KEY_TAKEAWAYS = [
-  "Jadwal Piket | Analisa IPO : NDI | Upload Parameter : BAI | Rebalancing : SSO | ",
+  "Jadwal Piket | Analisa IPO : SSO | Upload Parameter : RFA | Rebalancing : NDI | ",
   "JD.08 : (Backtest_PUVA) - Sudah selesai PenTest, terdapat temuan dan diperlukan kesepakatan untuk proses lanjut dengan catatan dari tim IT terkait penanganan temuan.",
   "JD.11 : (Kajian Transparansi Margin) - Menunggu ketersediaan jadwal pemaparan ke Kadiv PPR.",
   "JD.12 : (Review RC 0%, Min. Offline Coll) - Menunggu ketersediaan jadwal pemaparan ke Direktur Ops.",
