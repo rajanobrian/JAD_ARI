@@ -1239,6 +1239,11 @@
           <div class="card-hd-l"><span class="hd-accent"></span><h3>Completed List Jobdesk</h3></div>
           <div style="display:flex;align-items:center;gap:12px;">
             <span class="hd-sub" id="table-hd-sub"></span>
+            <label style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--mute);">
+              Periode Report:
+              <input type="text" id="report-period-input" placeholder="cth. Q2–Q3 2026"
+                style="width:120px;padding:4px 8px;border:1px solid var(--line);border-radius:5px;font-size:11px;color:var(--ink);background:#fff;">
+            </label>
             <button class="export-btn" onclick="exportReport()">
               <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M2 11v2a1 1 0 001 1h10a1 1 0 001-1v-2M8 2v8M5 7l3 3 3-3"/>
@@ -1609,12 +1614,35 @@
 </script>
 
 <script>
+// ── MANUAL REPORT PERIOD ─────────────────────────────────────────────────────
+// Lets the user override DASHBOARD_META.period at export time without touching data.js.
+// Persisted in localStorage so the value survives a page reload.
+(function initReportPeriodInput() {
+  var input = document.getElementById('report-period-input');
+  if (!input) return;
+  var saved = null;
+  try { saved = localStorage.getItem('ari-report-period'); } catch (e) {}
+  input.value = saved || DASHBOARD_META.period;
+  input.addEventListener('input', function() {
+    try { localStorage.setItem('ari-report-period', input.value); } catch (e) {}
+  });
+})();
+
+function getReportPeriod() {
+  var input = document.getElementById('report-period-input');
+  var val = input ? input.value.trim() : '';
+  return val || DASHBOARD_META.period;
+}
+</script>
+
+<script>
 function exportReport() {
   var now = new Date();
   var MONTHS = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
   var dateStr = now.getDate() + ' ' + MONTHS[now.getMonth()] + ' ' + now.getFullYear();
   var timeStr = String(now.getHours()).padStart(2,'0') + ':' + String(now.getMinutes()).padStart(2,'0');
   var filenameDate = now.getFullYear() + '-' + String(now.getMonth()+1).padStart(2,'0') + '-' + String(now.getDate()).padStart(2,'0');
+  var reportPeriod = getReportPeriod();
 
   var doneJobs   = JOBS.filter(function(j) { return j.st === 'done'; });
   var onJobs     = JOBS.filter(function(j) { return j.st === 'on'; });
@@ -1646,9 +1674,20 @@ function exportReport() {
     '</tr>';
   }
 
+  function makeDoneRow(j, idx) {
+    return '<tr>' +
+      '<td class="mono">' + String(idx + 1).padStart(2, '0') + '</td>' +
+      '<td>' + j.job + '</td>' +
+      '<td class="cat">' + j.cat + '</td>' +
+      '<td class="pics">' + j.pics.join(', ') + '</td>' +
+      '<td class="reviewer">' + DASHBOARD_META.headName + '</td>' +
+      '<td class="prio">' + j.pl + '</td>' +
+    '</tr>';
+  }
+
   var picDoneSections = PIC_CONFIG.map(function(p) {
     var jobs = picDoneMap[p.id];
-    var rows = jobs.map(makeRow).join('');
+    var rows = jobs.map(makeDoneRow).join('');
     var bg = picColors[p.id] || '#18191C';
     return '<div class="pic-section">' +
       '<div class="pic-hdr">' +
@@ -1657,7 +1696,7 @@ function exportReport() {
         '<span class="pic-cnt">' + jobs.length + ' pekerjaan selesai</span>' +
       '</div>' +
       (jobs.length > 0
-        ? '<table><thead><tr><th>#</th><th>Jobdesk</th><th>Kategori</th><th>PIC</th><th>Priority</th></tr></thead>' +
+        ? '<table><thead><tr><th>#</th><th>Jobdesk</th><th>Kategori</th><th>PIC</th><th>Reviewed / Supervise by</th><th>Priority</th></tr></thead>' +
           '<tbody>' + rows + '</tbody></table>'
         : '<div class="empty-state">Tidak ada pekerjaan selesai untuk PIC ini</div>'
       ) +
@@ -1685,10 +1724,35 @@ function exportReport() {
   var donePct  = JOBS.length > 0 ? Math.round(doneJobs.length / JOBS.length * 100) : 0;
   var onPct    = JOBS.length > 0 ? Math.round(onJobs.length   / JOBS.length * 100) : 0;
 
+  function makeKpiRow(item, idx) {
+    return '<tr>' +
+      '<td class="mono">' + String(idx + 1).padStart(2, '0') + '</td>' +
+      '<td>' + item.kpi + '</td>' +
+      '<td class="cat">' + item.sasaran + '</td>' +
+      '<td class="cat">' + item.jenis + '</td>' +
+      '<td class="prio">' + item.target + '</td>' +
+      '<td><span class="kpi-status">' + item.status + '</span></td>' +
+    '</tr>';
+  }
+
+  var kpiUnitSections = KPI_UNIT.pics.map(function(p) {
+    var rows = p.items.map(makeKpiRow).join('');
+    var bg = picColors[p.pic] || '#18191C';
+    return '<div class="pic-section">' +
+      '<div class="pic-hdr">' +
+        '<span class="pic-badge" style="background:' + bg + '">' + p.pic + '</span>' +
+        '<span class="pic-label">' + p.pic + '</span>' +
+        '<span class="pic-cnt">' + p.items.length + ' indikator · Unit ' + KPI_UNIT.unit + '</span>' +
+      '</div>' +
+      '<table><thead><tr><th>#</th><th>KPI</th><th>Sasaran KPI</th><th>Jenis KPI</th><th>Target Min/Max ' + KPI_UNIT.targetPeriod + '</th><th>Status</th></tr></thead>' +
+      '<tbody>' + rows + '</tbody></table>' +
+    '</div>';
+  }).join('');
+
   var html = '<!doctype html>\n' +
     '<html lang="id">\n<head>\n' +
     '<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">\n' +
-    '<title>Laporan Pekerjaan Unit ARI · ' + dateStr + '</title>\n' +
+    '<title>Laporan Pekerjaan Unit ARP · ' + dateStr + '</title>\n' +
     '<link rel="preconnect" href="https://fonts.googleapis.com">' +
     '<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">\n' +
     '<style>\n' +
@@ -1721,7 +1785,9 @@ function exportReport() {
     'td.mono{font-family:"IBM Plex Mono",monospace;font-size:10.5px;color:var(--mute);white-space:nowrap;}\n' +
     'td.cat{font-size:11px;color:var(--ink3);white-space:nowrap;}\n' +
     'td.pics{font-size:11px;font-weight:600;white-space:nowrap;}\n' +
+    'td.reviewer{font-size:11px;color:var(--ink3);white-space:nowrap;}\n' +
     'td.prio{font-size:11px;white-space:nowrap;}\n' +
+    '.kpi-status{font-size:10px;font-weight:700;padding:2px 8px;border-radius:3px;color:#fff;background:var(--green);letter-spacing:.04em;}\n' +
     '.pic-section{margin-bottom:28px;page-break-inside:avoid;}\n' +
     '.pic-hdr{display:flex;align-items:center;gap:11px;margin-bottom:10px;}\n' +
     '.pic-badge{display:inline-flex;align-items:center;justify-content:center;' +
@@ -1730,15 +1796,22 @@ function exportReport() {
     '.pic-cnt{font-size:11.5px;color:var(--mute);font-weight:500;}\n' +
     '.empty-state{padding:11px 14px;background:var(--paper);border:1px dashed var(--line);border-radius:4px;color:var(--mute);font-size:11.5px;margin-bottom:16px;}\n' +
     '.page-break{page-break-before:always;margin-top:0;}\n' +
+    '.approval-box{margin-top:24px;page-break-inside:avoid;}\n' +
+    '.approval-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;margin-top:6px;padding:0 20px;}\n' +
+    '.approval-col{text-align:center;}\n' +
+    '.approval-label{font-size:11.5px;color:var(--ink3);margin-bottom:64px;}\n' +
+    '.approval-underline{border-bottom:1.5px solid var(--ink);width:80%;margin:0 auto;}\n' +
+    '.approval-name{font-size:12.5px;font-weight:700;margin-top:8px;}\n' +
+    '.approval-role{font-size:11px;color:var(--mute);margin-top:2px;}\n' +
     '.rpt-footer{margin-top:40px;padding-top:12px;border-top:1px solid var(--line);font-size:10.5px;color:var(--mute);display:flex;justify-content:space-between;}\n' +
     '@media print{.page-break{page-break-before:always;}}\n' +
     '</style>\n</head>\n<body>\n\n' +
 
     '<div class="report-hdr">' +
-      '<div class="unit-line">Unit Analisa Risiko Bisnis (ARI) · PT Kliring Penjaminan Efek Indonesia</div>' +
-      '<div class="rpt-title">Laporan Status Pekerjaan <span class="acc">Unit ARI</span></div>' +
+      '<div class="unit-line">Unit Analisa Risiko Penjaminan (ARP) · PT Kliring Penjaminan Efek Indonesia</div>' +
+      '<div class="rpt-title">Laporan Status Pekerjaan <span class="acc">Unit ARP</span></div>' +
       '<div class="rpt-meta">Dicetak: ' + dateStr + ', pukul ' + timeStr + ' WIB' +
-        ' &nbsp;·&nbsp; Periode: ' + DASHBOARD_META.period +
+        ' &nbsp;·&nbsp; Periode: ' + reportPeriod +
         ' &nbsp;·&nbsp; Kepala Unit: ' + DASHBOARD_META.headName + '</div>' +
     '</div>\n\n' +
 
@@ -1757,8 +1830,31 @@ function exportReport() {
     '<div class="sec-title"><span class="sec-badge red">OUTSTANDING</span> Daftar Pekerjaan Outstanding per PIC (' + onJobs.length + ' item)</div>\n' +
     picSections + '\n' +
 
+    '<div class="page-break"></div>\n\n' +
+
+    '<div class="sec-title"><span class="sec-badge green">KPI</span> KPI Unit ' + KPI_UNIT.unit + '</div>\n' +
+    kpiUnitSections + '\n' +
+
+    '<div class="approval-box">' +
+      '<div class="sec-title"><span class="sec-badge green">PERSETUJUAN</span> Tanda Tangan Approval</div>' +
+      '<div class="approval-grid">' +
+        '<div class="approval-col">' +
+          '<div class="approval-label">Mengetahui / Menyetujui,</div>' +
+          '<div class="approval-underline"></div>' +
+          '<div class="approval-name">&nbsp;</div>' +
+          '<div class="approval-role">Kadiv PPR</div>' +
+        '</div>' +
+        '<div class="approval-col">' +
+          '<div class="approval-label">Disusun oleh,</div>' +
+          '<div class="approval-underline"></div>' +
+          '<div class="approval-name">' + DASHBOARD_META.headName + '</div>' +
+          '<div class="approval-role">Kanit ARP</div>' +
+        '</div>' +
+      '</div>' +
+    '</div>\n\n' +
+
     '<div class="rpt-footer">' +
-      '<span>Job Information Assignment Advanced Dashboard · Unit ARI · ' + DASHBOARD_META.period + '</span>' +
+      '<span>Job Information Assignment Advanced Dashboard · Unit ARP · ' + reportPeriod + '</span>' +
       '<span>Digenerate otomatis &nbsp;·&nbsp; ' + dateStr + ' ' + timeStr + ' WIB</span>' +
     '</div>\n\n' +
     '</body>\n</html>';
@@ -1769,7 +1865,7 @@ function exportReport() {
   if (!win) {
     var a = document.createElement('a');
     a.href = url;
-    a.download = 'laporan-ari-' + filenameDate + '.html';
+    a.download = 'laporan-arp-' + filenameDate + '.html';
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
@@ -1783,6 +1879,7 @@ function exportHighlights() {
   var dateStr = now.getDate() + ' ' + MONTHS[now.getMonth()] + ' ' + now.getFullYear();
   var timeStr = String(now.getHours()).padStart(2,'0') + ':' + String(now.getMinutes()).padStart(2,'0');
   var filenameDate = now.getFullYear() + '-' + String(now.getMonth()+1).padStart(2,'0') + '-' + String(now.getDate()).padStart(2,'0');
+  var reportPeriod = getReportPeriod();
 
   var notesHtml = KEY_TAKEAWAYS.map(function(note, idx) {
     return '<li>' +
@@ -1794,7 +1891,7 @@ function exportHighlights() {
   var html = '<!doctype html>\n' +
     '<html lang="id">\n<head>\n' +
     '<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">\n' +
-    '<title>Highlights & Catatan Jobdesk ARI · ' + dateStr + '</title>\n' +
+    '<title>Highlights & Catatan Jobdesk ARP · ' + dateStr + '</title>\n' +
     '<link rel="preconnect" href="https://fonts.googleapis.com">' +
     '<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">\n' +
     '<style>\n' +
@@ -1824,10 +1921,10 @@ function exportHighlights() {
     '</style>\n</head>\n<body>\n\n' +
 
     '<div class="report-hdr">' +
-      '<div class="unit-line">Unit Analisa Risiko Bisnis (ARI) · PT Kliring Penjaminan Efek Indonesia</div>' +
-      '<div class="rpt-title">Highlights & Catatan Jobdesk <span class="acc">Unit ARI</span></div>' +
+      '<div class="unit-line">Unit Analisa Risiko Penjaminan (ARP) · PT Kliring Penjaminan Efek Indonesia</div>' +
+      '<div class="rpt-title">Highlights & Catatan Jobdesk <span class="acc">Unit ARP</span></div>' +
       '<div class="rpt-meta">Dicetak: ' + dateStr + ', pukul ' + timeStr + ' WIB' +
-        ' &nbsp;·&nbsp; Periode: ' + DASHBOARD_META.period +
+        ' &nbsp;·&nbsp; Periode: ' + reportPeriod +
         ' &nbsp;·&nbsp; Kepala Unit: ' + DASHBOARD_META.headName + '</div>' +
     '</div>\n\n' +
 
@@ -1842,7 +1939,7 @@ function exportHighlights() {
     '</div>\n\n' +
 
     '<div class="rpt-footer">' +
-      '<span>Job Information Assignment Advanced Dashboard · Unit ARI · ' + DASHBOARD_META.period + '</span>' +
+      '<span>Job Information Assignment Advanced Dashboard · Unit ARP · ' + reportPeriod + '</span>' +
       '<span>Digenerate otomatis &nbsp;·&nbsp; ' + dateStr + ' ' + timeStr + ' WIB</span>' +
     '</div>\n\n' +
     '</body>\n</html>';
@@ -1853,7 +1950,7 @@ function exportHighlights() {
   if (!win) {
     var a = document.createElement('a');
     a.href = url;
-    a.download = 'highlights-ari-' + filenameDate + '.html';
+    a.download = 'highlights-arp-' + filenameDate + '.html';
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);

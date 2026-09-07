@@ -108,6 +108,80 @@ const WL_LABELS = {
   5: "Berat",
 };
 
+// ─── KPI UNIT (sumber: KPI Unit ARP.xlsx) ───────────────────────────────────
+// AUTO-GENERATED oleh generate_kpi_unit.py — JANGAN edit manual di sini.
+// Setiap kali "KPI Unit ARP.xlsx" berubah, jalankan:  python generate_kpi_unit.py
+// Skrip akan membaca ulang file excel dan menulis ulang blok KPI_UNIT_START..KPI_UNIT_END di bawah.
+// unit = ARP untuk semua baris. target "1" berarti 100%; item #Number ditarget per-quartal.
+// KPI_UNIT_START
+const KPI_UNIT = {
+  unit: "ARP",
+  targetPeriod: "Tengah Tahun",
+  pics: [
+    { pic: "NDI", items: [
+      { kpi: "%Timely and Accurate Daily Parameter Calculation", sasaran: "Parameter Pengendalian Risiko", jenis: "Harian", target: "1", status: "Done" },
+      { kpi: "%Timely and Accurate Sensitivity Analysis", sasaran: "Parameter Pengendalian Risiko", jenis: "Bulanan", target: "1", status: "Done" },
+      { kpi: "%Timely and Accurate Haircut Calculation Saham Agunan MKBD dan Triparty Repo - PM", sasaran: "Parameter Pengendalian Risiko", jenis: "Bulanan", target: "1", status: "Done" },
+      { kpi: "%Timely and Accurate Haircut Calculation Perhitungan SBN - PUVA", sasaran: "Parameter Pengendalian Risiko", jenis: "Bulanan", target: "1", status: "Done" },
+      { kpi: "%Timely and Accurate Risk Parameter Calculation", sasaran: "Parameter Pengendalian Risiko", jenis: "Bulanan", target: "1", status: "Done" },
+      { kpi: "%Timely and Accurate Analisa dan Laporan Perhitungan Backtesting - PM", sasaran: "Parameter Pengendalian Risiko", jenis: "Bulanan", target: "1", status: "Done" },
+      { kpi: "%Timely and Accurate Analisa dan Laporan Perhitungan Backtesting - PUVA", sasaran: "Parameter Pengendalian Risiko", jenis: "Bulanan", target: "1", status: "Done" },
+      { kpi: "%Timely and Accurate KCCP Calculation", sasaran: "Parameter Pengendalian Risiko", jenis: "Bulanan", target: "1", status: "Done" },
+      { kpi: "#Number of Risk Model Review Pasar Modal", sasaran: "Parameter Pengendalian Risiko", jenis: "Quartalan", target: "Q1:1 · Q2:1 · Q3:1 · Q4:1", status: "Done" },
+      { kpi: "#Number of Risk Model Review PUVA", sasaran: "Parameter Pengendalian Risiko", jenis: "Quartalan", target: "Q1:1 · Q2:1 · Q3:1 · Q4:1", status: "Done" },
+      { kpi: "%Timely and Accurate Stress Testing Calculation Pasar Modal", sasaran: "Parameter Pengendalian Risiko", jenis: "Bulanan", target: "1", status: "Done" },
+      { kpi: "%Timely and Accurate Stress Testing Calculation PUVA", sasaran: "Parameter Pengendalian Risiko", jenis: "Bulanan", target: "1", status: "Done" },
+      { kpi: "% Kecukupan Sumber Keuangan CCP & Keandalan Stress Testing", sasaran: "Parameter Pengendalian Risiko", jenis: "Bulanan", target: "1", status: "Done" },
+    ]},
+    { pic: "SSO", items: [
+      { kpi: "%Timely and Accurate Daily Parameter Calculation", sasaran: "Parameter Pengendalian Risiko", jenis: "Harian", target: "1", status: "Done" },
+      { kpi: "%Timely and Accurate Sensitivity Analysis", sasaran: "Parameter Pengendalian Risiko", jenis: "Bulanan", target: "1", status: "Done" },
+      { kpi: "%Timely and Accurate Haircut Calculation Saham Agunan MKBD dan Triparty Repo - PM", sasaran: "Parameter Pengendalian Risiko", jenis: "Bulanan", target: "1", status: "Done" },
+      { kpi: "%Timely and Accurate Haircut Calculation Perhitungan SBN - PUVA", sasaran: "Parameter Pengendalian Risiko", jenis: "Bulanan", target: "1", status: "Done" },
+      { kpi: "%Timely and Accurate Risk Parameter Calculation", sasaran: "Parameter Pengendalian Risiko", jenis: "Bulanan", target: "1", status: "Done" },
+      { kpi: "%Timely and Accurate Analisa dan Laporan Perhitungan Backtesting - PM", sasaran: "Parameter Pengendalian Risiko", jenis: "Bulanan", target: "1", status: "Done" },
+      { kpi: "%Timely and Accurate Analisa dan Laporan Perhitungan Backtesting - PUVA", sasaran: "Parameter Pengendalian Risiko", jenis: "Bulanan", target: "1", status: "Done" },
+      { kpi: "%Timely and Accurate KCCP Calculation", sasaran: "Parameter Pengendalian Risiko", jenis: "Bulanan", target: "1", status: "Done" },
+      { kpi: "#Number of Risk Model Review Pasar Modal", sasaran: "Parameter Pengendalian Risiko", jenis: "Quartalan", target: "Q1:1 · Q2:1 · Q3:1 · Q4:1", status: "Done" },
+      { kpi: "#Number of Risk Model Review PUVA", sasaran: "Parameter Pengendalian Risiko", jenis: "Quartalan", target: "Q1:1 · Q2:1 · Q3:1 · Q4:1", status: "Done" },
+      { kpi: "%Timely and Accurate Stress Testing Calculation Pasar Modal", sasaran: "Parameter Pengendalian Risiko", jenis: "Bulanan", target: "1", status: "Done" },
+      { kpi: "%Timely and Accurate Stress Testing Calculation PUVA", sasaran: "Parameter Pengendalian Risiko", jenis: "Bulanan", target: "1", status: "Done" },
+      { kpi: "% Kecukupan Sumber Keuangan CCP & Keandalan Stress Testing", sasaran: "Parameter Pengendalian Risiko", jenis: "Bulanan", target: "1", status: "Done" },
+    ]},
+    { pic: "BAI", items: [
+      { kpi: "%Timely and Accurate Daily Parameter Calculation", sasaran: "Parameter Pengendalian Risiko", jenis: "Harian", target: "1", status: "Done" },
+      { kpi: "%Timely and Accurate Sensitivity Analysis", sasaran: "Parameter Pengendalian Risiko", jenis: "Bulanan", target: "1", status: "Done" },
+      { kpi: "%Timely and Accurate Haircut Calculation Saham Agunan MKBD dan Triparty Repo - PM", sasaran: "Parameter Pengendalian Risiko", jenis: "Bulanan", target: "1", status: "Done" },
+      { kpi: "%Timely and Accurate Haircut Calculation Perhitungan SBN - PUVA", sasaran: "Parameter Pengendalian Risiko", jenis: "Bulanan", target: "1", status: "Done" },
+      { kpi: "%Timely and Accurate Risk Parameter Calculation", sasaran: "Parameter Pengendalian Risiko", jenis: "Bulanan", target: "1", status: "Done" },
+      { kpi: "%Timely and Accurate Analisa dan Laporan Perhitungan Backtesting - PM", sasaran: "Parameter Pengendalian Risiko", jenis: "Bulanan", target: "1", status: "Done" },
+      { kpi: "%Timely and Accurate Analisa dan Laporan Perhitungan Backtesting - PUVA", sasaran: "Parameter Pengendalian Risiko", jenis: "Bulanan", target: "1", status: "Done" },
+      { kpi: "%Timely and Accurate KCCP Calculation", sasaran: "Parameter Pengendalian Risiko", jenis: "Bulanan", target: "1", status: "Done" },
+      { kpi: "#Number of Risk Model Review Pasar Modal", sasaran: "Parameter Pengendalian Risiko", jenis: "Quartalan", target: "Q1:1 · Q2:1 · Q3:1 · Q4:1", status: "Done" },
+      { kpi: "#Number of Risk Model Review PUVA", sasaran: "Parameter Pengendalian Risiko", jenis: "Quartalan", target: "Q1:1 · Q2:1 · Q3:1 · Q4:1", status: "Done" },
+      { kpi: "%Timely and Accurate Stress Testing Calculation Pasar Modal", sasaran: "Parameter Pengendalian Risiko", jenis: "Bulanan", target: "1", status: "Done" },
+      { kpi: "%Timely and Accurate Stress Testing Calculation PUVA", sasaran: "Parameter Pengendalian Risiko", jenis: "Bulanan", target: "1", status: "Done" },
+      { kpi: "% Kecukupan Sumber Keuangan CCP & Keandalan Stress Testing", sasaran: "Parameter Pengendalian Risiko", jenis: "Bulanan", target: "1", status: "Done" },
+    ]},
+    { pic: "RFA", items: [
+      { kpi: "%Timely and Accurate Daily Parameter Calculation", sasaran: "Parameter Pengendalian Risiko", jenis: "Harian", target: "1", status: "Done" },
+      { kpi: "%Timely and Accurate Sensitivity Analysis", sasaran: "Parameter Pengendalian Risiko", jenis: "Bulanan", target: "1", status: "Done" },
+      { kpi: "%Timely and Accurate Haircut Calculation Saham Agunan MKBD dan Triparty Repo - PM", sasaran: "Parameter Pengendalian Risiko", jenis: "Bulanan", target: "1", status: "Done" },
+      { kpi: "%Timely and Accurate Haircut Calculation Perhitungan SBN - PUVA", sasaran: "Parameter Pengendalian Risiko", jenis: "Bulanan", target: "1", status: "Done" },
+      { kpi: "%Timely and Accurate Risk Parameter Calculation", sasaran: "Parameter Pengendalian Risiko", jenis: "Bulanan", target: "1", status: "Done" },
+      { kpi: "%Timely and Accurate Analisa dan Laporan Perhitungan Backtesting - PM", sasaran: "Parameter Pengendalian Risiko", jenis: "Bulanan", target: "1", status: "Done" },
+      { kpi: "%Timely and Accurate Analisa dan Laporan Perhitungan Backtesting - PUVA", sasaran: "Parameter Pengendalian Risiko", jenis: "Bulanan", target: "1", status: "Done" },
+      { kpi: "%Timely and Accurate KCCP Calculation", sasaran: "Parameter Pengendalian Risiko", jenis: "Bulanan", target: "1", status: "Done" },
+      { kpi: "#Number of Risk Model Review Pasar Modal", sasaran: "Parameter Pengendalian Risiko", jenis: "Quartalan", target: "Q1:1 · Q2:1 · Q3:1 · Q4:1", status: "Done" },
+      { kpi: "#Number of Risk Model Review PUVA", sasaran: "Parameter Pengendalian Risiko", jenis: "Quartalan", target: "Q1:1 · Q2:1 · Q3:1 · Q4:1", status: "Done" },
+      { kpi: "%Timely and Accurate Stress Testing Calculation Pasar Modal", sasaran: "Parameter Pengendalian Risiko", jenis: "Bulanan", target: "1", status: "Done" },
+      { kpi: "%Timely and Accurate Stress Testing Calculation PUVA", sasaran: "Parameter Pengendalian Risiko", jenis: "Bulanan", target: "1", status: "Done" },
+      { kpi: "% Kecukupan Sumber Keuangan CCP & Keandalan Stress Testing", sasaran: "Parameter Pengendalian Risiko", jenis: "Bulanan", target: "1", status: "Done" },
+    ]},
+  ],
+};
+// KPI_UNIT_END
+
 // ─── RUNNING TEXT (Ticker Bar) ───────────────────────────────────────────────
 // Edit the text below to update the scrolling red bar between header and content.
 // Use  " · "  as a separator between items.
