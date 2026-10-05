@@ -45,15 +45,15 @@ const JOBS = [
   {no:2,  job:"Laporan & Analisa Stresstesting PUVA Sep-26",                                                cat:"Operasional",         cc:"cat-op", pics:["RFA","SSO"],       prio:"Q1", pl:"I·U",  st:"done", wl:3},
   {no:3,  job:"Laporan dan Analisa Perhitungan KCCP PUVA Sep-26",                                             cat:"Operasional",         cc:"cat-op", pics:["RFA"],       prio:"Q1", pl:"I·U",  st:"done", wl:4},
   {no:4,  job:"Laporan & Analisa Backtesting PM Sep-26",                                                    cat:"Operasional",         cc:"cat-op", pics:["SSO"],       prio:"Q1", pl:"I·U",  st:"done", wl:4},
-  {no:5,  job:"Analisa Input dan Analisa Laporan Keuangan - Signifikan Sep-26",                   cat:"Operasional",         cc:"cat-op", pics:["NDI"],       prio:"Q1", pl:"I·U",  st:"on", wl:4},
-  {no:6,  job:"Kalkulasi Haircut, Eligible SBL, Colldiss Sep-26",                     cat:"Operasional",         cc:"cat-op", pics:["NDI"],       prio:"Q1", pl:"I·U",  st:"on",   wl:5},
-  {no:7,  job:"Sensitivity Analysis Sep-26-26: Simulasi MKBD, Simulasi Trading Limit",      cat:"Operasional",         cc:"cat-op", pics:["NDI"],       prio:"Q1", pl:"I·U",  st:"on",   wl:4},
+  {no:5,  job:"Analisa Input dan Analisa Laporan Keuangan - Signifikan Sep-26",                   cat:"Operasional",         cc:"cat-op", pics:["NDI"],       prio:"Q1", pl:"I·U",  st:"done", wl:4},
+  {no:6,  job:"Kalkulasi Haircut, Eligible SBL, Colldiss Sep-26",                     cat:"Operasional",         cc:"cat-op", pics:["NDI"],       prio:"Q1", pl:"I·U",  st:"done",   wl:5},
+  {no:7,  job:"Sensitivity Analysis Sep-26-26: Simulasi MKBD, Simulasi Trading Limit",      cat:"Operasional",         cc:"cat-op", pics:["NDI"],       prio:"Q1", pl:"I·U",  st:"done",   wl:4},
   {no:8,  job:"Implementasi Backtest PUVA - Production",                       cat:"Inisiatif Project",   cc:"cat-ip", pics:["RFA"],       prio:"Q1", pl:"I·U",  st:"done",   wl:4},
   {no:9,  job:"Operational Weekly Report Analisa Risiko PM Sep-26 W1",                              cat:"Inisiatif non Proj.", cc:"cat-np", pics:["SSO"], prio:"Q1", pl:"I·U", st:"done",   wl:4},
   {no:10, job:"Operational Weekly Report Analisa Risiko PM Sep-26 W2",                              cat:"Inisiatif non Proj.", cc:"cat-np", pics:["SSO","NDI"], prio:"Q2", pl:"I·NU", st:"done",   wl:4},
   {no:11, job:"Operational Weekly Report Analisa Risiko PM Sep-26 W3",                              cat:"Inisiatif non Proj.", cc:"cat-np", pics:["SSO","BAI"], prio:"Q2", pl:"I·NU", st:"done",   wl:4},
-  {no:12, job:"Operational Weekly Report Analisa Risiko PM Sep-26 W4",                              cat:"Inisiatif non Proj.", cc:"cat-np", pics:["SSO","RFA"], prio:"Q2", pl:"I·NU", st:"on",   wl:4},
-  {no:13, job:"Review & Analisa LK + parameter fundamental",                      cat:"Kajian & Review",     cc:"cat-np", pics:["NDI"],       prio:"Q2", pl:"I·NU", st:"on",   wl:5},
+  {no:12, job:"Operational Weekly Report Analisa Risiko PM Sep-26 W4",                              cat:"Inisiatif non Proj.", cc:"cat-np", pics:["SSO","RFA"], prio:"Q2", pl:"I·NU", st:"done",   wl:4},
+  {no:13, job:"Review & Analisa LK + parameter fundamental",                      cat:"Kajian & Review",     cc:"cat-np", pics:["NDI"],       prio:"Q2", pl:"I·NU", st:"done",   wl:5},
   {no:14, job:"Kajian Transparansi Marjin PM-PUVA",                                cat:"Kajian & Review",     cc:"cat-np", pics:["RFA"],       prio:"Q2", pl:"I·NU", st:"done",   wl:4},
   {no:15, job:"Review RC 0%, Min. Agunan Offline",                                 cat:"Model Review",        cc:"cat-sp", pics:["BAI","SSO"], prio:"Q2", pl:"I·NU", st:"done",   wl:5},
   {no:16, job:"Assessment Saham Not Eligible as Collateral",                       cat:"Kajian & Review",     cc:"cat-np", pics:["NDI","BAI"], prio:"Q1", pl:"I·U", st:"on",   wl:5},
@@ -71,19 +71,24 @@ const JOBS = [
   {no:28, job:"Follow up Issue Volatilitas Margin dan Stresstest PUVA",           cat:"Adhoc",     cc:"cat-ad", pics:["RFA"], prio:"Q1", pl:"I·U", st:"on",   wl:3},
   {no:29, job:"Persiapan Audit SPI : audit KPI & SMKI ",           cat:"Adhoc",     cc:"cat-ad", pics:["NDI","BAI"], prio:"Q1", pl:"I·U", st:"on",   wl:3},  
   {no:30, job:"Third Party Model Review (phase 2) - Proposal, RKAT, Pengadaan.",           cat:"Operasional",     cc:"cat-op", pics:["SSO"], prio:"Q1", pl:"I·U", st:"on",   wl:4},  
-  {no:31, job:"KPI Officer - Update pemenuhan KPI Unit - bulanan",           cat:"Operasional",     cc:"cat-op", pics:["NDI"], prio:"Q1", pl:"I·U", st:"on",   wl:4}, 
-  {no:32, job:"Risk Officer - Penyesuaian UAM dan Daftar User Access System (Razor, ARMS, dll)",           cat:"Operasional",     cc:"cat-op", pics:["BAI"], prio:"Q1", pl:"I·U", st:"on",   wl:4},
+  {no:31, job:"KPI Officer - Update pemenuhan KPI Unit - bulanan",           cat:"Operasional",     cc:"cat-op", pics:["NDI"], prio:"Q1", pl:"I·U", st:"done",   wl:4}, 
+  {no:32, job:"Risk Officer - Penyesuaian UAM dan Daftar User Access System (Razor, ARMS, dll)",           cat:"Operasional",     cc:"cat-op", pics:["BAI"], prio:"Q1", pl:"I·U", st:"done",   wl:4},
   {no:33, job:"Implementasi dan Pemanfaatan GitLab KPEI (on Sept 26)",           cat:"Adhoc",     cc:"cat-ad", pics:["SSO"], prio:"Q3", pl:"NI·U", st:"on",   wl:4},
   {no:34, job:"Monthly data Fulfillment for Radirkom Sep-26 (Exp, Margin Call, KCCP)",           cat:"Operasional",     cc:"cat-op", pics:["RFA"], prio:"Q1", pl:"I·U", st:"on",   wl:2},  
-  {no:35, job:"Asessment KCCP - Client Level Razor-Cguards (PUVA)",           cat:"Support Project",     cc:"cat-sp", pics:["RFA"], prio:"Q2", pl:"I·NU", st:"on",   wl:3},
-  {no:36, job:"Design Study - LSEG (Marginining Methodology)",           cat:"Support Project",     cc:"cat-sp", pics:["BAI","SSO"], prio:"Q1", pl:"I·U", st:"on",   wl:5},
-  {no:37, job:"Design Study - LSEG (Business CCP REPO design)",           cat:"Support Project",     cc:"cat-sp", pics:["BAI"], prio:"Q1", pl:"I·U", st:"on",   wl:5},
-  {no:38, job:"Design Study - LSEG (Risk Testing & POC)",           cat:"Support Project",     cc:"cat-sp", pics:["BAI","SSO"], prio:"Q1", pl:"I·U", st:"on",   wl:5},
-  {no:39, job:"Kalkulasi Persentase Kecukupan Sumber Keuangan CCP dan Keandalan Stress Testing - KPI Unggulan",           cat:"Operasional",     cc:"cat-op", pics:["NDI"], prio:"Q1", pl:"I·U", st:"on",   wl:4},
-  {no:40, job:"Simulasi Rebalancing MSCI/FTSE - 18Sep-26",           cat:"Adhoc",     cc:"cat-ad", pics:["NDI","SSO","RFA","BAI"], prio:"Q1", pl:"I·U", st:"on",   wl:5},
-  {no:41, job:"Update POS dan Risk Register atas penyesuaian operasional HC KPEI",           cat:"Adhoc",     cc:"cat-ad", pics:["BAI"], prio:"Q1", pl:"I·U", st:"on",   wl:3},
-  {no:42, job:"Koordinasi Aktivasi Scheduler penarikan data price intraday dari PDC",           cat:"Adhoc",     cc:"cat-ad", pics:["BAI"], prio:"Q2", pl:"I·NU", st:"on",   wl:3},
-  {no:43, job:"Pemenuhan data Statistik PUVA ke RPB periode Aug-26 (H+3 Awal Bulan)",           cat:"Adhoc",     cc:"cat-ad", pics:["RFA"], prio:"Q2", pl:"I·NU", st:"on",   wl:3},
+  {no:35, job:"Asessment KCCP - Client Level Razor-Cguards (PUVA)",           cat:"Support Project",     cc:"cat-sp", pics:["RFA"], prio:"Q2", pl:"I·NU", st:"done",   wl:3},
+  {no:36, job:"Design Study - LSEG (Marginining Methodology)",           cat:"Support Project",     cc:"cat-sp", pics:["BAI","SSO"], prio:"Q1", pl:"I·U", st:"done",   wl:5},
+  {no:37, job:"Design Study - LSEG (Business CCP REPO design)",           cat:"Support Project",     cc:"cat-sp", pics:["BAI"], prio:"Q1", pl:"I·U", st:"done",   wl:5},
+  {no:38, job:"Design Study - LSEG (Risk Testing & POC)",           cat:"Support Project",     cc:"cat-sp", pics:["BAI","SSO"], prio:"Q1", pl:"I·U", st:"done",   wl:5},
+  {no:39, job:"Kalkulasi Persentase Kecukupan Sumber Keuangan CCP dan Keandalan Stress Testing - KPI Unggulan",           cat:"Operasional",     cc:"cat-op", pics:["NDI"], prio:"Q1", pl:"I·U", st:"done",   wl:4},
+  {no:40, job:"Simulasi Rebalancing MSCI/FTSE - 18Sep-26",           cat:"Adhoc",     cc:"cat-ad", pics:["NDI","SSO","RFA","BAI"], prio:"Q1", pl:"I·U", st:"done",   wl:5},
+  {no:41, job:"Update POS dan Risk Register atas penyesuaian operasional HC KPEI",           cat:"Adhoc",     cc:"cat-ad", pics:["BAI"], prio:"Q1", pl:"I·U", st:"done",   wl:3},
+  {no:42, job:"Koordinasi Aktivasi Scheduler penarikan data price intraday dari PDC",           cat:"Adhoc",     cc:"cat-ad", pics:["BAI"], prio:"Q2", pl:"I·NU", st:"done",   wl:3},
+  {no:43, job:"Pemenuhan data Statistik PUVA ke RPB periode Sep-26 (H+3 Awal Bulan)",           cat:"Adhoc",     cc:"cat-ad", pics:["RFA"], prio:"Q2", pl:"I·NU", st:"done",   wl:3},
+  {no:44, job:"Risk Model Review - Adhoc Credit Risk",           cat:"Adhoc",     cc:"cat-ad", pics:["NDI"], prio:"Q1", pl:"I·U", st:"done",   wl:4},
+  {no:45, job:"Volumerics CCP Repo, Pengembangan Sistem Kliring & Risk",           cat:"Support Project",     cc:"cat-sp", pics:["BAI"], prio:"Q2", pl:"I·NU", st:"done",   wl:3},
+  {no:46, job:"Requirement Gathering - Penyesuaian System PALN",           cat:"Support Project",     cc:"cat-sp", pics:["RFA","BAI"], prio:"Q2", pl:"I·NU", st:"on",   wl:3},
+  {no:47, job:"Publikasi HC Website - Phase 2",           cat:"Adhoc",     cc:"cat-ad", pics:["NDI","SSO"], prio:"Q21", pl:"I·U", st:"done",   wl:4},
+  {no:48, job:"Kajian Collateral Eligibility SBL, brief study  sbl v shortsell",           cat:"Adhoc",     cc:"cat-ad", pics:["SSO"], prio:"Q21", pl:"I·U", st:"on",   wl:3},
 ];
 
 const WL_LABELS = {
@@ -175,10 +180,10 @@ const RUNNING_TEXT =
   "SELAMAT PAGI ! ." +
   " ." +
   " ." +
-  "WELCOME TO SEPTEMBER ." +
+  "WELCOME TO OCTOBER ." +
   " · " +
   " · " +
-  "EMOGA HAL-HAL BAIK DATANG KE KITA ." +
+  "YOK KEJAR SEMUA DEADLINE BIAR GA DEADLOCK ." +
   " · " +
   " · " +
   "SEMANGAT SEMUANYA :) .";
@@ -189,9 +194,9 @@ const RUNNING_TEXT =
 const KEY_TAKEAWAYS = [
   "Jadwal Piket | Analisa IPO : SSO | Upload Parameter : RFA | Rebalancing : NDI | ",
   "JD.08 : (Backtest_PUVA) - Sudah dilakukan implementasi production, babysitting 7-11 Sep26.",
-  "JD.09 : (Weekly Report Analysis) - sudah finalisasi design dan poc, ops berjalan per Week (sembari penyempurnaan analisa)",
+  "JD.09 : (Weekly Report Analysis) - sudah berjalan normal sebulan terakhir, menunggu jadwal pemaparan ke direktur utama",
   "JD.11 : (Kajian Transparansi Margin) - Menunggu ketersediaan jadwal pemaparan ke Kadiv PPR.",
-  "JD.12 : (Review RC 0%, Min. Offline Coll) - Menunggu ketersediaangit a jadwal pemaparan ke Direktur Ops.",
+  "JD.12 : (Review RC 0%, Min. Offline Coll) - Menunggu ketersediaan a jadwal pemaparan ke Direktur Ops.",
   "JD.15 : (Virtual Machine) - Jobdesk Closed, diubah menjadi Gitlab KPEI (Ready to use on Sept 26).",
   "JD.16 : (SPAN License Updated) - sudah dikonfirmasi ke Legal dan IT, tidak diperlukan update lisensi dan otomatis untuk penggunaan lanjutan - tbc Razor Risk.",
 ];
