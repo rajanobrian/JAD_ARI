@@ -59,7 +59,7 @@ const JOBS = [
   {no:16, job:"Assessment Saham Not Eligible as Collateral",                       cat:"Kajian & Review",     cc:"cat-np", pics:["NDI","BAI"], prio:"Q1", pl:"I·U", st:"on",   wl:5},
   {no:17, job:"Review Credit Rating/Risk Charge CCP PUVA",                         cat:"Model Review",        cc:"cat-sp", pics:["RFA"],       prio:"Q1", pl:"I·NU", st:"on",   wl:5},
   {no:18, job:"Kajian Impact Coll & Risk System Migrasi DWH – Big Data (Scope PPR)",                                  cat:"Kajian & Review",     cc:"cat-np", pics:["BAI","SSO"], prio:"Q1", pl:"I·U", st:"on",   wl:5},
-  {no:19, job:"Kajian Impact Analysis Ticker Code (PSPP)",                                cat:"Kajian & Review",     cc:"cat-np", pics:["RFA","NDI"], prio:"Q1", pl:"I·U", st:"on",   wl:4},
+  {no:19, job:"Kajian Impact Analysis Ticker Code (PSPP)",                                cat:"Kajian & Review",     cc:"cat-np", pics:["NDI"], prio:"Q1", pl:"I·U", st:"on",   wl:4},
   {no:20, job:"Asessment Upgrade System Razor Risk 5.0",                                     cat:"Inisiatif non Proj.", cc:"cat-np", pics:["BAI","SSO"], prio:"Q2", pl:"I·NU", st:"done",   wl:5},
   {no:21, job:"Assessment Pengembangan Produk PALN (Derivatif)",                              cat:"Support Project",     cc:"cat-sp", pics:["RFA", "BAI"],prio:"Q2", pl:"I·NU", st:"done",   wl:5},
   {no:22, job:"Assesment Pengembangan CCP Repo",                                             cat:"Support Project",     cc:"cat-sp", pics:["RFA","BAI"], prio:"Q2", pl:"I·NU", st:"on",   wl:5},
@@ -87,8 +87,9 @@ const JOBS = [
   {no:44, job:"Risk Model Review - Adhoc Credit Risk",           cat:"Adhoc",     cc:"cat-ad", pics:["NDI"], prio:"Q1", pl:"I·U", st:"done",   wl:4},
   {no:45, job:"Volumerics CCP Repo, Pengembangan Sistem Kliring & Risk",           cat:"Support Project",     cc:"cat-sp", pics:["BAI"], prio:"Q2", pl:"I·NU", st:"done",   wl:3},
   {no:46, job:"Requirement Gathering - Penyesuaian System PALN",           cat:"Support Project",     cc:"cat-sp", pics:["RFA","BAI"], prio:"Q2", pl:"I·NU", st:"on",   wl:3},
-  {no:47, job:"Publikasi HC Website - Phase 2",           cat:"Adhoc",     cc:"cat-ad", pics:["NDI","SSO"], prio:"Q21", pl:"I·U", st:"done",   wl:4},
-  {no:48, job:"Kajian Collateral Eligibility SBL, brief study  sbl v shortsell",           cat:"Adhoc",     cc:"cat-ad", pics:["SSO"], prio:"Q21", pl:"I·U", st:"on",   wl:3},
+  {no:47, job:"Publikasi HC Website - Phase 2",           cat:"Adhoc",     cc:"cat-ad", pics:["NDI","SSO"], prio:"Q1", pl:"I·U", st:"done",   wl:4},
+  {no:48, job:"Kajian Collateral Eligibility SBL, brief study  sbl v shortsell",           cat:"Adhoc",     cc:"cat-ad", pics:["SSO"], prio:"Q1", pl:"I·U", st:"on",   wl:3},
+  {no:49, job:"Audit OJK - Parameter Risiko dan Publikasi perhitungan HC",           cat:"Adhoc",     cc:"cat-ad", pics:["NDI"], prio:"Q2", pl:"I·U", st:"on",   wl:4},
 ];
 
 const WL_LABELS = {
