@@ -3,7 +3,7 @@ const DASHBOARD_META = {
   pageTitle:   "Job Internal Highlights Assignment Dashboard",
   titleAccent: "Unit ARP",
   headName:    "Raja Nobriansyah [RNR]",
-  period:      "Q2–Q3 2026",
+  period:      "Q4 2026",
   liveDate:    "27 APR 2026",
   framework:   "Eisenhower Matrix & Workload Analysis",
 };
@@ -86,10 +86,11 @@ const JOBS = [
   {no:43, job:"Pemenuhan data Statistik PUVA ke RPB periode Sep-26 (H+3 Awal Bulan)",           cat:"Adhoc",     cc:"cat-ad", pics:["RFA"], prio:"Q2", pl:"I·NU", st:"done",   wl:3},
   {no:44, job:"Risk Model Review - Adhoc Credit Risk",           cat:"Adhoc",     cc:"cat-ad", pics:["NDI"], prio:"Q1", pl:"I·U", st:"done",   wl:4},
   {no:45, job:"Volumerics CCP Repo, Pengembangan Sistem Kliring & Risk",           cat:"Support Project",     cc:"cat-sp", pics:["BAI"], prio:"Q2", pl:"I·NU", st:"done",   wl:3},
-  {no:46, job:"Requirement Gathering - Penyesuaian System PALN",           cat:"Support Project",     cc:"cat-sp", pics:["RFA","BAI"], prio:"Q2", pl:"I·NU", st:"on",   wl:3},
+  {no:46, job:"Requirement Gathering - Penyesuaian System PALN",           cat:"Support Project",     cc:"cat-sp", pics:["RFA","BAI"], prio:"Q2", pl:"I·NU", st:"on",   wl:4},
   {no:47, job:"Publikasi HC Website - Phase 2",           cat:"Adhoc",     cc:"cat-ad", pics:["NDI","SSO"], prio:"Q1", pl:"I·U", st:"done",   wl:4},
   {no:48, job:"Kajian Collateral Eligibility SBL, brief study  sbl v shortsell",           cat:"Adhoc",     cc:"cat-ad", pics:["SSO"], prio:"Q1", pl:"I·U", st:"on",   wl:3},
   {no:49, job:"Audit OJK - Parameter Risiko dan Publikasi perhitungan HC",           cat:"Adhoc",     cc:"cat-ad", pics:["NDI"], prio:"Q2", pl:"I·U", st:"on",   wl:4},
+  {no:50, job:"FU teknis XBRL ke Bursa Efek, asessment feeding data laporan keuangan",           cat:"Adhoc",     cc:"cat-ad", pics:["NDI", "SSO"], prio:"Q2", pl:"I·U", st:"on",   wl:2},
 ];
 
 const WL_LABELS = {
