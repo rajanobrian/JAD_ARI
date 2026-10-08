@@ -1724,6 +1724,79 @@ function exportReport() {
   var donePct  = JOBS.length > 0 ? Math.round(doneJobs.length / JOBS.length * 100) : 0;
   var onPct    = JOBS.length > 0 ? Math.round(onJobs.length   / JOBS.length * 100) : 0;
 
+  // ── Grafik pelaksanaan: stacked bar status per PIC + total unit ──
+  // Jobdesk kolaborasi dihitung pada setiap PIC yang terlibat; baris Unit menghitung sekali.
+  // measure(j) = nilai satu jobdesk: 1 (jumlah jobdesk) atau bobot wl (workload, default 3 seperti di dashboard).
+  function buildChartRows(measure) {
+    function sumBy(list, st) {
+      return list.filter(function(j) { return j.st === st; })
+                 .reduce(function(s, j) { return s + measure(j); }, 0);
+    }
+    var rows = PIC_CONFIG.map(function(p) {
+      var mine = JOBS.filter(function(j) { return j.pics.indexOf(p.id) !== -1; });
+      return { id: p.id, isUnit: false, done: sumBy(mine, 'done'), on: sumBy(mine, 'on'), closed: sumBy(mine, 'closed') };
+    });
+    rows.push({ id: 'Unit ' + KPI_UNIT.unit, isUnit: true,
+      done: sumBy(JOBS, 'done'), on: sumBy(JOBS, 'on'), closed: sumBy(JOBS, 'closed') });
+    return rows;
+  }
+
+  function makeSeg(n, total, cls, label, unitLbl) {
+    if (!n) return '';
+    var pct = Math.round(n / total * 100);
+    return '<div class="seg ' + cls + '" style="flex:' + n + ' 1 0" title="' + label + ': ' + n + ' ' + unitLbl + ' (' + pct + '%)">' +
+      '<span>' + n + '</span></div>';
+  }
+
+  function makeChart(opts) {
+    var rows = buildChartRows(opts.measure);
+    var max  = Math.max.apply(null, rows.map(function(r) { return r.done + r.on + r.closed; })) || 1;
+    var bars = rows.map(function(r) {
+      var tot  = r.done + r.on + r.closed;
+      var rate = tot > 0 ? Math.round(r.done / tot * 100) : 0;
+      return '<div class="cb-row' + (r.isUnit ? ' unit' : '') + '">' +
+        '<div class="cb-name">' + r.id + '</div>' +
+        '<div class="cb-track"><div class="cb-bar" style="width:' + (tot / max * 100) + '%">' +
+          makeSeg(r.done,   tot, 'done',   'Done',        opts.unitLbl) +
+          makeSeg(r.on,     tot, 'on',     'Outstanding', opts.unitLbl) +
+          makeSeg(r.closed, tot, 'closed', 'Closed',      opts.unitLbl) +
+        '</div></div>' +
+        '<div class="cb-rate"><b>' + rate + '%</b><span>' + opts.rateLbl + ' · ' + tot + ' ' + opts.unitLbl + '</span></div>' +
+      '</div>';
+    }).join('');
+    var hasClosed = rows[rows.length - 1].closed > 0;
+    return '<div class="chart-box">' +
+        '<div class="cb-title">' + opts.title + '</div>' +
+        '<div class="cb-legend">' +
+          '<span><i class="sw done"></i>Done</span>' +
+          '<span><i class="sw on"></i>Outstanding</span>' +
+          (hasClosed ? '<span><i class="sw closed"></i>Closed / Deferred</span>' : '') +
+          '<span class="cb-note">' + opts.note + '</span>' +
+        '</div>' +
+        bars +
+        '<div class="cb-foot">' + opts.foot + '</div>' +
+      '</div>';
+  }
+
+  var chartSection =
+    '<div class="sec-title"><span class="sec-badge green">GRAFIK</span> Pelaksanaan Jobdesk per PIC</div>\n' +
+    '<div class="chart-grid">' +
+      makeChart({
+        title:   'A · Berdasarkan Jumlah Jobdesk',
+        measure: function() { return 1; },
+        unitLbl: 'job', rateLbl: 'selesai',
+        note:    'Angka di bar = jumlah jobdesk',
+        foot:    '* Jobdesk kolaborasi dihitung pada masing-masing PIC yang terlibat; baris Unit menghitung setiap jobdesk satu kali.'
+      }) +
+      makeChart({
+        title:   'B · Berdasarkan Bobot Workload',
+        measure: function(j) { return j.wl || 3; },
+        unitLbl: 'poin', rateLbl: 'beban selesai',
+        note:    'Angka di bar = total poin workload',
+        foot:    '* Poin workload = jumlah skala beban jobdesk (1 Ringan – 5 Berat). Jobdesk kolaborasi memberi poin penuh ke setiap PIC; baris Unit menghitung sekali.'
+      }) +
+    '</div>\n\n';
+
   function makeKpiRow(item, idx) {
     return '<tr>' +
       '<td class="mono">' + String(idx + 1).padStart(2, '0') + '</td>' +
@@ -1805,6 +1878,30 @@ function exportReport() {
     '.approval-role{font-size:11px;color:var(--mute);margin-top:2px;}\n' +
     '.rpt-footer{margin-top:40px;padding-top:12px;border-top:1px solid var(--line);font-size:10.5px;color:var(--mute);display:flex;justify-content:space-between;}\n' +
     '@media print{.page-break{page-break-before:always;}}\n' +
+    '.chart-grid{display:grid;gap:16px;margin-bottom:32px;}\n' +
+    '.chart-box{border:1px solid var(--line);border-radius:7px;padding:16px 20px 12px;page-break-inside:avoid;' +
+      '-webkit-print-color-adjust:exact;print-color-adjust:exact;}\n' +
+    '.cb-title{font-size:12px;font-weight:800;margin-bottom:8px;}\n' +
+    '.cb-legend{display:flex;flex-wrap:wrap;gap:16px;align-items:center;font-size:11px;color:var(--ink3);margin-bottom:14px;}\n' +
+    '.cb-legend span{display:inline-flex;align-items:center;gap:6px;}\n' +
+    '.cb-legend .cb-note{margin-left:auto;color:var(--mute);font-size:10.5px;}\n' +
+    '.sw{display:inline-block;width:12px;height:12px;border-radius:3px;}\n' +
+    '.sw.done,.seg.done{background:var(--green);}\n' +
+    '.sw.on,.seg.on{background-color:var(--red);background-image:repeating-linear-gradient(45deg,rgba(255,255,255,.22) 0 3px,transparent 3px 7px);}\n' +
+    '.sw.closed,.seg.closed{background:#A3A8B0;}\n' +
+    '.cb-row{display:grid;grid-template-columns:72px 1fr 160px;align-items:center;gap:12px;padding:5px 0;}\n' +
+    '.cb-row.unit{border-top:1px dashed var(--line);margin-top:6px;padding-top:11px;}\n' +
+    '.cb-name{font-size:12px;font-weight:800;letter-spacing:.02em;}\n' +
+    '.cb-row.unit .cb-name{color:var(--red);}\n' +
+    '.cb-track{height:22px;}\n' +
+    '.cb-bar{display:flex;gap:2px;height:100%;}\n' +
+    '.seg{display:flex;align-items:center;justify-content:center;min-width:20px;height:100%;}\n' +
+    '.seg:first-child{border-radius:4px 0 0 4px;}.seg:last-child{border-radius:0 4px 4px 0;}.seg:only-child{border-radius:4px;}\n' +
+    '.seg span{font-size:10.5px;font-weight:700;color:#fff;}\n' +
+    '.cb-rate{display:flex;align-items:baseline;gap:6px;white-space:nowrap;}\n' +
+    '.cb-rate b{font-size:14px;font-weight:800;}\n' +
+    '.cb-rate span{font-size:10.5px;color:var(--mute);}\n' +
+    '.cb-foot{margin-top:10px;font-size:10px;color:var(--mute);}\n' +
     '</style>\n</head>\n<body>\n\n' +
 
     '<div class="report-hdr">' +
@@ -1821,6 +1918,8 @@ function exportReport() {
       '<div class="sum-card red"><div class="lbl">Outstanding (On)</div><div class="val">' + onJobs.length + '</div><div class="sub">' + onPct + '% dari total</div></div>' +
       '<div class="sum-card"><div class="lbl">Closed / Deferred</div><div class="val">' + closedJobs.length + '</div><div class="sub">Tidak dilanjutkan</div></div>' +
     '</div>\n\n' +
+
+    chartSection +
 
     '<div class="sec-title"><span class="sec-badge green">DONE</span> Daftar Pekerjaan Selesai per PIC (' + doneJobs.length + ' item)</div>\n' +
     picDoneSections + '\n' +
@@ -1841,7 +1940,7 @@ function exportReport() {
         '<div class="approval-col">' +
           '<div class="approval-label">Mengetahui / Menyetujui,</div>' +
           '<div class="approval-underline"></div>' +
-          '<div class="approval-name">&nbsp;</div>' +
+          '<div class="approval-name">Natalina Hutapea</div>' +
           '<div class="approval-role">Kadiv PPR</div>' +
         '</div>' +
         '<div class="approval-col">' +
