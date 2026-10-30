@@ -2196,6 +2196,22 @@ function renderInsight() {
   var maxWLPic = picIds.reduce(function(a,b){ return picWL[a]>picWL[b]?a:b; });
   var minWLPic = picIds.reduce(function(a,b){ return picWL[a]<picWL[b]?a:b; });
 
+  // Overall workload (all jobs: active + done)
+  var picWLAll = {}, picHeavyAll = {};
+  picIds.forEach(function(id) { picWLAll[id]=0; picHeavyAll[id]=0; });
+  JOBS.forEach(function(j) {
+    var w = j.wl || 3;
+    j.pics.forEach(function(id) {
+      if (picWLAll[id] === undefined) return;
+      picWLAll[id] += w;
+      if (w >= 4) picHeavyAll[id]++;
+    });
+  });
+  var maxWLAll    = Math.max.apply(null, picIds.map(function(id){ return picWLAll[id]; })) || 1;
+  var maxHeavyAll = Math.max.apply(null, picIds.map(function(id){ return picHeavyAll[id]; })) || 1;
+  var WL_WARN_ALL   = Math.round(maxWLAll * 0.7);
+  var WL_DANGER_ALL = Math.round(maxWLAll * 0.88);
+
   // Category data
   var catColors = { navy:'#1E2740', red:'#C8102E', slate:'#334155', amber:'#B7791F' };
   var catData = CATEGORY_CONFIG.map(function(c) {
@@ -2274,13 +2290,13 @@ function renderInsight() {
   h += '</div></div>';
 
   // § 2 Workload Analysis
-  h += sec('Analisis Beban Kerja per Personel (Active Jobs Only)');
+  h += sec('Analisis Beban Kerja per Personel (Keseluruhan Jobdesk)');
   h += '<div class="ins-g2">';
   // Cumulative WL bar
   h += '<div class="ins-card"><div class="ins-card-hd"><span class="bar"></span>Kumulatif WL Score</div>';
   picIds.forEach(function(id) {
-    var wl=picWL[id], pct=Math.round(wl/maxWL*100);
-    var cls=wl>=WL_DANGER?'hi':wl>=WL_WARN?'md':'ok';
+    var wl=picWLAll[id], pct=Math.round(wl/maxWLAll*100);
+    var cls=wl>=WL_DANGER_ALL?'hi':wl>=WL_WARN_ALL?'md':'ok';
     h += '<div class="ins-br">' +
       '<div class="ins-br-lbl">' + id + '</div>' +
       '<div class="ins-br-trk"><div class="ins-br-fl ' + cls + '" style="width:' + pct + '%;">' + (pct>18?wl:'') + '</div></div>' +
@@ -2293,17 +2309,17 @@ function renderInsight() {
     '<span style="display:flex;align-items:center;gap:5px;"><span style="width:10px;height:10px;border-radius:2px;background:var(--red);display:inline-block;flex-shrink:0;"></span>Overload</span>' +
   '</div></div>';
   // Heavy jobs (WL 4-5)
-  h += '<div class="ins-card"><div class="ins-card-hd"><span class="bar"></span>Jumlah Tugas Berat (WL &#8805; 4, Active)</div>';
+  h += '<div class="ins-card"><div class="ins-card-hd"><span class="bar"></span>Jumlah Tugas Berat (WL &#8805; 4, Keseluruhan)</div>';
   picIds.forEach(function(id) {
-    var hv=picHeavy[id], pct=Math.round(hv/maxHeavy*100);
-    var cls=hv>=Math.round(maxHeavy*0.8)?'hi':hv>=Math.round(maxHeavy*0.5)?'md':'ok';
+    var hv=picHeavyAll[id], pct=Math.round(hv/maxHeavyAll*100);
+    var cls=hv>=Math.round(maxHeavyAll*0.8)?'hi':hv>=Math.round(maxHeavyAll*0.5)?'md':'ok';
     h += '<div class="ins-br">' +
       '<div class="ins-br-lbl">' + id + '</div>' +
       '<div class="ins-br-trk"><div class="ins-br-fl ' + cls + '" style="width:' + pct + '%;">' + (pct>22?hv+' item':'') + '</div></div>' +
       '<div class="ins-br-val">' + hv + '</div>' +
     '</div>';
   });
-  h += '<div style="margin-top:14px;padding-top:11px;border-top:1px solid var(--line-2);font-size:11px;color:var(--mute);">Tugas dengan skala WL 4 (Sedang-Berat) dan 5 (Berat) per personel pada pekerjaan aktif</div></div>';
+  h += '<div style="margin-top:14px;padding-top:11px;border-top:1px solid var(--line-2);font-size:11px;color:var(--mute);">Tugas dengan skala WL 4 (Sedang-Berat) dan 5 (Berat) per personel pada seluruh jobdesk (aktif + selesai)</div></div>';
   h += '</div></div>';
 
   // § 3 Category Distribution
