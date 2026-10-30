@@ -48,16 +48,16 @@ const JOBS = [
   {no:5,  job:"Laporan & Analisa Backtesting PUVA Oct-26",                            cat:"Operasional",         cc:"cat-op", pics:["SSO"],       prio:"Q1", pl:"I·U",  st:"done", wl:4},
   {no:6,  job:"Analisa Input dan Analisa Laporan Keuangan - Signifikan Oct-26",       cat:"Operasional",         cc:"cat-op", pics:["NDI"],       prio:"Q1", pl:"I·U",  st:"done", wl:4},
   {no:7,  job:"Kalkulasi Haircut, Eligible SBL, Colldiss Oct-26",                     cat:"Operasional",         cc:"cat-op", pics:["NDI"],       prio:"Q1", pl:"I·U",  st:"on",   wl:5},
-  {no:8,  job:"Operational Weekly Report Analisa Risiko PM Oct-26 W1",                cat:"Inisiatif non Proj.", cc:"cat-np", pics:["SSO"],       prio:"Q1", pl:"I·U", st:"done",   wl:4},
-  {no:9, job:"Operational Weekly Report Analisa Risiko PM Oct-26 W2",                cat:"Inisiatif non Proj.", cc:"cat-np", pics:["SSO","BAI"], prio:"Q2", pl:"I·NU", st:"done",   wl:4},
-  {no:10, job:"Operational Weekly Report Analisa Risiko PM Oct-26 W3",                cat:"Inisiatif non Proj.", cc:"cat-np", pics:["SSO","NDI"], prio:"Q2", pl:"I·NU", st:"done",   wl:4},
-  {no:11, job:"Operational Weekly Report Analisa Risiko PM Oct-26 W4",                cat:"Inisiatif non Proj.", cc:"cat-np", pics:["SSO","RFA"], prio:"Q2", pl:"I·NU", st:"done",   wl:4},
+  {no:8,  job:"Operational Weekly Report Analisa Risiko PM Oct-26 W1",                cat:"Operasional", cc:"cat-op", pics:["SSO"],       prio:"Q1", pl:"I·U", st:"done",   wl:4},
+  {no:9,  job:"Operational Weekly Report Analisa Risiko PM Oct-26 W2",                cat:"Operasional", cc:"cat-op", pics:["SSO","BAI"], prio:"Q2", pl:"I·NU", st:"done",   wl:4},
+  {no:10, job:"Operational Weekly Report Analisa Risiko PM Oct-26 W3",                cat:"Operasional", cc:"cat-op", pics:["SSO","NDI"], prio:"Q2", pl:"I·NU", st:"done",   wl:4},
+  {no:11, job:"Operational Weekly Report Analisa Risiko PM Oct-26 W4",                cat:"Operasional", cc:"cat-op", pics:["SSO","RFA"], prio:"Q2", pl:"I·NU", st:"done",   wl:4},
   {no:12, job:"Assessment Saham Not Eligible as Collateral",                          cat:"Kajian & Review",     cc:"cat-np", pics:["NDI","BAI"], prio:"Q1", pl:"I·U", st:"on",   wl:5},
-  {no:13, job:"Review Credit Rating/Risk Charge CCP PUVA",                            cat:"Model Review",        cc:"cat-sp", pics:["RFA"],       prio:"Q1", pl:"I·U", st:"on",   wl:5},
+  {no:13, job:"Review Credit Rating/Risk Charge CCP PUVA",                            cat:"Model Review",        cc:"cat-sp", pics:["RFA"],       prio:"Q1", pl:"I·U", st:"done",   wl:5},
   {no:14, job:"Kajian Impact Coll & Risk System Migrasi DWH – Big Data (Scope PPR)",  cat:"Kajian & Review",     cc:"cat-np", pics:["BAI","SSO"], prio:"Q1", pl:"I·U", st:"on",   wl:5},
   {no:15, job:"Kajian Impact Analysis Ticker Code (PSPP)",                            cat:"Kajian & Review",     cc:"cat-np", pics:["NDI"], prio:"Q1", pl:"I·U", st:"on",   wl:4},
   {no:16, job:"Assesment Pengembangan CCP Repo",                                      cat:"Support Project",     cc:"cat-sp", pics:["RFA","BAI"], prio:"Q2", pl:"I·NU", st:"on",   wl:5},
-  {no:17, job:"Pengembangan Produk UDR, EGR (Equity)",                                cat:"Support Project",     cc:"cat-sp", pics:["RFA","NDI"], prio:"Q2", pl:"I·NU", st:"on",   wl:3},
+  {no:17, job:"Pengembangan Produk UDR-Unit Depository Receipt (Equity)",                                     cat:"Support Project",     cc:"cat-sp", pics:["RFA","NDI"], prio:"Q2", pl:"I·NU", st:"on",   wl:3},
   {no:18, job:"Asessment IM dan Stresstest PUVA (volatilitas nilai hasil kalkulasi) ke Razor",     cat:"Adhoc",     cc:"cat-ad", pics:["RFA"], prio:"Q1", pl:"I·U", st:"done",   wl:4},
   {no:19, job:"Assessment Digital Asset Product in CCP Risk",                         cat:"Support Project",     cc:"cat-sp", pics:["BAI","SSO"], prio:"Q2", pl:"I·NU", st:"on",   wl:4},
   {no:20, job:"Implementasi bisnis ETP pada CCP PUVA",                                  cat:"Support Project",     cc:"cat-sp", pics:["RFA"],       prio:"Q2", pl:"I·NU", st:"on",   wl:3},
@@ -81,10 +81,16 @@ const JOBS = [
   {no:38, job:"Audit OJK - Parameter Risiko dan Publikasi perhitungan HC",            cat:"Adhoc",     cc:"cat-ad", pics:["NDI"], prio:"Q2", pl:"I·NU", st:"done",   wl:4},
   {no:39, job:"FU teknis XBRL ke Bursa Efek, asessment feeding data laporan keuangan",           cat:"Adhoc",     cc:"cat-ad", pics:["NDI", "SSO"], prio:"Q1", pl:"I·U", st:"on",   wl:2},
   {no:40, job:"Mock Penyempurnaan Sistem Kliring CCP OTC Derivatif Fase 2 (medium - Low)",           cat:"Support Project",     cc:"cat-sp", pics:["RFA"], prio:"Q2", pl:"I·NU", st:"done",   wl:3},
-  {no:41, job:"Mock Perubahan Form SW (E082, E083, B029)",                       cat:"Adhoc",     cc:"cat-ad", pics:["NDI", "BAI"], prio:"Q1", pl:"I·U", st:"done",   wl:3},
+  {no:41, job:"Mock Perubahan Form SW (E082, E083, B029)",                            cat:"Adhoc",     cc:"cat-ad", pics:["NDI", "BAI"], prio:"Q1", pl:"I·U", st:"done",   wl:3},
   {no:42, job:"Review Kebijakan dan Manual Manajemen Risiko",                         cat:"Adhoc",     cc:"cat-ad", pics:["NDI"], prio:"Q1", pl:"I·U", st:"done",   wl:3},
-
-
+  {no:43, job:"Pengembangan Produk EGR-Electronic Gold Receipt (Equity)",             cat:"Support Project",     cc:"cat-sp", pics:["SSO","NDI"], prio:"Q2", pl:"I·NU", st:"on",   wl:3},
+  {no:44, job:"Laporan & Analisa Risk Charge Anggota Kliring PM",                     cat:"Operasional",     cc:"cat-op", pics:["BAI"], prio:"Q1", pl:"I·U", st:"done",   wl:3},
+  {no:45, job:"Analisa dan Pemaparan Materi Sensitivity market risk & collateral (MSCI)",                     cat:"Adhoc",     cc:"cat-ad", pics:["NDI","SSO"], prio:"Q1", pl:"I·U", st:"done",   wl:3},
+  {no:46, job:"Materi Executive Summary untuk FGD ke OJK",                     cat:"Adhoc",     cc:"cat-ad", pics:["NDI","SSO"], prio:"Q1", pl:"I·U", st:"done",   wl:3},
+  {no:47, job:"Mock SW - Perubahan FORM ARMS-Razor",                     cat:"Support Project",     cc:"cat-sp", pics:["NDI","BAI"], prio:"Q1", pl:"I·U", st:"done",   wl:3},
+  {no:48, job:"Mock SW - C-Guards Medium-Low - Razor",                     cat:"Support Project",     cc:"cat-sp", pics:["RFA"], prio:"Q1", pl:"I·U", st:"done",   wl:3},
+  {no:49, job:"Penyampaian Data Rekap - Rebalancing Aug-25 - OJK",                     cat:"Adhoc",     cc:"cat-ad", pics:["SSO"], prio:"Q1", pl:"I·U", st:"done",   wl:3},
+  {no:50, job:"Adhoc Rebal SImulation with current data (RX data Transaction 16-okt-26)",                     cat:"Adhoc",     cc:"cat-ad", pics:["SSO"], prio:"Q1", pl:"I·U", st:"done",   wl:3},
 ];
 
 const WL_LABELS = {
@@ -176,7 +182,7 @@ const RUNNING_TEXT =
   "SELAMAT PAGI ! ." +
   " ." +
   " ." +
-  "WELCOME TO OCTOBER ." +
+  "WELCOME TO November ." +
   " · " +
   " · " +
   "YOK KEJAR SEMUA DEADLINE BIAR GA DEADLOCK ." +
@@ -188,11 +194,12 @@ const RUNNING_TEXT =
 // ─── KEY TAKEAWAYS ───────────────────────────────────────────────────────────
 // Tambah, hapus, atau edit poin di sini. Setiap string = satu bullet point.
 const KEY_TAKEAWAYS = [
-  "Jadwal Piket | Analisa IPO : SSO | Upload Parameter : RFA | Rebalancing : NDI | ",
-  "JD.08 : (Backtest_PUVA) - Sudah dilakukan implementasi production, babysitting 7-11 Sep26.",
-  "JD.09 : (Weekly Report Analysis) - sudah berjalan normal sebulan terakhir, menunggu jadwal pemaparan ke direktur utama",
+  "Jadwal Piket | Analisa IPO : SSO | Upload Parameter : BAI | Rebalancing : NDI | ",
+  "JD.08 : (Backtest_PUVA) - SUdah berjalan, babysitting perpanjang sampai desember s/d populasi data tercukupi",
+  "JD.09 : (Weekly Report Analysis) - sudah diterapkan menjadi operasional rutin, sudah berjalan dan selesai tiap minggu.",
   "JD.11 : (Kajian Transparansi Margin) - Menunggu ketersediaan jadwal pemaparan ke Kadiv PPR.",
-  "JD.12 : (Review RC 0%, Min. Offline Coll) - Menunggu ketersediaan a jadwal pemaparan ke Direktur Ops.",
+  "JD.12 : (Review RC 0%, Min. Offline Coll) - Sudah selesai pemaparan ke direksi dan disetujui",
   "JD.15 : (Virtual Machine) - Jobdesk Closed, diubah menjadi Gitlab KPEI (Ready to use on Sept 26).",
   "JD.16 : (SPAN License Updated) - sudah dikonfirmasi ke Legal dan IT, tidak diperlukan update lisensi dan otomatis untuk penggunaan lanjutan - tbc Razor Risk.",
+  "JD.13 : (Risk Charge CCP PUVA) - Sudah disetujui Kadiv PPR, menunggu implementasi di Razor Risk. TBC- IT-Direksi-Komite",
 ];
