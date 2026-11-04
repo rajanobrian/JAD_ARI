@@ -97,7 +97,7 @@ const JOBS = [
   {no:54, job:"Analisa Margin Call BDINDJA - PUVA",                                  cat:"Adhoc",     cc:"cat-ad", pics:["RFA"], prio:"Q1", pl:"I·U", st:"done",   wl:3},
   {no:55, job:"Draft dan Pemaparan Materi & Rapat Komite Kliring CCP dan Penanganan Risiko PUVA",                                  cat:"Adhoc",     cc:"cat-ad", pics:["RFA"], prio:"Q1", pl:"I·U", st:"done",   wl:3},
   {no:56, job:"Materi Pendampingan Persiapan Implementasi AKU PUVA",                                  cat:"Adhoc",     cc:"cat-ad", pics:["RFA"], prio:"Q1", pl:"I·U", st:"done",   wl:4},
-  {no:57, job:"Penyelesaian adm honor Komite Haircut dan KKPR",                                  cat:"Operasional",     cc:"cat-op", pics:["NDI"], prio:"Q1", pl:"I·U", st:"done",   wl:3},
+  {no:57, job:"Penyelesaian adm honorarium Komite Haircut dan KKPR",                                  cat:"Operasional",     cc:"cat-op", pics:["SSO"], prio:"Q1", pl:"I·U", st:"done",   wl:3},
   {no:58, job:"Review dokumen Informasi Assets Register ARP-INF-041, ARP-INF-040",                                  cat:"Adhoc",     cc:"cat-ad", pics:["BAI"], prio:"Q1", pl:"I·U", st:"done",   wl:3},
   {no:59, job:"Perubahan jam pengiriman intraday price update pada Razor",                                  cat:"Adhoc",     cc:"cat-ad", pics:["BAI"], prio:"Q1", pl:"I·U", st:"done",   wl:3},
   {no:60, job:"Simulasi Gagal Bayar PM - 2026",                                  cat:"Support Project",     cc:"cat-sp", pics:["BAI"], prio:"Q1", pl:"I·U", st:"done",   wl:3},
