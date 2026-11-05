@@ -130,7 +130,10 @@
     position: relative;
   }
   .ticker-content {
-    display: inline-block;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    width: max-content;
     white-space: nowrap;
     color: #fff;
     font-size: 14px;
@@ -1046,6 +1049,65 @@
   .ins-mix-cell.m1 { background: #E0E7FF; color: #3730A3; }
   .ins-mix-cell.m2 { background: #818CF8; color: #fff; }
   .ins-mix-cell.m3 { background: #4338CA; color: #fff; }
+
+  /* ============================================================
+     F1 CAR: animated cartoon beside the page title
+     ============================================================ */
+  .f1-car { width: 190px; height: 66px; flex-shrink: 0; display: block; overflow: visible; }
+  .f1-chassis { animation: f1-surge 3.2s ease-in-out infinite; }
+  .f1-bodywork { transform-box: fill-box; transform-origin: 50% 100%; animation: f1-bounce .32s ease-in-out infinite alternate; }
+  .f1-wheel { transform-box: fill-box; transform-origin: center; animation: f1-spin .38s linear infinite; }
+  .f1-speedline { fill: none; stroke: #B8BCC2; stroke-width: 2.5; stroke-linecap: round; animation: f1-streak .75s linear infinite; }
+  .f1-speedline.s2 { animation-delay: -.25s; }
+  .f1-speedline.s3 { animation-delay: -.5s; }
+  .f1-puff { fill: #8C919B; transform-box: fill-box; transform-origin: center; animation: f1-puff .9s ease-out infinite; }
+  .f1-puff.p2 { animation-delay: -.45s; }
+  .f1-kerb { animation: f1-kerb .4s linear infinite; }
+  @keyframes f1-surge {
+    0%, 100% { transform: translateX(-5px); }
+    50%      { transform: translateX(7px); }
+  }
+  @keyframes f1-bounce {
+    from { transform: translateY(0); }
+    to   { transform: translateY(-1.5px); }
+  }
+  @keyframes f1-spin { to { transform: rotate(360deg); } }
+  @keyframes f1-streak {
+    0%   { transform: translateX(14px); opacity: 0; }
+    30%  { opacity: .85; }
+    100% { transform: translateX(-22px); opacity: 0; }
+  }
+  @keyframes f1-puff {
+    0%   { transform: translateX(0) scale(.5); opacity: .7; }
+    100% { transform: translateX(-20px) scale(1.6); opacity: 0; }
+  }
+  @keyframes f1-kerb { to { stroke-dashoffset: 24; } }
+  @media (max-width: 639px) {
+    .f1-car { width: 120px; height: 42px; }
+    .title-row { justify-content: center; }
+  }
+  /* Running-text copies: dark badge keeps the red car visible on the red bar.
+     Mirrored so the car faces the direction the text scrolls. */
+  .f1-ticker-badge {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    height: 32px;
+    padding: 0 12px;
+    background: var(--ink);
+    border-radius: 99px;
+    overflow: hidden;
+  }
+  .f1-ticker-badge .f1-car { width: 80px; height: 28px; transform: scaleX(-1); }
+  .f1-ticker-badge .f1-car text { transform-box: fill-box; transform-origin: center; transform: scaleX(-1); }
+  /* Smaller car here keeps the header meta on the same row as the title */
+  @media (min-width: 2190px) {
+    .f1-car { width: 120px; height: 42px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .f1-chassis, .f1-bodywork, .f1-wheel, .f1-speedline, .f1-puff, .f1-kerb { animation: none; }
+    .f1-puff { opacity: 0; }
+  }
 </style>
 </head>
 <body>
@@ -1058,8 +1120,71 @@
       <div class="brand-mark"></div>
       <div>
         <div class="brand-title" id="h-unit-title"></div>
-        <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:4px;">
+        <div class="title-row" style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:4px;">
           <h1 class="page-title" id="h-page-title" style="margin-top:0;"></h1>
+          <svg class="f1-car" viewBox="0 0 230 80" aria-hidden="true" focusable="false">
+            <!-- Kerb: red and white stripes sliding backwards -->
+            <line x1="0" y1="74" x2="230" y2="74" stroke="#FFFFFF" stroke-width="6"/>
+            <line class="f1-kerb" x1="0" y1="74" x2="230" y2="74" stroke="#C8102E" stroke-width="6" stroke-dasharray="12 12"/>
+
+            <!-- Speed lines -->
+            <path class="f1-speedline" d="M2 22H24"/>
+            <path class="f1-speedline s2" d="M0 38H18"/>
+            <path class="f1-speedline s3" d="M4 54H22"/>
+
+            <g class="f1-chassis">
+              <!-- Exhaust puffs -->
+              <circle class="f1-puff" cx="30" cy="46" r="5"/>
+              <circle class="f1-puff p2" cx="30" cy="50" r="4"/>
+
+              <g class="f1-bodywork">
+                <!-- Rear wing -->
+                <rect x="40" y="26" width="5" height="22" fill="#484C55"/>
+                <rect x="30" y="16" width="30" height="6" rx="2" fill="#C8102E"/>
+                <rect x="30" y="23" width="26" height="4" rx="2" fill="#FFFFFF"/>
+                <rect x="28" y="12" width="5" height="22" rx="2" fill="#B8BCC2"/>
+
+                <!-- Main body -->
+                <path d="M38 56 L38 42 Q40 38 50 38 L72 26 Q78 22 86 24 L104 32 L126 34 Q156 38 214 54 Q220 58 212 60 L38 60 Z" fill="#C8102E"/>
+                <!-- White stripe along the nose -->
+                <path d="M126 41 Q160 44 204 55 L198 57 Q160 49 124 47 Z" fill="#FFFFFF"/>
+                <!-- Sidepod shadow -->
+                <path d="M74 60 L80 48 Q84 44 92 44 L122 44 L130 60 Z" fill="#9E0C23"/>
+                <!-- Car number -->
+                <circle cx="104" cy="51" r="7.5" fill="#FFFFFF"/>
+                <text x="104" y="55" text-anchor="middle" font-family="'IBM Plex Sans', 'Inter', sans-serif" font-size="11" font-weight="800" fill="#18191C">1</text>
+                <!-- Airbox highlight -->
+                <path d="M70 31 Q78 27 85 29" fill="none" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round"/>
+
+                <!-- Driver: helmet and visor -->
+                <circle cx="106" cy="27" r="9.5" fill="#FFFFFF"/>
+                <path d="M106 18 A9.5 9.5 0 0 0 96.6 25 L115 25 A9.5 9.5 0 0 0 106 18 Z" fill="#C8102E"/>
+                <rect x="104" y="24.5" width="12" height="5.5" rx="2.7" fill="#18191C"/>
+                <rect x="110" y="25.6" width="3.5" height="1.6" rx=".8" fill="#FFFFFF"/>
+                <!-- Halo -->
+                <path d="M88 33 Q104 11 124 34" fill="none" stroke="#B8BCC2" stroke-width="3" stroke-linecap="round"/>
+
+                <!-- Front wing -->
+                <path d="M192 62 L226 62 Q228 62 228 64 L228 66 L192 66 Q190 64 192 62 Z" fill="#FFFFFF"/>
+                <rect x="222" y="54" width="5" height="12" rx="2" fill="#B8BCC2"/>
+              </g>
+
+              <!-- Rear wheel -->
+              <g class="f1-wheel">
+                <circle cx="62" cy="55" r="15" fill="#2A2D33" stroke="#8C919B" stroke-width="2"/>
+                <circle cx="62" cy="55" r="7" fill="#B8BCC2"/>
+                <path d="M62 48V62M55 55H69" stroke="#18191C" stroke-width="2.4"/>
+                <circle cx="62" cy="44" r="1.8" fill="#C8102E"/>
+              </g>
+              <!-- Front wheel -->
+              <g class="f1-wheel">
+                <circle cx="176" cy="57" r="13" fill="#2A2D33" stroke="#8C919B" stroke-width="2"/>
+                <circle cx="176" cy="57" r="6" fill="#B8BCC2"/>
+                <path d="M176 51V63M170 57H182" stroke="#18191C" stroke-width="2.2"/>
+                <circle cx="176" cy="47.5" r="1.6" fill="#C8102E"/>
+              </g>
+            </g>
+          </svg>
           <button class="insight-btn" onclick="openInsight()">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
             Insight!
@@ -1096,7 +1221,11 @@
   <div class="ticker-bar">
     <div class="ticker-label"><span class="ticker-dot"></span>INFO</div>
     <div class="ticker-scroll-wrap">
-      <span class="ticker-content" id="ticker-text"></span>
+      <span class="ticker-content">
+        <span class="f1-ticker-badge" aria-hidden="true"></span>
+        <span id="ticker-text"></span>
+        <span class="f1-ticker-badge" aria-hidden="true"></span>
+      </span>
     </div>
   </div>
 
@@ -1335,6 +1464,8 @@
   if (typeof RUNNING_TEXT !== 'undefined') {
     document.getElementById('ticker-text').textContent = RUNNING_TEXT;
   }
+  const f1Car = document.querySelector('.header .f1-car');
+  document.querySelectorAll('.f1-ticker-badge').forEach(badge => badge.appendChild(f1Car.cloneNode(true)));
 
   // ── HEADER ──────────────────────────────────────────────────────────────────
   document.getElementById('h-unit-title').textContent = DASHBOARD_META.unitTitle;
